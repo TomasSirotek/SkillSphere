@@ -73,7 +73,7 @@ jobs:
       if: ${{ inputs.build-artifacts == true }}
       run: |
         dotnet new tool-manifest
-        dotnet tool install dotnet-ef --version 8.0.0-preview.7.23375.6
+        dotnet tool install dotnet-ef 
         dotnet ef migrations bundle --configuration Release -p ./src/Infrastructure/ -s ./src/Web/ -o efbundle.exe
         zip -r ./efbundle.zip efbundle.exe
       env:
