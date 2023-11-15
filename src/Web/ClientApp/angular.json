@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "skillSphere.Web": {
+    "testSphere.Web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "skillSphere.Web:build:production"
+              "browserTarget": "testSphere.Web:build:production"
             },
             "development": {
-              "browserTarget": "skillSphere.Web:build:development",
+              "browserTarget": "testSphere.Web:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "skillSphere.Web:build"
+            "browserTarget": "testSphere.Web:build"
           }
         },
         "test": {
@@ -131,7 +131,7 @@
       }
     }
   },
-  "defaultProject": "skillSphere.Web",
+  "defaultProject": "testSphere.Web",
   "cli": {
     "analytics": false
   }

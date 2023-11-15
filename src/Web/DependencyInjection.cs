@@ -1,7 +1,7 @@
 ﻿using Azure.Identity;
-using skillSphere.Application.Common.Interfaces;
-using skillSphere.Infrastructure.Data;
-using skillSphere.Web.Services;
+using testSphere.Application.Common.Interfaces;
+using testSphere.Infrastructure.Data;
+using testSphere.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
 using ZymLabs.NSwag.FluentValidation;
@@ -41,12 +41,13 @@ public static class DependencyInjection
 
         services.AddOpenApiDocument((configure, sp) =>
         {
-            configure.Title = "skillSphere API";
+            configure.Title = "testSphere API";
 
             // Add the fluent validations schema processor
             var fluentValidationSchemaProcessor = 
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
 
+            // BUG: SchemaProcessors is missing in NSwag 14 (https://github.com/RicoSuter/NSwag/issues/4524#issuecomment-1811897079)
             // configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
         });

@@ -1,9 +1,9 @@
-﻿using skillSphere.Application.TodoLists.Commands.CreateTodoList;
-using skillSphere.Application.TodoLists.Commands.DeleteTodoList;
-using skillSphere.Application.TodoLists.Commands.UpdateTodoList;
-using skillSphere.Application.TodoLists.Queries.GetTodos;
+﻿using testSphere.Application.TodoLists.Commands.CreateTodoList;
+using testSphere.Application.TodoLists.Commands.DeleteTodoList;
+using testSphere.Application.TodoLists.Commands.UpdateTodoList;
+using testSphere.Application.TodoLists.Queries.GetTodos;
 
-namespace skillSphere.Web.Endpoints;
+namespace testSphere.Web.Endpoints;
 
 public class TodoLists : EndpointGroupBase
 {

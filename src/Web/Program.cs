@@ -1,4 +1,4 @@
-using skillSphere.Infrastructure.Data;
+using testSphere.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

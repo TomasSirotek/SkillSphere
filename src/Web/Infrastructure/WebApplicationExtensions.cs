@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace skillSphere.Web.Infrastructure;
+namespace testSphere.Web.Infrastructure;
 
 public static class WebApplicationExtensions
 {

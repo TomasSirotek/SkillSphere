@@ -1,11 +1,11 @@
-﻿using skillSphere.Application.Common.Models;
-using skillSphere.Application.TodoItems.Commands.CreateTodoItem;
-using skillSphere.Application.TodoItems.Commands.DeleteTodoItem;
-using skillSphere.Application.TodoItems.Commands.UpdateTodoItem;
-using skillSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using skillSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+﻿using testSphere.Application.Common.Models;
+using testSphere.Application.TodoItems.Commands.CreateTodoItem;
+using testSphere.Application.TodoItems.Commands.DeleteTodoItem;
+using testSphere.Application.TodoItems.Commands.UpdateTodoItem;
+using testSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
+using testSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
-namespace skillSphere.Web.Endpoints;
+namespace testSphere.Web.Endpoints;
 
 public class TodoItems : EndpointGroupBase
 {

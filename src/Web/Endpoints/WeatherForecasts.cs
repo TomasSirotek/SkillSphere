@@ -1,6 +1,6 @@
-﻿using skillSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿using testSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
-namespace skillSphere.Web.Endpoints;
+namespace testSphere.Web.Endpoints;
 
 public class WeatherForecasts : EndpointGroupBase
 {
