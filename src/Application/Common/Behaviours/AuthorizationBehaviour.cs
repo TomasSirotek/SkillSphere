@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using skillSphere.Application.Common.Exceptions;
-using skillSphere.Application.Common.Interfaces;
-using skillSphere.Application.Common.Security;
+using testSphere.Application.Common.Exceptions;
+using testSphere.Application.Common.Interfaces;
+using testSphere.Application.Common.Security;
 
-namespace skillSphere.Application.Common.Behaviours;
+namespace testSphere.Application.Common.Behaviours;
 
 public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

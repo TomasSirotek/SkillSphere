@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Domain.Entities;
+﻿namespace testSphere.Domain.Entities;
 
 public class TodoList : BaseAuditableEntity
 {

@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace skillSphere.Application.FunctionalTests;
+namespace testSphere.Application.FunctionalTests;
 
 public interface ITestDatabase
 {

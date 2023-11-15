@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Domain.Constants;
+﻿namespace testSphere.Domain.Constants;
 
 public abstract class Roles
 {

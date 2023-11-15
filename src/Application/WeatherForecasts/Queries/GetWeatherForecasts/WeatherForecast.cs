@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿namespace testSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
 public class WeatherForecast
 {

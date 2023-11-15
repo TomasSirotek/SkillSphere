@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Domain.Exceptions;
+﻿namespace testSphere.Domain.Exceptions;
 
 public class UnsupportedColourException : Exception
 {

@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
-using skillSphere.Application.Common.Interfaces;
-using skillSphere.Domain.Entities;
-using skillSphere.Infrastructure.Identity;
+using testSphere.Application.Common.Interfaces;
+using testSphere.Domain.Entities;
+using testSphere.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace skillSphere.Infrastructure.Data;
+namespace testSphere.Infrastructure.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {

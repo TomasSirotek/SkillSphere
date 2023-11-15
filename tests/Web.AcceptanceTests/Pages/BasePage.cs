@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Web.AcceptanceTests.Pages;
+﻿namespace testSphere.Web.AcceptanceTests.Pages;
 
 public abstract class BasePage
 {

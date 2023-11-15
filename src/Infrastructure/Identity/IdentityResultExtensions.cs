@@ -1,7 +1,7 @@
-﻿using skillSphere.Application.Common.Models;
+﻿using testSphere.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace skillSphere.Infrastructure.Identity;
+namespace testSphere.Infrastructure.Identity;
 
 public static class IdentityResultExtensions
 {

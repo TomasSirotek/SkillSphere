@@ -1,8 +1,8 @@
-﻿using skillSphere.Application.TodoLists.Queries.GetTodos;
-using skillSphere.Domain.Entities;
-using skillSphere.Domain.ValueObjects;
+﻿using testSphere.Application.TodoLists.Queries.GetTodos;
+using testSphere.Domain.Entities;
+using testSphere.Domain.ValueObjects;
 
-namespace skillSphere.Application.FunctionalTests.TodoLists.Queries;
+namespace testSphere.Application.FunctionalTests.TodoLists.Queries;
 
 using static Testing;
 

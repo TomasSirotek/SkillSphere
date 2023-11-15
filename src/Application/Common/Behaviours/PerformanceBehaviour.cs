@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
-using skillSphere.Application.Common.Interfaces;
+using testSphere.Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace skillSphere.Application.Common.Behaviours;
+namespace testSphere.Application.Common.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
@@ -44,7 +44,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
                 userName = await _identityService.GetUserNameAsync(userId);
             }
 
-            _logger.LogWarning("skillSphere Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
+            _logger.LogWarning("testSphere Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
                 requestName, elapsedMilliseconds, userId, userName, request);
         }
 

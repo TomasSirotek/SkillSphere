@@ -1,14 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>skillSphere.Application.UnitTests</RootNamespace>
-        <AssemblyName>skillSphere.Application.UnitTests</AssemblyName>
+        <RootNamespace>testSphere.Application.UnitTests</RootNamespace>
+        <AssemblyName>testSphere.Application.UnitTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="nunit" />
-        <PackageReference Include="NUnit.Analyzers" />
+        <PackageReference Include="NUnit.Analyzers">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="NUnit3TestAdapter" />
         <PackageReference Include="coverlet.collector" />
         <PackageReference Include="FluentAssertions" />

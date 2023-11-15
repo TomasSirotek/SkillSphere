@@ -1,7 +1,7 @@
-﻿using skillSphere.Application.Common.Interfaces;
-using skillSphere.Domain.Enums;
+﻿using testSphere.Application.Common.Interfaces;
+using testSphere.Domain.Enums;
 
-namespace skillSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
+namespace testSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
 
 public record UpdateTodoItemDetailCommand : IRequest
 {

@@ -1,4 +1,4 @@
-namespace skillSphere.Web.AcceptanceTests.StepDefinitions;
+namespace testSphere.Web.AcceptanceTests.StepDefinitions;
 
 [Binding]
 public sealed class LoginStepDefinitions

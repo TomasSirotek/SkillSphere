@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Domain.ValueObjects;
+﻿namespace testSphere.Domain.ValueObjects;
 
 public class Colour : ValueObject
 {

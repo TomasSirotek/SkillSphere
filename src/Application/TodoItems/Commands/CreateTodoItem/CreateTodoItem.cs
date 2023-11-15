@@ -1,8 +1,8 @@
-﻿using skillSphere.Application.Common.Interfaces;
-using skillSphere.Domain.Entities;
-using skillSphere.Domain.Events;
+﻿using testSphere.Application.Common.Interfaces;
+using testSphere.Domain.Entities;
+using testSphere.Domain.Events;
 
-namespace skillSphere.Application.TodoItems.Commands.CreateTodoItem;
+namespace testSphere.Application.TodoItems.Commands.CreateTodoItem;
 
 public record CreateTodoItemCommand : IRequest<int>
 {

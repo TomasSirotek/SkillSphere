@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>skillSphere.Application.FunctionalTests</RootNamespace>
-        <AssemblyName>skillSphere.Application.FunctionalTests</AssemblyName>
+        <RootNamespace>testSphere.Application.FunctionalTests</RootNamespace>
+        <AssemblyName>testSphere.Application.FunctionalTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,7 +21,10 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="nunit" />
-        <PackageReference Include="NUnit.Analyzers" />
+        <PackageReference Include="NUnit.Analyzers">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="NUnit3TestAdapter" />
         <PackageReference Include="coverlet.collector" />
         <PackageReference Include="FluentAssertions" />

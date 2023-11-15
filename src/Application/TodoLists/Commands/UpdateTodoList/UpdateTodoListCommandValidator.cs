@@ -1,6 +1,6 @@
-﻿using skillSphere.Application.Common.Interfaces;
+﻿using testSphere.Application.Common.Interfaces;
 
-namespace skillSphere.Application.TodoLists.Commands.UpdateTodoList;
+namespace testSphere.Application.TodoLists.Commands.UpdateTodoList;
 
 public class UpdateTodoListCommandValidator : AbstractValidator<UpdateTodoListCommand>
 {

@@ -1,6 +1,6 @@
-﻿using skillSphere.Application.Common.Models;
+﻿using testSphere.Application.Common.Models;
 
-namespace skillSphere.Application.Common.Interfaces;
+namespace testSphere.Application.Common.Interfaces;
 
 public interface IIdentityService
 {

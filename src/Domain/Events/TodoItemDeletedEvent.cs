@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Domain.Events;
+﻿namespace testSphere.Domain.Events;
 
 public class TodoItemDeletedEvent : BaseEvent
 {

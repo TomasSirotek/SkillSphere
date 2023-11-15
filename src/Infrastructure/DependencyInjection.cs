@@ -1,8 +1,8 @@
-﻿using skillSphere.Application.Common.Interfaces;
-using skillSphere.Domain.Constants;
-using skillSphere.Infrastructure.Data;
-using skillSphere.Infrastructure.Data.Interceptors;
-using skillSphere.Infrastructure.Identity;
+﻿using testSphere.Application.Common.Interfaces;
+using testSphere.Domain.Constants;
+using testSphere.Infrastructure.Data;
+using testSphere.Infrastructure.Data.Interceptors;
+using testSphere.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

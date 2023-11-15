@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace skillSphere.Domain.Common;
+namespace testSphere.Domain.Common;
 
 public abstract class BaseEvent : INotification
 {

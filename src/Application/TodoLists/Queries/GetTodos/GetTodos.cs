@@ -1,9 +1,9 @@
-﻿using skillSphere.Application.Common.Interfaces;
-using skillSphere.Application.Common.Models;
-using skillSphere.Application.Common.Security;
-using skillSphere.Domain.Enums;
+﻿using testSphere.Application.Common.Interfaces;
+using testSphere.Application.Common.Models;
+using testSphere.Application.Common.Security;
+using testSphere.Domain.Enums;
 
-namespace skillSphere.Application.TodoLists.Queries.GetTodos;
+namespace testSphere.Application.TodoLists.Queries.GetTodos;
 
 [Authorize]
 public record GetTodosQuery : IRequest<TodosVm>;

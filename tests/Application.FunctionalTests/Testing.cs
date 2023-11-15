@@ -1,12 +1,12 @@
-﻿using skillSphere.Domain.Constants;
-using skillSphere.Infrastructure.Data;
-using skillSphere.Infrastructure.Identity;
+﻿using testSphere.Domain.Constants;
+using testSphere.Infrastructure.Data;
+using testSphere.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace skillSphere.Application.FunctionalTests;
+namespace testSphere.Application.FunctionalTests;
 
 [SetUpFixture]
 public partial class Testing

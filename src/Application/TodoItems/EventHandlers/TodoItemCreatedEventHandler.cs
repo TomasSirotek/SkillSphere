@@ -1,7 +1,7 @@
-﻿using skillSphere.Domain.Events;
+﻿using testSphere.Domain.Events;
 using Microsoft.Extensions.Logging;
 
-namespace skillSphere.Application.TodoItems.EventHandlers;
+namespace testSphere.Application.TodoItems.EventHandlers;
 
 public class TodoItemCreatedEventHandler : INotificationHandler<TodoItemCreatedEvent>
 {
@@ -14,7 +14,7 @@ public class TodoItemCreatedEventHandler : INotificationHandler<TodoItemCreatedE
 
     public Task Handle(TodoItemCreatedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("skillSphere Domain Event: {DomainEvent}", notification.GetType().Name);
+        _logger.LogInformation("testSphere Domain Event: {DomainEvent}", notification.GetType().Name);
 
         return Task.CompletedTask;
     }

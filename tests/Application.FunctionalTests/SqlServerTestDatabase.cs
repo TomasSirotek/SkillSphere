@@ -1,11 +1,11 @@
 ﻿using System.Data.Common;
-using skillSphere.Infrastructure.Data;
+using testSphere.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Respawn;
 
-namespace skillSphere.Application.FunctionalTests;
+namespace testSphere.Application.FunctionalTests;
 
 public class SqlServerTestDatabase : ITestDatabase
 {

@@ -1,8 +1,8 @@
-﻿using skillSphere.Application.Common.Interfaces;
-using skillSphere.Application.Common.Security;
-using skillSphere.Domain.Constants;
+﻿using testSphere.Application.Common.Interfaces;
+using testSphere.Application.Common.Security;
+using testSphere.Domain.Constants;
 
-namespace skillSphere.Application.TodoLists.Commands.PurgeTodoLists;
+namespace testSphere.Application.TodoLists.Commands.PurgeTodoLists;
 
 [Authorize(Roles = Roles.Administrator)]
 [Authorize(Policy = Policies.CanPurge)]

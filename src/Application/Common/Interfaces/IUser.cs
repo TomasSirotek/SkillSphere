@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Application.Common.Interfaces;
+﻿namespace testSphere.Application.Common.Interfaces;
 
 public interface IUser
 {

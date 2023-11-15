@@ -1,8 +1,8 @@
-﻿using skillSphere.Domain.Entities;
+﻿using testSphere.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace skillSphere.Infrastructure.Data.Configurations;
+namespace testSphere.Infrastructure.Data.Configurations;
 
 public class TodoListConfiguration : IEntityTypeConfiguration<TodoList>
 {

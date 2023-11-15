@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using skillSphere.Application.Common.Behaviours;
+using testSphere.Application.Common.Behaviours;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

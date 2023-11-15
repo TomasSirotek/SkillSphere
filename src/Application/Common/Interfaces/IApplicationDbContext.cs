@@ -1,6 +1,6 @@
-﻿using skillSphere.Domain.Entities;
+﻿using testSphere.Domain.Entities;
 
-namespace skillSphere.Application.Common.Interfaces;
+namespace testSphere.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {

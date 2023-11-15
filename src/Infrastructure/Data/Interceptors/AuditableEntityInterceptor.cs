@@ -1,10 +1,10 @@
-﻿using skillSphere.Application.Common.Interfaces;
-using skillSphere.Domain.Common;
+﻿using testSphere.Application.Common.Interfaces;
+using testSphere.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace skillSphere.Infrastructure.Data.Interceptors;
+namespace testSphere.Infrastructure.Data.Interceptors;
 
 public class AuditableEntityInterceptor : SaveChangesInterceptor
 {

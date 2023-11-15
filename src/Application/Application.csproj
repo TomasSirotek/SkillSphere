@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>skillSphere.Application</RootNamespace>
-    <AssemblyName>skillSphere.Application</AssemblyName>
+    <RootNamespace>testSphere.Application</RootNamespace>
+    <AssemblyName>testSphere.Application</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

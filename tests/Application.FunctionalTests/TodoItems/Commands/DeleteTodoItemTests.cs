@@ -1,9 +1,9 @@
-﻿using skillSphere.Application.TodoItems.Commands.CreateTodoItem;
-using skillSphere.Application.TodoItems.Commands.DeleteTodoItem;
-using skillSphere.Application.TodoLists.Commands.CreateTodoList;
-using skillSphere.Domain.Entities;
+﻿using testSphere.Application.TodoItems.Commands.CreateTodoItem;
+using testSphere.Application.TodoItems.Commands.DeleteTodoItem;
+using testSphere.Application.TodoLists.Commands.CreateTodoList;
+using testSphere.Domain.Entities;
 
-namespace skillSphere.Application.FunctionalTests.TodoItems.Commands;
+namespace testSphere.Application.FunctionalTests.TodoItems.Commands;
 
 using static Testing;
 

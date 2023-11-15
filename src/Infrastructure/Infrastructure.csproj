@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>skillSphere.Infrastructure</RootNamespace>
-    <AssemblyName>skillSphere.Infrastructure</AssemblyName>
+    <RootNamespace>testSphere.Infrastructure</RootNamespace>
+    <AssemblyName>testSphere.Infrastructure</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

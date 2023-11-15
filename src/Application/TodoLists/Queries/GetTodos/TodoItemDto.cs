@@ -1,6 +1,6 @@
-﻿using skillSphere.Domain.Entities;
+﻿using testSphere.Domain.Entities;
 
-namespace skillSphere.Application.TodoLists.Queries.GetTodos;
+namespace testSphere.Application.TodoLists.Queries.GetTodos;
 
 public class TodoItemDto
 {

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>skillSphere.Web.AcceptanceTests</RootNamespace>
-        <AssemblyName>skillSphere.Web.AcceptanceTests</AssemblyName>
+        <RootNamespace>testSphere.Web.AcceptanceTests</RootNamespace>
+        <AssemblyName>testSphere.Web.AcceptanceTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

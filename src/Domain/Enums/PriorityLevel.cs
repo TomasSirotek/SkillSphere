@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Domain.Enums;
+﻿namespace testSphere.Domain.Enums;
 
 public enum PriorityLevel
 {

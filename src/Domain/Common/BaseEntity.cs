@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace skillSphere.Domain.Common;
+namespace testSphere.Domain.Common;
 
 public abstract class BaseEntity
 {

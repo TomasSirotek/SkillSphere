@@ -1,4 +1,4 @@
-﻿namespace skillSphere.Application.TodoItems.Commands.UpdateTodoItem;
+﻿namespace testSphere.Application.TodoItems.Commands.UpdateTodoItem;
 
 public class UpdateTodoItemCommandValidator : AbstractValidator<UpdateTodoItemCommand>
 {

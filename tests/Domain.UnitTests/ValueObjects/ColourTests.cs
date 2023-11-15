@@ -1,9 +1,9 @@
-﻿using skillSphere.Domain.Exceptions;
-using skillSphere.Domain.ValueObjects;
+﻿using testSphere.Domain.Exceptions;
+using testSphere.Domain.ValueObjects;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace skillSphere.Domain.UnitTests.ValueObjects;
+namespace testSphere.Domain.UnitTests.ValueObjects;
 
 public class ColourTests
 {

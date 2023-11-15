@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace skillSphere.Web.AcceptanceTests.Features
+namespace testSphere.Web.AcceptanceTests.Features
 {
     using TechTalk.SpecFlow;
     using System;

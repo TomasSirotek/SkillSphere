@@ -1,9 +1,9 @@
-﻿using skillSphere.Domain.Common;
+﻿using testSphere.Domain.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace skillSphere.Infrastructure.Data.Interceptors;
+namespace testSphere.Infrastructure.Data.Interceptors;
 
 public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 {

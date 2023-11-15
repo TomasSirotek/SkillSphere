@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace skillSphere.Web.AcceptanceTests;
+namespace testSphere.Web.AcceptanceTests;
 
 public static class ConfigurationHelper
 {

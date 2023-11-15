@@ -1,8 +1,8 @@
-﻿using skillSphere.Application.Common.Interfaces;
-using skillSphere.Application.Common.Mappings;
-using skillSphere.Application.Common.Models;
+﻿using testSphere.Application.Common.Interfaces;
+using testSphere.Application.Common.Mappings;
+using testSphere.Application.Common.Models;
 
-namespace skillSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+namespace testSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 public record GetTodoItemsWithPaginationQuery : IRequest<PaginatedList<TodoItemBriefDto>>
 {

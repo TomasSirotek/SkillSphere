@@ -1,11 +1,11 @@
-﻿using skillSphere.Application.Common.Behaviours;
-using skillSphere.Application.Common.Interfaces;
-using skillSphere.Application.TodoItems.Commands.CreateTodoItem;
+﻿using testSphere.Application.Common.Behaviours;
+using testSphere.Application.Common.Interfaces;
+using testSphere.Application.TodoItems.Commands.CreateTodoItem;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
-namespace skillSphere.Application.UnitTests.Common.Behaviours;
+namespace testSphere.Application.UnitTests.Common.Behaviours;
 
 public class RequestLoggerTests
 {

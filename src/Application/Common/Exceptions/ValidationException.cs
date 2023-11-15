@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace skillSphere.Application.Common.Exceptions;
+namespace testSphere.Application.Common.Exceptions;
 
 public class ValidationException : Exception
 {
