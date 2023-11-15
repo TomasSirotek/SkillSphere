@@ -4,7 +4,6 @@ param location string = resourceGroup().location
 @description('Select the type of environment you want to provision. Allowed values are Production and Test.')
 @allowed([
   'Production'
-  'Staging'
   'Development'
 ])
 param environmentName string
@@ -29,28 +28,14 @@ var environmentConfigurationMap = {
     environmentAbbreviation: 'prd'
     appServicePlan: {
       sku: {
-        name: 'S1'
+        name: 'F1'
         capacity: 1
       }
     }
     sqlDatabase: {
       sku: {
-        name: 'Standard'
-        tier: 'Standard'
-      }
-    }
-  }
-  Staging: {
-    environmentAbbreviation: 'stg'
-    appServicePlan: {
-      sku: {
-        name: 'B1'
-      }
-    }
-    sqlDatabase: {
-      sku: {
-        name: 'Standard'
-        tier: 'Standard'
+        name: 'Basic'
+        tier: 'Basic'
       }
     }
   }
@@ -58,13 +43,13 @@ var environmentConfigurationMap = {
     environmentAbbreviation: 'dev'
     appServicePlan: {
       sku: {
-        name: 'B1'
+        name: 'F1'
       }
     }
     sqlDatabase: {
       sku: {
-        name: 'Standard'
-        tier: 'Standard'
+        name: 'Basic'
+        tier: 'Basic'
       }
     }
   }
