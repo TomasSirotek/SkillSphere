@@ -39,20 +39,6 @@ var environmentConfigurationMap = {
       }
     }
   }
-  Development: {
-    environmentAbbreviation: 'dev'
-    appServicePlan: {
-      sku: {
-        name: 'F1'
-      }
-    }
-    sqlDatabase: {
-      sku: {
-        name: 'Basic'
-        tier: 'Basic'
-      }
-    }
-  }
 }
 
 // Define the names for resources.
