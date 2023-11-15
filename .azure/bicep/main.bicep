@@ -28,8 +28,7 @@ var environmentConfigurationMap = {
     environmentAbbreviation: 'prd'
     appServicePlan: {
       sku: {
-        name: 'F1'
-        capacity: 1
+        name: 'B1'
       }
     }
     sqlDatabase: {
