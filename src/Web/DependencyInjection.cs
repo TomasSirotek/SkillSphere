@@ -47,7 +47,7 @@ public static class DependencyInjection
             var fluentValidationSchemaProcessor = 
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
 
-            configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
+            // configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
         });
 
