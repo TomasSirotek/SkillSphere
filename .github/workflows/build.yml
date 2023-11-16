@@ -123,21 +123,24 @@ jobs:
           path: ./efbundle.zip
           if-no-files-found: error
   
-  build-ui:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout Repository
-        - uses: actions/checkout@v3
-  
-        - name: Setup Node
-        - uses: actions/setup-node@v3
-          with:
-            node-version: 18
+build-ui:
+  runs-on: ubuntu-latest
 
-        - run: npm ci
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-        - name: Build Angular App
-        - run: npm run build 
-          
-        - run: npm run test:prod
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install dependencies Node
+      run: npm ci
+
+    - name: Build Angular App
+      run: npm run build
       
+    - name: Run test with coverage
+    - run: npm run test:prod
+
