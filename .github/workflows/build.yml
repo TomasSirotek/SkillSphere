@@ -46,7 +46,7 @@ jobs:
       - name: Test solution
         run: dotnet test --no-build -c Release --verbosity normal
           /p:CollectCoverage=true
-          /p:Include="[SkillSphere.Domain]*?%2c[skillSphere.Application]*?%2c[SkillSphere.Infrastructure]*?%2c[SkillSphere.Web]*"
+          /p:Include="[SkillSphere.Domain]*?%2c[skillSphere.Application]*?%2c[SkillSphere.Web]*"
           /p:CoverletOutput=.coverage/
           /p:CoverletOutputFormat=lcov
       
