@@ -84,7 +84,7 @@ jobs:
           parallel: true
 
       - name: Conclude Coverage Upload
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
