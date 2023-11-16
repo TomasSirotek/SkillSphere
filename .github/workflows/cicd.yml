@@ -20,14 +20,16 @@ jobs:
     with:
       build-artifacts: true
       
-  deploy-backend:
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
-    needs: [ build ]
-    with:
-      environmentName: Production
+#  deploy-backend:
+#    uses: ./.github/workflows/deploy.yml
+#    secrets: inherit
+#    needs: [ build ]
+#    with:
+#      environmentName: Production
 
   deploy-client:
     uses: ./.github/workflows/deploy-client.yml
     secrets: inherit
-    needs: [ deploy-backend ]
+    needs: [ build ]
+    with:
+       environmentName: Production
