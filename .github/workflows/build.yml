@@ -44,47 +44,43 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Test solution
-        run: dotnet test --no-build -c Release --verbosity normal
-          /p:CollectCoverage=true
-          /p:Include="[skillSphere.Domain]*?%2c[skillSphere.Application]*?%2c[skillSphere.Infrastructure]*?%2c[skillSphere.Web]*"
-          /p:CoverletOutput=.coverage/
-          /p:CoverletOutputFormat=lcov
+        run: dotnet test --no-build -c Release --verbosity normal /p:CollectCoverage=true /p:Include="[skillSphere.Domain]*?%2c[skillSphere.Application]*?%2c[skillSphere.Infrastructure]*?%2c[skillSphere.Web]*" /p:CoverletOutput=.coverage/ /p:CoverletOutputFormat=opencover
       
       # Upload to the coverage        
       - name: DomainUnitTests Report Upload
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: DomainUnitTests
-          path-to-lcov: tests/Domain.UnitTests/.coverage/coverage.info
+          path-to-lcov: tests/Domain.UnitTests/.coverage/coverage.opencover.xml
           parallel: true
 
       - name: ApplicationUnitTests Report Upload
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ApplicationUnitTests
-          path-to-lcov: tests/Application.UnitTests/.coverage/coverage.info
+          path-to-lcov: tests/Application.UnitTests/.coverage/coverage.opencover.xml
           parallel: true
 
       - name: ApplicationFunctionalTests Report Upload
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ApplicationFunctionalTests
-          path-to-lcov: tests/Application.FunctionalTests/.coverage/coverage.info
+          path-to-lcov: tests/Application.FunctionalTests/.coverage/coverage.opencover.xml
           parallel: true
 
       - name: InfrastructureIntegrationTests Report Upload
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: InfrastructureIntegrationTests
-          path-to-lcov: tests/Infrastructure.IntegrationTests/.coverage/coverage.info
+          path-to-lcov: tests/Infrastructure.IntegrationTests/.coverage/coverage.opencover.xml
           parallel: true
 
       - name: Conclude Coverage Upload
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
