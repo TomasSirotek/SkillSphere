@@ -52,7 +52,7 @@ jobs:
       
       # Upload to the coverage        
       - name: DomainUnitTests Report Upload
-        uses: coverallsapp/github-action@v2.2.3
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: DomainUnitTests
@@ -60,7 +60,7 @@ jobs:
           parallel: true
 
       - name: ApplicationUnitTests Report Upload
-        uses: coverallsapp/github-action@v2.2.3
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ApplicationUnitTests
@@ -68,7 +68,7 @@ jobs:
           parallel: true
 
       - name: ApplicationFunctionalTests Report Upload
-        uses: coverallsapp/github-action@v2.2.3
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ApplicationFunctionalTests
@@ -76,7 +76,7 @@ jobs:
           parallel: true
 
       - name: InfrastructureIntegrationTests Report Upload
-        uses: coverallsapp/github-action@v2.2.3
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: InfrastructureIntegrationTests
@@ -84,7 +84,7 @@ jobs:
           parallel: true
 
       - name: Conclude Coverage Upload
-        uses: coverallsapp/github-action@v2.2.3
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
