@@ -14,15 +14,20 @@ permissions:
   contents: read
 
 jobs:
-
+  
   build:
     uses: ./.github/workflows/build.yml
     with:
       build-artifacts: true
-
-  deploy-production:
+      
+  deploy-backend:
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     needs: [ build ]
     with:
       environmentName: Production
+
+  deploy-client:
+    uses: ./.github/workflows/deploy-client.yml
+    secrets: inherit
+    needs: [ deploy-backend ]

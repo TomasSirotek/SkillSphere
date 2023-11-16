@@ -1,0 +1,14 @@
+<div class="mb-2">
+    <label [for]="id" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ name }}</label>
+    <input
+      [id]="id"
+      [name]="name"
+      [placeholder]="placeholder"
+      [required]="required"
+      class="input-field border-gray-400"
+      [(ngModel)]="value"
+    (ngModelChange)="onInputChange($event)"
+  
+    >
+  </div>
+

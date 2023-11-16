@@ -1,0 +1,305 @@
+<div
+  id="modalCreateBox"
+  tabindex="-1"
+  aria-hidden="true"
+  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+  <div class="relative w-full max-w-2xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button
+        (click)="onCanceled()"
+        type="button"
+        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+      >
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-6 py-6 lg:px-8">
+        <h3 data-testid="modal-title" class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+          Create box
+        </h3>
+        <div>
+          <form
+            [formGroup]="formGroup"
+            (ngSubmit)="passBack()"
+            class="space-y-4"
+          >
+            <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+              <div class="sm:col-span-2">
+                <label
+                  for="title"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Product Title</label
+                >
+                <input
+                 data-testid="title"
+                  required
+                  formControlName="title"
+                  type="test"
+                  id="title"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Product Title"
+                />
+                <div
+                  *ngIf="
+                    formGroup.get('title').invalid &&
+                    (formGroup.get('title').dirty ||
+                      formGroup.get('title').touched ||
+                      formSubmitted)
+                  "
+                  class="text-red-500 text-xs mt-2 ml-1"
+                >
+                  <ng-container
+                    *ngIf="formGroup.get('title').errors?.['required']"
+                    >Title is required.</ng-container
+                  >
+                  <ng-container
+                    *ngIf="formGroup.get('title').errors?.['minlength']"
+                    >Title must be at least 5 characters long.</ng-container
+                  >
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label
+                  for="image"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Image URL</label
+                >
+                <input
+                  required
+                  data-testid="image"
+                  formControlName="image"
+                  type="test"
+                  (input)="updateImageUrl()"
+                  id="image"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Image URL"
+                />
+                <div
+                  *ngIf="
+                    formGroup.get('image').invalid &&
+                    (formGroup.get('image').dirty ||
+                      formGroup.get('image').touched ||
+                      formSubmitted)
+                  "
+                  class="text-red-500 text-xs mt-2 ml-1"
+                >
+                  <ng-container
+                    *ngIf="formGroup.get('image').errors?.['required']"
+                    >Image is required.</ng-container
+                  >
+                  <ng-container
+                    *ngIf="
+                      formGroup.get('image').hasError('invalidUrl') &&
+                      (formGroup.get('image').dirty ||
+                        formGroup.get('image').touched ||
+                        formSubmitted)
+                    "
+                    >Please enter a valid URL.</ng-container
+                  >
+                </div>
+              </div>
+
+              <div class="w-full">
+                <label
+                  for="type"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Product Type</label
+                >
+                <input
+                  required
+                  data-testid="type"
+                  formControlName="type"
+                  type="test"
+                  id="type"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Product Type"
+                />
+                <div
+                  *ngIf="
+                    formGroup.get('type').invalid &&
+                    (formGroup.get('type').dirty ||
+                      formGroup.get('type').touched ||
+                      formSubmitted)
+                  "
+                  class="text-red-500 text-xs mt-2 ml-1"
+                >
+                  <ng-container
+                    *ngIf="formGroup.get('type').errors?.['required']"
+                    >Type is required.</ng-container
+                  >
+                </div>
+              </div>
+
+              <div class="w-full">
+                <label
+                  for="status"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Status</label
+                >
+                <input
+                  required
+                  data-testid="status"
+                  formControlName="status"
+                  type="test"
+                  id="status"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Product Status"
+                  pattern="^(New|Damaged|Old)$"
+                />
+                <div
+                  *ngIf="
+                    formGroup.get('status').invalid &&
+                    (formGroup.get('status').dirty ||
+                      formGroup.get('status').touched ||
+                      formSubmitted)
+                  "
+                  class="text-red-500 text-sm mt-1"
+                >
+                  <div *ngIf="formGroup.get('status').errors?.['required']">
+                    Status is required.
+                  </div>
+                  <div *ngIf="formGroup.get('status').errors?.['pattern']">
+                    Status must be 'New', 'Damaged', or 'Old'.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="color"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Color</label
+                >
+                <select
+                data-testid="color"
+                  formControlName="color"
+                  id="color"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                >
+                  <option value="Select color">Select color</option>
+                  <option value="Red">Red</option>
+                  <option value="Orange">Orange</option>
+                  <option value="White">White</option>
+                  <option value="Black">Black</option>
+                </select>
+                <div
+                  *ngIf="
+                    formGroup.get('color').invalid &&
+                    (formGroup.get('color').dirty ||
+                      formGroup.get('color').touched ||
+                      formSubmitted)
+                  "
+                  class="text-red-500 text-sm mt-1"
+                >
+                  <div *ngIf="formGroup.get('color').errors?.['required']">
+                    Color is required.
+                  </div>
+                  <div *ngIf="formGroup.get('color').errors?.['invalidColor']">
+                    Please select a valid color.
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="price"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Price</label
+                >
+                <input
+                data-testid="price"
+                  required
+                  formControlName="price"
+                  type="test"
+                  id="price"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Product Price"
+                />
+                <div
+                  *ngIf="
+                    formGroup.get('price').invalid &&
+                    (formGroup.get('price').dirty ||
+                      formGroup.get('price').touched ||
+                      formSubmitted)
+                  "
+                  class="text-red-500 text-sm mt-1"
+                >
+                  <div *ngIf="formGroup.get('price').errors?.['required']">
+                    Price is required.
+                  </div>
+                  <div *ngIf="formGroup.get('price').errors?.['pattern']">
+                    Price must be a valid number.
+                  </div>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label
+                  for="description"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Description</label
+                >
+                <textarea
+                  formControlName="description"
+                  id="description"
+                  data-testid="description"
+                  rows="8"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Write a product description here..."
+                  required
+                  minlength="1"
+                ></textarea>
+                <div
+                  *ngIf="
+                    formGroup.get('description').invalid &&
+                    (formGroup.get('description').dirty ||
+                      formGroup.get('description').touched ||
+                      formSubmitted)
+                  "
+                  class="text-red-500 text-sm"
+                >
+                  <div
+                    *ngIf="formGroup.get('description').errors?.['required']"
+                  >
+                    Description is required.
+                  </div>
+                  <div
+                    *ngIf="formGroup.get('description').errors?.['minlength']"
+                  >
+                    Description must be at least 1 character long.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center text-center justify-center">
+              <button
+              data-testid="create-box-button"
+                class="bg-blue-500 justify-center w-full items-center text-center hover:bg-blue-600 text-white inline-flex items-center hover:text-white border border-blue-500 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500"
+              >
+                Create box
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
