@@ -117,6 +117,11 @@ jobs:
 
   build-ui:
     needs: [ build-backend ]
+    
+    defaults:
+      run:
+        working-directory: src/UI
+        
     runs-on: ubuntu-latest
 
     steps:
