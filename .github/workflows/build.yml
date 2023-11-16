@@ -124,6 +124,7 @@ jobs:
           if-no-files-found: error
 
   build-ui:
+    needs: [ build-backend ]
     runs-on: ubuntu-latest
 
     steps:
@@ -136,7 +137,7 @@ jobs:
         node-version: 18
 
     - name: Install dependencies Node
-      run: npm ci
+      run: npm install
 
     - name: Build Angular App
       run: npm run build
