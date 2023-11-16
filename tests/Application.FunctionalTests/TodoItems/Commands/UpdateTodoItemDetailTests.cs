@@ -1,9 +1,9 @@
-﻿using testSphere.Application.TodoItems.Commands.CreateTodoItem;
-using testSphere.Application.TodoItems.Commands.UpdateTodoItem;
-using testSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
-using testSphere.Application.TodoLists.Commands.CreateTodoList;
-using testSphere.Domain.Entities;
-using testSphere.Domain.Enums;
+﻿using SkillSphere.Domain.Entities;
+using SkillSphere.Domain.Enums;
+using SkillSphere.Application.TodoItems.Commands.CreateTodoItem;
+using SkillSphere.Application.TodoItems.Commands.UpdateTodoItem;
+using SkillSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
+using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
 
 namespace testSphere.Application.FunctionalTests.TodoItems.Commands;
 

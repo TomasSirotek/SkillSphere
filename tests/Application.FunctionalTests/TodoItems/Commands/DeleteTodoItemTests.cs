@@ -1,7 +1,7 @@
-﻿using testSphere.Application.TodoItems.Commands.CreateTodoItem;
-using testSphere.Application.TodoItems.Commands.DeleteTodoItem;
-using testSphere.Application.TodoLists.Commands.CreateTodoList;
-using testSphere.Domain.Entities;
+﻿using SkillSphere.Domain.Entities;
+using SkillSphere.Application.TodoItems.Commands.CreateTodoItem;
+using SkillSphere.Application.TodoItems.Commands.DeleteTodoItem;
+using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
 
 namespace testSphere.Application.FunctionalTests.TodoItems.Commands;
 

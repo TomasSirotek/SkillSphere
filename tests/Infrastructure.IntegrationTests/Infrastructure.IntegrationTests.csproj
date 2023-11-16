@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>testSphere.Infrastructure.IntegrationTests</RootNamespace>
-        <AssemblyName>testSphere.Infrastructure.IntegrationTests</AssemblyName>
+        <RootNamespace>SkillSphere.Infrastructure.IntegrationTests</RootNamespace>
+        <AssemblyName>SkillSphere.Infrastructure.IntegrationTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

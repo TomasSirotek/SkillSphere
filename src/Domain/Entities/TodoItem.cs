@@ -1,4 +1,4 @@
-﻿namespace testSphere.Domain.Entities;
+﻿namespace SkillSphere.Domain.Entities;
 
 public class TodoItem : BaseAuditableEntity
 {

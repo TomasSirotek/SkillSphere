@@ -1,6 +1,6 @@
-﻿using testSphere.Domain.Entities;
+﻿using SkillSphere.Domain.Entities;
 
-namespace testSphere.Application.Common.Models;
+namespace SkillSphere.Application.Common.Models;
 
 public class LookupDto
 {

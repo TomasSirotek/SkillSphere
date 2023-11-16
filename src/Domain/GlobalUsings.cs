@@ -1,6 +1,6 @@
-﻿global using testSphere.Domain.Common;
-global using testSphere.Domain.Entities;
-global using testSphere.Domain.Enums;
-global using testSphere.Domain.Events;
-global using testSphere.Domain.Exceptions;
-global using testSphere.Domain.ValueObjects;
+﻿global using SkillSphere.Domain.Common;
+global using SkillSphere.Domain.Entities;
+global using SkillSphere.Domain.Enums;
+global using SkillSphere.Domain.Events;
+global using SkillSphere.Domain.Exceptions;
+global using SkillSphere.Domain.ValueObjects;

@@ -1,7 +1,7 @@
-﻿using testSphere.Domain.Events;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using SkillSphere.Domain.Events;
 
-namespace testSphere.Application.TodoItems.EventHandlers;
+namespace SkillSphere.Application.TodoItems.EventHandlers;
 
 public class TodoItemCreatedEventHandler : INotificationHandler<TodoItemCreatedEvent>
 {

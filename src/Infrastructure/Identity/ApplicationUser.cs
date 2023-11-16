@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace testSphere.Infrastructure.Identity;
+namespace SkillSphere.Infrastructure.Identity;
 
 public class ApplicationUser : IdentityUser
 {

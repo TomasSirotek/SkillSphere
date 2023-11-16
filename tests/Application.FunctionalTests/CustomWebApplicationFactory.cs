@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
-using testSphere.Application.Common.Interfaces;
-using testSphere.Infrastructure.Data;
+using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using skillSphere.Infrastructure.Data;
 
-namespace testSphere.Application.FunctionalTests;
+namespace SkillSphere.Application.FunctionalTests;
 
 using static Testing;
 

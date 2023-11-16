@@ -1,4 +1,4 @@
-﻿namespace testSphere.Domain.Events;
+﻿namespace SkillSphere.Domain.Events;
 
 public class TodoItemCreatedEvent : BaseEvent
 {

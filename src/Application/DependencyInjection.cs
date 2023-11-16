@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
-using testSphere.Application.Common.Behaviours;
+using Microsoft.Extensions.DependencyInjection;
+using SkillSphere.Application.Common.Behaviours;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace SkillSphere.Application;
 
 public static class DependencyInjection
 {

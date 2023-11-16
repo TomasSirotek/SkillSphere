@@ -1,12 +1,13 @@
 ﻿using Azure.Identity;
-using testSphere.Application.Common.Interfaces;
-using testSphere.Infrastructure.Data;
-using testSphere.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using skillSphere.Infrastructure.Data;
+using SkillSphere.Web.Infrastructure;
+using SkillSphere.Web.Services;
+using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Infrastructure.Data;
 using ZymLabs.NSwag.FluentValidation;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace SkillSphere.Web;
 
 public static class DependencyInjection
 {
@@ -41,7 +42,7 @@ public static class DependencyInjection
 
         services.AddOpenApiDocument((configure, sp) =>
         {
-            configure.Title = "testSphere API";
+            configure.Title = "SkillSphere API";
 
             // Add the fluent validations schema processor
             var fluentValidationSchemaProcessor = 

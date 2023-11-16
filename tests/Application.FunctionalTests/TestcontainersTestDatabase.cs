@@ -1,11 +1,11 @@
 ﻿using System.Data.Common;
-using testSphere.Infrastructure.Data;
+using SkillSphere.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Respawn;
 using Testcontainers.MsSql;
 
-namespace testSphere.Application.FunctionalTests;
+namespace SkillSphere.Application.FunctionalTests;
 
 public class TestcontainersTestDatabase : ITestDatabase
 {

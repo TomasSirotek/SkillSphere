@@ -1,6 +1,6 @@
-﻿using testSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 
-namespace testSphere.Application.TodoLists.Commands.UpdateTodoList;
+namespace SkillSphere.Application.TodoLists.Commands.UpdateTodoList;
 
 public record UpdateTodoListCommand : IRequest
 {

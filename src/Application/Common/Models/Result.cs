@@ -1,4 +1,4 @@
-﻿namespace testSphere.Application.Common.Models;
+﻿namespace SkillSphere.Application.Common.Models;
 
 public class Result
 {

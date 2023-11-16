@@ -1,6 +1,6 @@
-﻿using testSphere.Application.Common.Models;
+﻿using SkillSphere.Application.Common.Models;
 
-namespace testSphere.Application.TodoLists.Queries.GetTodos;
+namespace SkillSphere.Application.TodoLists.Queries.GetTodos;
 
 public class TodosVm
 {

@@ -1,4 +1,4 @@
-﻿namespace testSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+﻿namespace SkillSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 public class GetTodoItemsWithPaginationQueryValidator : AbstractValidator<GetTodoItemsWithPaginationQuery>
 {

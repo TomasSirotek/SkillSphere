@@ -1,4 +1,8 @@
-using testSphere.Infrastructure.Data;
+using SkillSphere.Application;
+using SkillSphere.Infrastructure;
+using SkillSphere.Web;
+using SkillSphere.Web.Infrastructure;
+using SkillSphere.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +46,7 @@ app.MapFallbackToFile("index.html");
 
 app.UseExceptionHandler(options => { });
 
+app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
 

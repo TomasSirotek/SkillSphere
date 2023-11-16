@@ -1,8 +1,8 @@
-﻿using testSphere.Application.Common.Exceptions;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using SkillSphere.Application.Common.Exceptions;
 
-namespace testSphere.Web.Infrastructure;
+namespace SkillSphere.Web.Infrastructure;
 
 public class CustomExceptionHandler : IExceptionHandler
 {

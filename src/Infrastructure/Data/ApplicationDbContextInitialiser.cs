@@ -1,14 +1,15 @@
 ﻿using System.Runtime.InteropServices;
-using testSphere.Domain.Constants;
-using testSphere.Domain.Entities;
-using testSphere.Infrastructure.Identity;
+using SkillSphere.Domain.Constants;
+using SkillSphere.Domain.Entities;
+using SkillSphere.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using skillSphere.Infrastructure.Data;
 
-namespace testSphere.Infrastructure.Data;
+namespace SkillSphere.Infrastructure.Data;
 
 public static class InitialiserExtensions
 {
