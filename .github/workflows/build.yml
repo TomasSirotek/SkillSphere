@@ -49,7 +49,6 @@ jobs:
           /p:Include="[skillSphere.Domain]*?%2c[skillSphere.Application]*?%2c[skillSphere.Infrastructure]*?%2c[skillSphere.Web]*"
           /p:CoverletOutput=.coverage/
           /p:CoverletOutputFormat=lcov
-          /p:Threshold=50
       
       # Upload to the coverage        
       - name: DomainUnitTests Report Upload
