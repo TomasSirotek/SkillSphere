@@ -33,7 +33,7 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-            
+
       - name: Install .NET
         uses: actions/setup-dotnet@v3
 
@@ -49,32 +49,32 @@ jobs:
           /p:Include="[skillSphere.Domain]*?%2c[skillSphere.Application]*?%2c[skillSphere.Infrastructure]*?%2c[skillSphere.Web]*"
           /p:CoverletOutput=.coverage/
           /p:CoverletOutputFormat=lcov
-        
+      
       # Upload to the coverage        
       - name: DomainUnitTests Report Upload
         uses: coverallsapp/github-action@v2.2.3
         with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            flag-name: DomainUnitTests
-            path-to-lcov: tests/Domain.UnitTests/.coverage/coverage.info
-            parallel: true
-            
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: DomainUnitTests
+          path-to-lcov: tests/Domain.UnitTests/.coverage/coverage.info
+          parallel: true
+
       - name: ApplicationUnitTests Report Upload
         uses: coverallsapp/github-action@v2.2.3
         with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            flag-name: ApplicationUnitTests
-            path-to-lcov: tests/Application.UnitTests/.coverage/coverage.info
-            parallel: true
-            
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ApplicationUnitTests
+          path-to-lcov: tests/Application.UnitTests/.coverage/coverage.info
+          parallel: true
+
       - name: ApplicationFunctionalTests Report Upload
         uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ApplicationFunctionalTests
           path-to-lcov: tests/Application.FunctionalTests/.coverage/coverage.info
-          parallel: true  
-          
+          parallel: true
+
       - name: InfrastructureIntegrationTests Report Upload
         uses: coverallsapp/github-action@v2.2.3
         with:
@@ -82,12 +82,12 @@ jobs:
           flag-name: InfrastructureIntegrationTests
           path-to-lcov: tests/Infrastructure.IntegrationTests/.coverage/coverage.info
           parallel: true
-          
+
       - name: Conclude Coverage Upload
         uses: coverallsapp/github-action@master
         with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            parallel-finished: true      
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
 
       - name: Publish website
         if: ${{ inputs.build-artifacts == true }}
@@ -122,11 +122,11 @@ jobs:
           name: efbundle
           path: ./efbundle.zip
           if-no-files-found: error
-  
-build-ui:
-  runs-on: ubuntu-latest
 
-  steps:
+  build-ui:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
@@ -140,7 +140,7 @@ build-ui:
 
     - name: Build Angular App
       run: npm run build
-      
+
     - name: Run test with coverage
-    - run: npm run test:prod
+      run: npm run test:prod
 
