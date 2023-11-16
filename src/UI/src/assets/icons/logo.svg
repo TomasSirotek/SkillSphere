@@ -1,0 +1,32 @@
+<!-- <svg class="w-5 h-5 text-white"
+        viewBox="0 0 24 24"
+        fill="none">
+<path d="M12 4.75L19.25 9L12 13.25L4.75 9L12 4.75Z"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+<path d="M9.25 12L4.75 15L12 19.25L19.25 15L14.6722 12"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+</svg> -->
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg class="h-6 w-6" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 505 505" xml:space="preserve">
+<circle style="fill:#324A5E;" cx="252.5" cy="252.5" r="252.5"/>
+<g>
+	<polygon style="fill:#FFFFFF;" points="306.8,107.3 427.3,156 373.1,201.8 252.5,153.2 	"/>
+	<polygon style="fill:#FFFFFF;" points="198.2,107.3 77.7,156 131.9,201.8 252.5,153.2 	"/>
+</g>
+<polygon style="fill:#324A5E;" points="373.1,201.9 252.5,244.5 131.9,201.9 252.5,153.2 "/>
+<polygon style="fill:#FF7058;" points="252.5,435.5 131.9,392.9 131.9,201.9 252.5,244.5 "/>
+<polygon style="fill:#F1543F;" points="252.5,435.5 373.1,392.9 373.1,201.9 252.5,244.5 "/>
+<g>
+	<polygon style="fill:#E6E9EE;" points="306.8,290.4 427.3,247.7 373.1,201.9 252.5,244.5 	"/>
+	<polygon style="fill:#E6E9EE;" points="198.2,290.4 77.7,247.7 131.9,201.9 252.5,244.5 	"/>
+</g>
+</svg>

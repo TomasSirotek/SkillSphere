@@ -1,0 +1,8 @@
+.global-alert {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* Adjust the width as needed */
+    z-index: 9999; /* Ensure the alert is above other content */
+    /* Add your desired styles (background color, text color, etc.) here */
+  }
