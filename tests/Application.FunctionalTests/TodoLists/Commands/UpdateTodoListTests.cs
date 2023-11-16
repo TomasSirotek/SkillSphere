@@ -3,7 +3,7 @@ using SkillSphere.Application.Common.Exceptions;
 using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
 using SkillSphere.Application.TodoLists.Commands.UpdateTodoList;
 
-namespace testSphere.Application.FunctionalTests.TodoLists.Commands;
+namespace SkillSphere.Application.FunctionalTests.TodoLists.Commands;
 
 using static Testing;
 

@@ -5,7 +5,7 @@ using SkillSphere.Application.TodoItems.Commands.UpdateTodoItem;
 using SkillSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
 
-namespace testSphere.Application.FunctionalTests.TodoItems.Commands;
+namespace SkillSphere.Application.FunctionalTests.TodoItems.Commands;
 
 using static Testing;
 

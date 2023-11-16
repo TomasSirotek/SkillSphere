@@ -1,6 +1,6 @@
 ﻿using SkillSphere.Domain.Entities;
 using SkillSphere.Application.Common.Exceptions;
-using testSphere.Application.TodoItems.Commands.CreateTodoItem;
+using SkillSphere.Application.TodoItems.Commands.CreateTodoItem;
 using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
 
 namespace SkillSphere.Application.FunctionalTests.TodoItems.Commands;

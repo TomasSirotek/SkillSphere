@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Respawn;
-using SkillSphere.Infrastructure.Data;
+using skillSphere.Infrastructure.Data;
 
 namespace SkillSphere.Application.FunctionalTests;
 
