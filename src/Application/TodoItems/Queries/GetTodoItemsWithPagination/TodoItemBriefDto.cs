@@ -1,6 +1,6 @@
-﻿using testSphere.Domain.Entities;
+﻿using SkillSphere.Domain.Entities;
 
-namespace testSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+namespace SkillSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 public class TodoItemBriefDto
 {

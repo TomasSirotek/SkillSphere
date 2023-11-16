@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>testSphere.Application.FunctionalTests</RootNamespace>
-        <AssemblyName>testSphere.Application.FunctionalTests</AssemblyName>
+        <RootNamespace>SkillSphere.Application.FunctionalTests</RootNamespace>
+        <AssemblyName>SkillSphere.Application.FunctionalTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

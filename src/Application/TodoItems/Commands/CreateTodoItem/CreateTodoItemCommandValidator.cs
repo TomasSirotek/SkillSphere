@@ -1,4 +1,4 @@
-﻿namespace testSphere.Application.TodoItems.Commands.CreateTodoItem;
+﻿namespace SkillSphere.Application.TodoItems.Commands.CreateTodoItem;
 
 public class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemCommand>
 {

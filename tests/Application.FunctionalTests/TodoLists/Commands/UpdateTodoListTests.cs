@@ -1,9 +1,9 @@
-﻿using testSphere.Application.Common.Exceptions;
-using testSphere.Application.TodoLists.Commands.CreateTodoList;
-using testSphere.Application.TodoLists.Commands.UpdateTodoList;
-using testSphere.Domain.Entities;
+﻿using SkillSphere.Domain.Entities;
+using SkillSphere.Application.Common.Exceptions;
+using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
+using SkillSphere.Application.TodoLists.Commands.UpdateTodoList;
 
-namespace testSphere.Application.FunctionalTests.TodoLists.Commands;
+namespace SkillSphere.Application.FunctionalTests.TodoLists.Commands;
 
 using static Testing;
 

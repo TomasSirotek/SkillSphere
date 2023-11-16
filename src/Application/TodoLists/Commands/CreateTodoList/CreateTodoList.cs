@@ -1,7 +1,7 @@
-﻿using testSphere.Application.Common.Interfaces;
-using testSphere.Domain.Entities;
+﻿using SkillSphere.Domain.Entities;
+using SkillSphere.Application.Common.Interfaces;
 
-namespace testSphere.Application.TodoLists.Commands.CreateTodoList;
+namespace SkillSphere.Application.TodoLists.Commands.CreateTodoList;
 
 public record CreateTodoListCommand : IRequest<int>
 {

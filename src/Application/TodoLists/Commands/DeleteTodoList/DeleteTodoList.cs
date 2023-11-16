@@ -1,6 +1,6 @@
-﻿using testSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 
-namespace testSphere.Application.TodoLists.Commands.DeleteTodoList;
+namespace SkillSphere.Application.TodoLists.Commands.DeleteTodoList;
 
 public record DeleteTodoListCommand(int Id) : IRequest;
 

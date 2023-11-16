@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace testSphere.Web.Infrastructure;
+namespace SkillSphere.Web.Infrastructure;
 
 public static class MethodInfoExtensions
 {

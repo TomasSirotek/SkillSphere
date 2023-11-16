@@ -1,7 +1,7 @@
-﻿using testSphere.Application.Common.Interfaces;
-using testSphere.Domain.Events;
+﻿using SkillSphere.Domain.Events;
+using SkillSphere.Application.Common.Interfaces;
 
-namespace testSphere.Application.TodoItems.Commands.DeleteTodoItem;
+namespace SkillSphere.Application.TodoItems.Commands.DeleteTodoItem;
 
 public record DeleteTodoItemCommand(int Id) : IRequest;
 

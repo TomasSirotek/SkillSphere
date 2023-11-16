@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
-using testSphere.Application.Common.Interfaces;
+using SkillSphere.Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace testSphere.Application.Common.Behaviours;
+namespace SkillSphere.Application.Common.Behaviours;
 
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

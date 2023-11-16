@@ -1,6 +1,6 @@
-﻿using ValidationException = testSphere.Application.Common.Exceptions.ValidationException;
+﻿using ValidationException = SkillSphere.Application.Common.Exceptions.ValidationException;
 
-namespace testSphere.Application.Common.Behaviours;
+namespace SkillSphere.Application.Common.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
      where TRequest : notnull

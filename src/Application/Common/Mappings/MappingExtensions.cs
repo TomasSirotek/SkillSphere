@@ -1,6 +1,6 @@
-﻿using testSphere.Application.Common.Models;
+﻿using SkillSphere.Application.Common.Models;
 
-namespace testSphere.Application.Common.Mappings;
+namespace SkillSphere.Application.Common.Mappings;
 
 public static class MappingExtensions
 {

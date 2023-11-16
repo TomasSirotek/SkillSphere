@@ -1,14 +1,17 @@
-﻿using testSphere.Application.Common.Interfaces;
-using testSphere.Domain.Constants;
-using testSphere.Infrastructure.Data;
-using testSphere.Infrastructure.Data.Interceptors;
-using testSphere.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Domain.Constants;
+using skillSphere.Infrastructure.Data;
+using SkillSphere.Infrastructure.Data;
+using SkillSphere.Infrastructure.Data.Interceptors;
+using SkillSphere.Infrastructure.Identity;
+using testSphere.Infrastructure.Data.Interceptors;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace SkillSphere.Infrastructure;
 
 public static class DependencyInjection
 {

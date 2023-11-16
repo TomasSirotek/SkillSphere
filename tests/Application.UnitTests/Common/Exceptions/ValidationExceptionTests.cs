@@ -1,9 +1,9 @@
-﻿using testSphere.Application.Common.Exceptions;
+﻿using SkillSphere.Application.Common.Exceptions;
 using FluentAssertions;
 using FluentValidation.Results;
 using NUnit.Framework;
 
-namespace testSphere.Application.UnitTests.Common.Exceptions;
+namespace SkillSphere.Application.UnitTests.Common.Exceptions;
 
 public class ValidationExceptionTests
 {

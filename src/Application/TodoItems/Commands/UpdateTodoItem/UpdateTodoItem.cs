@@ -1,6 +1,6 @@
-﻿using testSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 
-namespace testSphere.Application.TodoItems.Commands.UpdateTodoItem;
+namespace SkillSphere.Application.TodoItems.Commands.UpdateTodoItem;
 
 public record UpdateTodoItemCommand : IRequest
 {

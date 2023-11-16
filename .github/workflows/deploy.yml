@@ -29,7 +29,7 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-      - if: inputs.environmentName == 'Production'
+      - if: inputs.environmentName == 'Development'
         uses: azure/arm-deploy@v1
         name: Run preflight validation
         with:
@@ -43,7 +43,7 @@ jobs:
             projectName=${{ vars.PROJECT_NAME }}
           deploymentMode: Validate
 
-      - if: inputs.environmentName == 'Production'
+      - if: inputs.environmentName != 'Development'
         uses: azure/arm-deploy@v1
         name: Run what-if
         with:

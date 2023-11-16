@@ -1,4 +1,4 @@
-﻿namespace testSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿namespace SkillSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
 public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
 

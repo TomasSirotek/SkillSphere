@@ -1,8 +1,7 @@
 ﻿using System.Security.Claims;
+using SkillSphere.Application.Common.Interfaces;
 
-using testSphere.Application.Common.Interfaces;
-
-namespace testSphere.Web.Services;
+namespace SkillSphere.Web.Services;
 
 public class CurrentUser : IUser
 {

@@ -1,4 +1,4 @@
-﻿namespace testSphere.Domain.Common;
+﻿namespace SkillSphere.Domain.Common;
 
 public abstract class BaseAuditableEntity : BaseEntity
 {

@@ -1,14 +1,14 @@
 ﻿using System.Reflection;
 using System.Runtime.Serialization;
 using AutoMapper;
-using testSphere.Application.Common.Interfaces;
-using testSphere.Application.Common.Models;
-using testSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using testSphere.Application.TodoLists.Queries.GetTodos;
-using testSphere.Domain.Entities;
+using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Application.Common.Models;
+using SkillSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
+using SkillSphere.Application.TodoLists.Queries.GetTodos;
 using NUnit.Framework;
+using SkillSphere.Domain.Entities;
 
-namespace testSphere.Application.UnitTests.Common.Mappings;
+namespace SkillSphere.Application.UnitTests.Common.Mappings;
 
 public class MappingTests
 {

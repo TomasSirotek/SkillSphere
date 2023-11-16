@@ -1,6 +1,6 @@
-﻿using testSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 
-namespace testSphere.Application.TodoLists.Commands.CreateTodoList;
+namespace SkillSphere.Application.TodoLists.Commands.CreateTodoList;
 
 public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCommand>
 {

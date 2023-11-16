@@ -1,4 +1,4 @@
-﻿namespace testSphere.Web.Infrastructure;
+﻿namespace SkillSphere.Web.Infrastructure;
 
 public abstract class EndpointGroupBase
 {

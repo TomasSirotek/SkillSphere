@@ -1,4 +1,4 @@
-﻿namespace testSphere.Application.Common.Exceptions;
+﻿namespace SkillSphere.Application.Common.Exceptions;
 
 public class ForbiddenAccessException : Exception
 {

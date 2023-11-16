@@ -1,10 +1,10 @@
-﻿using testSphere.Application.Common.Interfaces;
-using testSphere.Application.Common.Models;
+﻿using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace testSphere.Infrastructure.Identity;
+namespace SkillSphere.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {

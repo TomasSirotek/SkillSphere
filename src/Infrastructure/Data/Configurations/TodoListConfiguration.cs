@@ -1,6 +1,6 @@
-﻿using testSphere.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SkillSphere.Domain.Entities;
 
 namespace testSphere.Infrastructure.Data.Configurations;
 

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <RootNamespace>testSphere.Domain.UnitTests</RootNamespace>
-        <AssemblyName>testSphere.Domain.UnitTests</AssemblyName>
+        <RootNamespace>SkillSphere.Domain.UnitTests</RootNamespace>
+        <AssemblyName>SkillSphere.Domain.UnitTests</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

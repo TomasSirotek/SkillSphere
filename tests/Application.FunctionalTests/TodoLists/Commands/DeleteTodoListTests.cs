@@ -1,8 +1,8 @@
-﻿using testSphere.Application.TodoLists.Commands.CreateTodoList;
-using testSphere.Application.TodoLists.Commands.DeleteTodoList;
-using testSphere.Domain.Entities;
+﻿using SkillSphere.Domain.Entities;
+using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
+using SkillSphere.Application.TodoLists.Commands.DeleteTodoList;
 
-namespace testSphere.Application.FunctionalTests.TodoLists.Commands;
+namespace SkillSphere.Application.FunctionalTests.TodoLists.Commands;
 
 using static Testing;
 

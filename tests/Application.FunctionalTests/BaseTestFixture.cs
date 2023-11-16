@@ -1,4 +1,4 @@
-﻿namespace testSphere.Application.FunctionalTests;
+﻿namespace SkillSphere.Application.FunctionalTests;
 
 using static Testing;
 

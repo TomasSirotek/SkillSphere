@@ -1,8 +1,8 @@
-﻿using testSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 
-namespace testSphere.Application.Common.Behaviours;
+namespace SkillSphere.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 {
