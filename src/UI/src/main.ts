@@ -17,7 +17,6 @@ if (environment.production) {
         selfXSSWarning();
     }
 }
-
 bootstrapApplication(AppComponent, {
     providers: [importProvidersFrom(BrowserModule, AppRoutingModule),
         provideDialogConfig(
