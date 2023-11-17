@@ -56,7 +56,7 @@ var logAnalyticsWorkspaceName = 'log-${projectName}-${environmentAbbreviation}'
 var applicationInsightsName = 'appi-${projectName}-${environmentAbbreviation}'
 var sqlServerName = 'sql-${projectName}-${resourceNameSuffix}-${environmentAbbreviation}'
 var sqlDatabaseName = '${projectName}-${environmentAbbreviation}'
-var storageAccountName = 'sa-${projectName}-${environmentAbbreviation}'
+var storageAccountName = 'sa${projectName}${environmentAbbreviation}01'
 
 // Define the SKUs for each component based on the environment type.
 var appServicePlanSku = environmentConfigurationMap[environmentName].appServicePlan.sku
