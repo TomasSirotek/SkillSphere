@@ -41,19 +41,6 @@ jobs:
             sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
             projectName=${{ vars.PROJECT_NAME }}
           deploymentMode: Validate
-
-      - uses: azure/arm-deploy@v1
-        name: Run what-if
-        with:
-          failOnStdErr: false
-          resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP_NAME }}
-          template: ./.azure/bicep/main.bicep
-          parameters: >
-            environmentName=${{ inputs.environmentName }}
-            sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
-            sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
-            projectName=${{ vars.PROJECT_NAME }}
-          additionalArguments: --what-if
   
   deploy:
     needs: [ validate ]

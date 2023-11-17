@@ -36,6 +36,13 @@ var environmentConfigurationMap = {
         tier: 'Basic'
       }
     }
+    storageAccount: {
+      sku: {
+        name: 'Standard_LRS'
+      }
+      type: {
+        name: 'StorageV2'
+      }
   }
 }
 
@@ -48,10 +55,13 @@ var logAnalyticsWorkspaceName = 'log-${projectName}-${environmentAbbreviation}'
 var applicationInsightsName = 'appi-${projectName}-${environmentAbbreviation}'
 var sqlServerName = 'sql-${projectName}-${resourceNameSuffix}-${environmentAbbreviation}'
 var sqlDatabaseName = '${projectName}-${environmentAbbreviation}'
+var storageAccount = 'sa-${projectName}-${environmentAbbreviation}'
 
 // Define the SKUs for each component based on the environment type.
 var appServicePlanSku = environmentConfigurationMap[environmentName].appServicePlan.sku
 var sqlDatabaseSku = environmentConfigurationMap[environmentName].sqlDatabase.sku
+var storageAccountSku = environmentConfigurationMap[environmentName].storageAccount.sku
+var storageAccountType = environmentConfigurationMap[environmentName].storageAccount.type
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-10-01' = {
   name: logAnalyticsWorkspaceName
@@ -139,7 +149,7 @@ resource appServiceApp 'Microsoft.Web/sites@2021-01-15' = {
     httpsOnly: true
     siteConfig: {
       healthCheckPath: '/health'
-      netFrameworkVersion: 'v7.0'
+      netFrameworkVersion: 'v8.0'
       appSettings: [
         {
           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
@@ -265,6 +275,23 @@ resource sqlServer_FirewallRule 'Microsoft.Sql/servers/firewallRules@2021-02-01-
   }
 }
 
+resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
+  name: storageAccountName
+  location: location
+  sku: {
+    name: storageAccountSku
+  }
+  kind: storageAccountType
+  identity: {
+    type: 'SystemAssigned'
+  }
+}
+
+resource blobStorage 'Microsoft.Storage/storageAccounts/blobServices@2022-09-01' = {
+  name: 'default'
+  parent: storageAccount
+}
+
 resource sqlDatabase_DiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
   scope: sqlDatabase
   name: 'sqlDatabaseDiagnosticSettings'
@@ -329,3 +356,4 @@ output appServiceAppName string = appServiceApp.name
 output appServiceAppHostName string = appServiceApp.properties.defaultHostName
 output sqlServerFullyQualifiedDomainName string = sqlServer.properties.fullyQualifiedDomainName
 output sqlDatabaseName string = sqlDatabase.name
+output storageAccount string = storageAccount.name

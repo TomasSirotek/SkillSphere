@@ -39,7 +39,7 @@ if (-not $GitHubRepositoryName) {
 }
 
 if (-not $AzureLocation) {
-  $AzureLocation = "australiaeast"
+  $AzureLocation = "northeurope"
 }
 
 if (-not $AzureSubscriptionId) {
@@ -197,7 +197,6 @@ function SetEnvironmentVariablesAndSecrets {
 
 SetVariables
 
-foreach ($environment in $environments.PSObject.Properties) {
   $environmentAbbr = $environment.Name
   $environmentName = $environment.Value
   
@@ -205,6 +204,5 @@ foreach ($environment in $environments.PSObject.Properties) {
   $appId = CreateWorkloadIdentity $environmentAbbr $environmentName
   CreateResourceGroup $environmentAbbr $appId
   SetEnvironmentVariablesAndSecrets $environmentAbbr $environmentName $appId
-}
 
 Write-Host "✅ Done"
