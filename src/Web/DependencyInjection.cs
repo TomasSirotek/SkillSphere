@@ -4,7 +4,6 @@ using skillSphere.Infrastructure.Data;
 using SkillSphere.Web.Infrastructure;
 using SkillSphere.Web.Services;
 using SkillSphere.Application.Common.Interfaces;
-using SkillSphere.Infrastructure.Data;
 using ZymLabs.NSwag.FluentValidation;
 
 namespace SkillSphere.Web;
