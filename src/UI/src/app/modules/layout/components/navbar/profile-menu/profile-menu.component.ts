@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
+import {  RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-profile-menu',
   standalone: true,
-  imports: [CommonModule,NgClass],
+  imports: [CommonModule,NgClass,RouterLink],
   templateUrl: './profile-menu.component.html',
   styleUrls: ['./profile-menu.component.scss']
 })

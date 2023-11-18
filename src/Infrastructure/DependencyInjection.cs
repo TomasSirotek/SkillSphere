@@ -34,17 +34,22 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
-
+        
         services
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+            
 
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
-
+        
+        services
+            .AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
+        
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+        
 
         return services;
     }

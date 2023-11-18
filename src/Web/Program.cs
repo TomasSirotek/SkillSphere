@@ -13,6 +13,20 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowedToAllowWildcardSubdomains()
+            .Build();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +44,7 @@ app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+
 app.UseSwaggerUi3(settings =>
 {
     settings.Path = "/api";
@@ -40,15 +55,21 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapRazorPages();
-
-app.MapFallbackToFile("index.html");
-
 app.UseExceptionHandler(options => { });
 
 app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
+
+
+app.UseCors(options =>
+{
+    options.SetIsOriginAllowed(origin => true)
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
+
 
 app.Run();
 
