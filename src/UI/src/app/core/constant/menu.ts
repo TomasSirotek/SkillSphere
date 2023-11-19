@@ -4,25 +4,43 @@ export class Menu {
   public static pages: MenuItem[] = [
     {
       group: 'Pages',
-      separator: false,
+      separator: true,
       items: [
         {
-          icon: 'heroBuildingStorefront',
+          icon: 'heroFolderOpen',
           label: 'Dashboard',
           route: '/dashboard',
           children: [
             { label: 'Overview', route: '/dashboard' },
+            { label: 'My Courses', route: '/courses/boxes' },
           ],
         },
         {
-          icon:'heroFolderOpen',
-          label: 'Management',
-          route: '/management',
+          icon:' heroBuildingStorefront',
+          label: 'Courses',
+          route: '/courses',
           children: [
-            { label: 'Boxes Management', route: '/management/boxes' },
+            { label: 'Course store', route: '/store' },
+            { label: 'Saved courses', route: '/dashboard' },
           ],
         },
       ],
     },
+    {
+      group: 'Config',
+      separator: false,
+      items: [
+        {
+          icon: 'heroBuildingStorefront',
+          label: 'Settings',
+          route: '/settings',
+        },
+        {
+          icon: 'heroBuildingStorefront',
+          label: 'Notifications',
+          route: '/gift',
+        },
+      ],
+    }, 
   ];
 }

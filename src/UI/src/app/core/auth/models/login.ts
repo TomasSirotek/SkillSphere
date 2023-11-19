@@ -1,5 +1,5 @@
 
-export interface AuthOk {
+export interface AuthResponse {
    tokenType: string,
    accessToken:string,
    expiresIn: number,

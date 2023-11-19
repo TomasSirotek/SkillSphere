@@ -13,14 +13,16 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [NgClass, RouterOutlet, ResponsiveHelperComponent,AlertComponent,NgIf],
-  
+
 })
 export class AppComponent implements OnInit {
   title = 'UI';
   isLoggedIn: boolean = false;
 
   constructor(public themeService: ThemeService) {}
+  
   ngOnInit(): void {
     initFlowbite();
   }
+  
 }

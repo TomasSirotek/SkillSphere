@@ -38,15 +38,13 @@ export class LoginComponent implements OnInit, OnDestroy{
   
   private sub: Subscription;
   
-  constructor(private readonly _formBuilder: FormBuilder,private authService: AuthService) {}
+  constructor(private readonly _formBuilder: FormBuilder,  private _router: Router,private authService: AuthService) {}
   
-
-
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      email: ['test3@gmail.com', [Validators.required, Validators.email]],
+      password: ['Admin1!', Validators.required],
     });
   }
 
@@ -71,33 +69,23 @@ export class LoginComponent implements OnInit, OnDestroy{
 
     const { email, password } = this.form.value;
 
-    console.log(this.form.value)
-    this.formSubmitAttempt = true;
-
     if (this.form.invalid) {
       return;
     }
 
-    this.localLoginState = LocalLoginState.Waiting;
-
-    this.form.disable();
-
-    this.authService.authenticate(email, password).subscribe(
-      _ => {
-        this.localLoginState = LocalLoginState.Success;
-        timer(5000).subscribe(() => this.localLoginState = LocalLoginState.None); // In case user logs out without navigating elsewhere; the 'success' would still be visible.
-        this.form.enable();
+    this.authService.authenticate(email, password)
+    .subscribe({
+      next: () => {
+        this._router.navigate(['/dashboard']);
       },
-      err => {
-
-        this.form.enable();
-
-        if (err.status == 401)
-          this.localLoginState = LocalLoginState.ErrorWrongData;
-        else
-          this.localLoginState = LocalLoginState.ErrorOther;
+      error: (err: any) => {
+        // Handle errors here
+        // 401
+        // display alert
       }
-    );
-    // this._router.navigate(['/']);
+    });
+  
+  
+  
   }
 }
