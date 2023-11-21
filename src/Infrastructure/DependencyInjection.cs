@@ -80,19 +80,11 @@ public static class DependencyInjection
                     ClockSkew = TimeSpan.Zero
                 };
             });
-        
-        
-        
-        // services
-        //     .AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
-        
-        
-        
+
         
         // => Adding policy for role Administrator
-        
-        // services.AddAuthorization(options =>
-        //     options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+        services.AddAuthorization(options =>
+            options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
         
 
         return services;
