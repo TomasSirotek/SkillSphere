@@ -44,7 +44,9 @@ public static class DependencyInjection
         services.AddOpenApiDocument((configure, sp) =>
         {
             configure.Title = "SkillSphere API";
+            configure.Description = "SkillSphere API";
 
+            configure.Version = "v1";
             // Add the fluent validations schema processor
             var fluentValidationSchemaProcessor = 
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
@@ -58,9 +60,9 @@ public static class DependencyInjection
                 Name = "Authorization",
                 In = OpenApiSecurityApiKeyLocation.Header,
                 Type = OpenApiSecuritySchemeType.ApiKey,
-                Description = "Please insert token: JWT {your JWT token}."
+                Description = "Please insert token: Bearer {your JWT token}."
             });
-
+            
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
 

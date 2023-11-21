@@ -1,8 +1,9 @@
 
 export interface AuthResponse {
-   tokenType: string,
-   accessToken:string,
+   token: string,
+   email: string,
+   userId: string,
    expiresIn: number,
-   refreshToken: string, 
+   // refreshToken: string, 
   }
   

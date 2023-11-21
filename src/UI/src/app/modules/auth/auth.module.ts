@@ -12,10 +12,10 @@ import { AuthService } from 'src/app/core/auth/service/auth.service';
     CommonModule,
     AuthRoutingModule,
     HttpClientModule,
+    
   ],
   providers: [
     HttpClientModule,
-    AuthService,
     HttpClient
   ]
 })

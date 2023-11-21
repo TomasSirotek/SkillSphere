@@ -4,6 +4,8 @@ import { DashboardHeaderComponent } from '../../components/dashboard-header/dash
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DashboardServiceService } from '../../service/dashboard-service.service';
+import { AlertServiceService } from 'src/app/shared/service/alert-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,18 +15,19 @@ import { DashboardServiceService } from '../../service/dashboard-service.service
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit{
- // test = inject(DashboardServiceService)
+  ds = inject(DashboardServiceService)
   
   constructor() { }
 
-  ngOnInit(): void {
-   
-  }
 
-  // ngOnInit(): void {
-  //   this.ds.getDashboardData().subscribe(data => {
-  //     console.log(data);
-  //   });
-  // }  
+
+  ngOnInit(): void {
+    this.ds.getDashboardData().subscribe(data => {
+     
+    
+    });
+
+
+  }  
   
 }

@@ -28,7 +28,7 @@
         </div>
         <div class="overflow-hidden px-2 text-sm font-semibold text-gray-700 dark:text-night-50">
           Mr.Simpson
-          <p class="truncate text-ellipsis text-xs font-semibold text-gray-400 dark:text-night-300">simpson@boxfactory.com</p>
+          <p class="truncate text-ellipsis text-xs font-semibold text-gray-400 dark:text-night-300">{{authResponse?.email}}</p>
         </div>
       </div>
   
@@ -44,6 +44,7 @@
           Settings
         </li>
         <li
+          (click)="logout()"
           routerLink="/auth"
           class="block cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 hover:text-primary-500 dark:text-white dark:hover:bg-night-500 dark:hover:text-primary-500">
           Logout

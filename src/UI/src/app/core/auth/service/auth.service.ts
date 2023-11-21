@@ -5,23 +5,27 @@ import { shareReplay } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { AuthResponse } from '../models/login';
+import { Register } from '../models/register';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService  {
+  
+
   public signInState: Observable<AuthResponse>;
   private _signInState = new BehaviorSubject<AuthResponse>(null);
 
 
   constructor(private _http: HttpClient) {
     this.signInState = this._signInState.asObservable();
-
     const userData = this.getStoredUserData();
+
     if (userData != null) {
       this._signInState.next(userData);
     }
+
   }
 
   public authenticate(email: string, password: string): Observable<HttpResponse<AuthResponse>> {
@@ -29,11 +33,20 @@ export class AuthService  {
       email: email,
       password: password
     };
-    return this._http.post<AuthResponse>(`${environment.baseUrl}/Users/login`, loginData, { observe: 'response' })
+    return this._http.post<AuthResponse>(`${environment.baseUrl}/auth/authenticate`, loginData, { observe: 'response' })
       .pipe(
         tap(res => this.signIn(res.body)),
         shareReplay()
       );
+  }
+
+  public register(email: string, password: string): Observable<any> {
+    const registrationData = {
+      email: email,
+      password: password
+    };
+    return this._http.post<Register>(`${environment.baseUrl}/auth/register`, registrationData);
+  
   }
 
 
@@ -42,14 +55,15 @@ export class AuthService  {
     expiresAt.setTime(Date.now() + (data.expiresIn * 1000));
 
     localStorage.setItem('auth_userData', JSON.stringify(data));
-    localStorage.setItem('auth_tokenString', `${data.tokenType} ${data.accessToken}`);
+    localStorage.setItem('auth_jwt', `${data.token}`);
     localStorage.setItem('auth_tokenExpiresAt', expiresAt.getTime().toString());
+
     this._signInState.next(data);
   }
 
   public signOut() {
+    localStorage.removeItem('auth_jwt');
     localStorage.removeItem('auth_userData');
-    localStorage.removeItem('auth_tokenString');
     localStorage.removeItem('auth_tokenExpiresAt');
 
     this._signInState.next(null);
@@ -59,23 +73,17 @@ export class AuthService  {
     return this._signInState.value != null;
   }
 
-  public setUserToken(data: AuthResponse) {
-    const expiresAt = new Date();
-    expiresAt.setTime(Date.now() + (data.expiresIn * 1000));
-
-    localStorage.setItem('auth_userData', JSON.stringify(data));
-    localStorage.setItem('auth_tokenString', `${data.tokenType} ${data.accessToken}`);
-    localStorage.setItem('auth_tokenExpiresAt', expiresAt.getTime().toString());
-    this._signInState.next(data);
-  }
-
   public getUserToken() {
-    return localStorage.getItem('auth_tokenString');
+    return localStorage.getItem('auth_jwt');
   }
 
-  public getValidityDays() {
-    return (+localStorage.getItem('auth_tokenExpiresAt') - Date.now()) / 1000 / (3600 * 24);
+  public isTokenValid(): boolean {
+    const expiresAt = +localStorage.getItem('auth_tokenExpiresAt');
+    const currentTime = Date.now();
+  
+    return expiresAt > currentTime;
   }
+  
 
   private getStoredUserData(): AuthResponse {
     return JSON.parse(localStorage.getItem('auth_userData')) as AuthResponse;

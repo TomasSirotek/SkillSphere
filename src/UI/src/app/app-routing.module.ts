@@ -17,6 +17,7 @@ const routes: Routes = [
   {
     path: 'courses',
     loadChildren: () => import('./modules/management/management.module').then((m) => m.ManagementModule),
+    canActivate: [AuthGuard],
 
   }, 
   { path: '**', redirectTo: 'error/404' },

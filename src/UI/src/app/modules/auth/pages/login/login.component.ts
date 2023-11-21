@@ -5,15 +5,9 @@ import { Router, RouterLink } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
-enum LocalLoginState {
-  None,
-  Waiting,
-  Success,
-  ErrorWrongData,
-  ErrorOther
-}
 
 @Component({
   selector: 'app-login',
@@ -26,7 +20,7 @@ enum LocalLoginState {
         NgClass,
         NgIf,
     ],
-  providers: [AuthService,HttpClient],
+  providers: [HttpClient],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -34,29 +28,22 @@ export class LoginComponent implements OnInit, OnDestroy{
   form!: FormGroup;
   submitted = false;
   passwordTextType!: boolean;
-  formSubmitAttempt: boolean;
   
   private sub: Subscription;
   
-  constructor(private readonly _formBuilder: FormBuilder,  private _router: Router,private authService: AuthService) {}
+  constructor(private readonly _formBuilder: FormBuilder,  private _router: Router,private authService: AuthService, private toastr: ToastrService) {}
   
-
   ngOnInit(): void {
     this.form = this._formBuilder.group({
-      email: ['test3@gmail.com', [Validators.required, Validators.email]],
-      password: ['Admin1!', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
   }
-
 
   ngOnDestroy(): void {
     if(this.sub) this.sub.unsubscribe();
   }
   
-
-  localLoginState = LocalLoginState.None;
-  get localLoginStates() { return LocalLoginState; }
-
   get f() {
     return this.form.controls;
   }
@@ -79,8 +66,9 @@ export class LoginComponent implements OnInit, OnDestroy{
         this._router.navigate(['/dashboard']);
       },
       error: (err: any) => {
+        this.toastr.error(JSON.stringify(err));
         // Handle errors here
-        // 401
+        // 4013
         // display alert
       }
     });

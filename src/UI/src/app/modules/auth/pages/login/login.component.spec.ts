@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -18,6 +19,7 @@ describe('LoginComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
+        ToastrModule.forRoot()
       ],
     });
     fixture = TestBed.createComponent(LoginComponent);

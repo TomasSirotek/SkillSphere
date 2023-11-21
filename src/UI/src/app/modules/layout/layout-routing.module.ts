@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
-import { ManagementComponent } from '../management/management.component';
 import { AuthGuard } from 'src/app/core/auth/service/auth-guard';
 
 const routes: Routes = [
@@ -9,7 +8,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: LayoutComponent,
-    loadChildren: () => import('../dashboard/dashboard.module').then((m) => m.DashboardModule)
+    loadChildren: () => import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
     path: 'courses',

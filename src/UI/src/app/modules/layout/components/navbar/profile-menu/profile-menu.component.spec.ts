@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProfileMenuComponent } from './profile-menu.component';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ProfileMenuComponent', () => {
   let component: ProfileMenuComponent;
@@ -10,7 +11,7 @@ describe('ProfileMenuComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ProfileMenuComponent,RouterTestingModule]
+      imports: [ProfileMenuComponent,RouterTestingModule,HttpClientTestingModule]
     });
     fixture = TestBed.createComponent(ProfileMenuComponent);
     component = fixture.componentInstance;
