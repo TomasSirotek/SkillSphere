@@ -1,8 +1,8 @@
 using SkillSphere.Application;
 using SkillSphere.Infrastructure;
+using SkillSphere.Infrastructure.Data;
 using SkillSphere.Web;
 using SkillSphere.Web.Infrastructure;
-using SkillSphere.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +12,19 @@ builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowedToAllowWildcardSubdomains()
+            .Build();
+    });
+});
 
 var app = builder.Build();
 
@@ -32,7 +45,7 @@ app.UseStaticFiles();
 
 app.UseSwaggerUi3(settings =>
 {
-    settings.Path = "/api";
+    settings.Path = "/api"; 
     settings.DocumentPath = "/api/specification.json";
 });
 
@@ -49,6 +62,15 @@ app.UseExceptionHandler(options => { });
 app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
+
+app.UseCors(options =>
+{
+    options.SetIsOriginAllowed(origin => true)
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
+
 
 app.Run();
 

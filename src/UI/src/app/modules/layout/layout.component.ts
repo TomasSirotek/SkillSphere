@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AlertComponent } from 'src/app/shared/component/alert/alert.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -14,8 +15,7 @@ import { AlertComponent } from 'src/app/shared/component/alert/alert.component';
         RouterOutlet,
         NavbarComponent,
         SidebarComponent,
-        AlertComponent,
-        
+        AlertComponent
     ],
 })
 export class LayoutComponent implements OnInit {

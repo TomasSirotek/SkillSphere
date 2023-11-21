@@ -14,8 +14,10 @@ import { DashboardData, ResponseDto } from '../models/DashboardData';
 
 export class DashboardServiceService {
 
-  constructor(private http: HttpClient,private state : State,private toastr: ToastrService) {
-  }
+  constructor(private http: HttpClient) {}
 
+  public getDashboardData(): Observable<any> {
+    return this.http.get<any>('https://localhost:5001/api/WeatherForecasts');
+  }
   
 }

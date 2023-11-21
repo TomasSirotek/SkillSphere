@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LayoutComponent } from './layout.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -10,7 +11,7 @@ describe('LayoutComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [LayoutComponent,RouterTestingModule,  ToastrModule.forRoot()]
+      imports: [LayoutComponent,RouterTestingModule,  ToastrModule.forRoot(),HttpClientTestingModule]
     });
     fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;

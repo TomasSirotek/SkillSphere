@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: ManagementComponent,
     children: [
-        { path: 'boxes', component: BoxesComponent },
+        { path: 'store', component: BoxesComponent },
         { path: 'boxes/:id', component: BoxDetailComponent },
     ],
   },

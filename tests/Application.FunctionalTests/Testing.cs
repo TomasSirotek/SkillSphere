@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SkillSphere.Domain.Constants;
 using skillSphere.Infrastructure.Data;
+using Roles = SkillSphere.Infrastructure.Identity.Roles;
 
 namespace SkillSphere.Application.FunctionalTests;
 

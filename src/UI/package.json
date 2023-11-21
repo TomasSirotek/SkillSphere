@@ -33,6 +33,7 @@
     "dotenv": "^16.3.1",
     "flowbite": "^1.8.1",
     "i": "^0.3.7",
+    "jwt-decode": "^4.0.0",
     "ngx-smart-modal": "^14.0.2",
     "ngx-toastr": "^17.0.2",
     "npm": "^10.1.0",

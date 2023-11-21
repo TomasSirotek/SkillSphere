@@ -1,6 +1,11 @@
-﻿namespace SkillSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿using SkillSphere.Application.Common.Security;
+using SkillSphere.Domain.Constants;
 
+namespace SkillSphere.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+
+[Authorize(Roles = Roles.Administrator)]
 public record GetWeatherForecastsQuery : IRequest<IEnumerable<WeatherForecast>>;
+
 
 public class GetWeatherForecastsQueryHandler : IRequestHandler<GetWeatherForecastsQuery, IEnumerable<WeatherForecast>>
 {
