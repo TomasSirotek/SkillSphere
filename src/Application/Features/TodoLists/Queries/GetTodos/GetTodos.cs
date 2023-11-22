@@ -2,10 +2,11 @@
 using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Application.Common.Models;
 using SkillSphere.Application.Common.Security;
+using SkillSphere.Application.Features.TodoLists.Queries.GetTodos;
 
 namespace SkillSphere.Application.TodoLists.Queries.GetTodos;
 
-[Authorize]
+// [Authorize]
 public record GetTodosQuery : IRequest<TodosVm>;
 
 public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>

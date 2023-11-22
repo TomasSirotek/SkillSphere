@@ -9,7 +9,7 @@ public class TodoListDto
         Items = Array.Empty<TodoItemDto>();
     }
 
-    public int Id { get; init; }
+    public Guid Id { get; init; }
 
     public string? Title { get; init; }
 

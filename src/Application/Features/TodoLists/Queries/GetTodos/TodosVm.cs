@@ -1,6 +1,7 @@
 ﻿using SkillSphere.Application.Common.Models;
+using SkillSphere.Application.TodoLists.Queries.GetTodos;
 
-namespace SkillSphere.Application.TodoLists.Queries.GetTodos;
+namespace SkillSphere.Application.Features.TodoLists.Queries.GetTodos;
 
 public class TodosVm
 {

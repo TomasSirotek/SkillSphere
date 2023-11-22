@@ -14,7 +14,16 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    
+    public DbSet<Course> Courses => Set<Course>();
+    
+    public DbSet<Category> Categories => Set<Category>();
+    
+    public DbSet<CourseCategory> CourseCategories => Set<CourseCategory>();
+    
+    public DbSet<Chapter> Chapters => Set<Chapter>();
 
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

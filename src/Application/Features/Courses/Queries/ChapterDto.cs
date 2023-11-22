@@ -1,0 +1,21 @@
+using SkillSphere.Domain.Entities;
+
+namespace SkillSphere.Application.Features.Courses.Queries;
+
+public class ChapterDto
+{
+    public string? Title { get; set; }
+    public string? Description { get; set; }
+    public string? VideoURL { get; set; }
+    public int? Position { get; set; }
+    public bool? IsFree { get; set; }
+    
+    private class Mapping : Profile
+    {
+        public Mapping()
+        {
+            CreateMap<Chapter, ChapterDto>().ForMember(d => d.Position,
+                opt => opt.MapFrom(s => (int)s.Position));
+        }
+    }
+}

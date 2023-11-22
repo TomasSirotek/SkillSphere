@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using skillSphere.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using skillSphere.Infrastructure.Data;
 namespace SkillSphere.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231122093730_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,37 +176,6 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("SkillSphere.Domain.Entities.Chapter", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("IsFree")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Position")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Chapters");
-                });
-
             modelBuilder.Entity("SkillSphere.Domain.Entities.Course", b =>
                 {
                     b.Property<Guid>("Id")
@@ -222,17 +194,11 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsPublished")
-                        .HasColumnType("bit");
-
                     b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -451,17 +417,6 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SkillSphere.Domain.Entities.Chapter", b =>
-                {
-                    b.HasOne("SkillSphere.Domain.Entities.Course", "Course")
-                        .WithMany("Chapters")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("SkillSphere.Domain.Entities.CourseCategory", b =>
                 {
                     b.HasOne("SkillSphere.Domain.Entities.Category", "Category")
@@ -523,8 +478,6 @@ namespace SkillSphere.Infrastructure.Data.Migrations
             modelBuilder.Entity("SkillSphere.Domain.Entities.Course", b =>
                 {
                     b.Navigation("Categories");
-
-                    b.Navigation("Chapters");
                 });
 
             modelBuilder.Entity("SkillSphere.Domain.Entities.TodoList", b =>

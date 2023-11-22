@@ -18,10 +18,10 @@ public static class InitialiserExtensions
     {
         using var scope = app.Services.CreateScope();
 
-        var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
-
+        var initialiser =  scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+        
         await initialiser.InitialiseAsync();
-
+        
         await initialiser.SeedAsync();
     }
 }
@@ -88,9 +88,37 @@ public class ApplicationDbContextInitialiser
                 await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
+        
+        // SEED DATA
+        if (!_context.Courses.Any())
+        {
+            var course1 = new Course
+            {
+                Title = "Course 2",
+                Description = "Course 2 Description",
+                CoverImageRelativePath = "https://images.pexels.com/photos/693859/pexels-photo-693859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                Price = 9.99f,
+                Categories = new List<CourseCategory>
+                {
+                    new CourseCategory
+                    {
+                        Category = new Category { Name = "Web development" }
+                    },
+                   
+                },
+                Chapters =
+                {
+                    new Chapter { Title = "Chapter 1", Description = "Chapter 1 Description",Position = 0,IsFree = false,},
+                    new Chapter { Title = "Chapter 2", Description = "Chapter 2 Description",Position = 1,IsFree = false,}
+                }
+                
+            };
 
-        // Default data
-        // Seed, if necessary
+            _context.Courses.Add(course1);
+            await _context.SaveChangesAsync();
+        }
+
+
         if (!_context.TodoLists.Any())
         {
             _context.TodoLists.Add(new TodoList
