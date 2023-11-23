@@ -10,7 +10,7 @@ import {
   DatatableComponent,
   SelectionType,
 } from '@swimlane/ngx-datatable';
-import { BoxServiceService } from '../../../services/box-service.service';
+import { CourseService } from '../../../services/course-service.service';
 import { Router } from '@angular/router';
 import { BoxesTableItemComponent } from '../boxes-table-item/boxes-table-item.component';
 import { BoxesModalComponent } from '../boxes-modal/boxes-modal.component';
@@ -59,7 +59,7 @@ export class BoxesTableComponent {
   filteredRows: any[] = [];
 
   constructor(
-    private boxService: BoxServiceService,
+    private boxService: CourseService,
     private state: State,
     private router: Router
   ) {
@@ -78,7 +78,7 @@ export class BoxesTableComponent {
   get pagedRows(): Box[] {
     return this.rows.slice(this.startIndex, this.endIndex + 1);
   }
-  fetchBoxes(boxService: BoxServiceService, state: State) {
+  fetchBoxes(boxService: CourseService, state: State) {
     this.isLoading = true;
   
     

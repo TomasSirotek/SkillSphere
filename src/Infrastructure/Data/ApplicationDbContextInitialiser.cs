@@ -94,8 +94,8 @@ public class ApplicationDbContextInitialiser
         {
             var course1 = new Course
             {
-                Title = "Course 2",
-                Description = "Course 2 Description",
+                Title = "Course 1",
+                Description = "Course 1 Description",
                 CoverImageRelativePath = "https://images.pexels.com/photos/693859/pexels-photo-693859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                 Price = 9.99f,
                 Categories = new List<CourseCategory>
@@ -108,8 +108,10 @@ public class ApplicationDbContextInitialiser
                 },
                 Chapters =
                 {
-                    new Chapter { Title = "Chapter 1", Description = "Chapter 1 Description",Position = 0,IsFree = false,},
-                    new Chapter { Title = "Chapter 2", Description = "Chapter 2 Description",Position = 1,IsFree = false,}
+                    new Chapter { Title = "Chapter 1", Description = "Chapter 1 Description",Position = 0,IsFree = true,},
+                    new Chapter { Title = "Chapter 2", Description = "Chapter 2 Description",Position = 1,IsFree = false,},
+                    new Chapter { Title = "Chapter 3", Description = "Chapter 3 Description",Position = 2,IsFree = false,},
+                    new Chapter { Title = "Chapter 4", Description = "Chapter 4 Description",Position = 3,IsFree = false,},
                 }
                 
             };

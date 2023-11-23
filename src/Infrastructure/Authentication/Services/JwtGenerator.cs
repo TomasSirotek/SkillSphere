@@ -47,7 +47,7 @@ namespace SkillSphere.Infrastructure.Authentication.Services;
                 Audience = null,
                 Issuer = null,
                 Subject = new ClaimsIdentity(claimList),
-                Expires = DateTime.UtcNow.AddSeconds(20),
+                Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

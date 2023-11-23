@@ -4,7 +4,7 @@ import { DialogConfig, DialogService } from '@ngneat/dialog';
 import { BoxesModalComponent } from '../boxes-modal/boxes-modal.component';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { Box } from '../../../models/box';
-import { BoxServiceService } from '../../../services/box-service.service';
+import { CourseService } from '../../../services/course-service.service';
 import { State } from 'src/app/shared/state';
 import { Modal } from 'flowbite'
 import type { ModalOptions, ModalInterface } from 'flowbite'

@@ -560,6 +560,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
           "title": {
             "type": "string",
             "nullable": true

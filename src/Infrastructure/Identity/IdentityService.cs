@@ -93,7 +93,7 @@ public class IdentityService : IIdentityService
             UserId = user.Id,
             Email = user.Email,
             Token = token.Result,
-            ExpiresIn = 20,
+            ExpiresIn = 3600,
         };
     }
 

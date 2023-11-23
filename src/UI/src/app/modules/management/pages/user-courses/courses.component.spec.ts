@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoxesComponent } from './boxes.component';
+import { CoursesComponent } from './courses.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
-describe('BoxesComponent', () => {
-  let component: BoxesComponent;
-  let fixture: ComponentFixture<BoxesComponent>;
+describe('CoursesComponent', () => {
+  let component: CoursesComponent;
+  let fixture: ComponentFixture<CoursesComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BoxesComponent,HttpClientModule,ToastrModule.forRoot()],
+      imports: [CoursesComponent,HttpClientModule,ToastrModule.forRoot()],
   
     });
-    fixture = TestBed.createComponent(BoxesComponent);
+    fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

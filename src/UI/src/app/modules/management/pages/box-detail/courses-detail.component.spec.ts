@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoxDetailComponent } from './box-detail.component';
+import { CoursesDetailComponent } from './courses-detail.component';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,15 +8,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { By } from '@angular/platform-browser';
 import { Box } from '../../models/box';
 
-describe('BoxDetailComponent', () => {
-  let component: BoxDetailComponent;
-  let fixture: ComponentFixture<BoxDetailComponent>;
+describe('CoursesDetailComponent', () => {
+  let component: CoursesDetailComponent;
+  let fixture: ComponentFixture<CoursesDetailComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BoxDetailComponent,RouterTestingModule,HttpClientModule,ToastrModule.forRoot()],
+      imports: [CoursesDetailComponent,RouterTestingModule,HttpClientModule,ToastrModule.forRoot()],
     });
-    fixture = TestBed.createComponent(BoxDetailComponent);
+    fixture = TestBed.createComponent(CoursesDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
