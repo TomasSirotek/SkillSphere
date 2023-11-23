@@ -4,12 +4,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CourseService } from './services/course-service.service';
 import { DialogService ,DialogRef} from '@ngneat/dialog';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ChaptersListComponent } from './components/courses/chapters/chapters.component';
 
 @NgModule({
   imports: [
     ManagementRoutingModule,
     HttpClientModule,
     NgxDatatableModule,
+  
   ],
   providers: [
     {

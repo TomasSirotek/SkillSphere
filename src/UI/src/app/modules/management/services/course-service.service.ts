@@ -40,6 +40,7 @@ export class CourseService {
   }
 
 
+
   // get user courses if any
 
   // get course by id 
@@ -50,6 +51,11 @@ export class CourseService {
 
   // delete course
 
+
+  // get all categories 
+  public getAllCategories(): Observable<any> {
+    return this._http.get<any>('https://localhost:5001/api/categories');
+  }
 
 
 }

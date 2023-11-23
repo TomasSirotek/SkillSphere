@@ -1,8 +1,5 @@
 <!-- Your sidebar page -->
-<div class="mx-auto px-4 py-4 sm:px-8 lg:container sm:container bg-white dark:bg-night-700  ">
-
-
- 
+<!-- <div class="mx-auto px-4 py-4 sm:px-8 lg:container sm:container bg-white dark:bg-night-700  ">
   <div class=" px-5 ">
     <div class=" mx-auto flex flex-wrap">
       <img alt="ecommerce" class="lg:w-1/2 w-full  object-cover object-center rounded border border-gray-200" src="{{ course?.coverImageRelativePath}}">
@@ -82,9 +79,297 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+<!-- </div> -->
+
+<div class="p-6">
+  <div class="flex items-center justify-between">
+    <div class="flex flex-col gap-y-2">
+      <h2 class="text-2xl  dark:text-white">
+        Course setup
+    </h2>
+      <span class="text-sm text-slate-700 dark:text-white">
+        Complete all fields {{ completionText }}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-x-2">
+      <button
+        class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600"
+      >
+         Publish
+      </button>
+    </div>
   </div>
-     
-  
-  
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto ">
+  <div>
+    <div class="flex items-center gap-x-2">
+      <h2 class="text-xl dark:text-white">Customize your course</h2>
+    </div>
+
+    <!-- TITLE START BOX  -->
+    <div class="mt-6 border bg-slate-100 rounded-md p-4">
+      <div class="font-medium flex items-center justify-between">
+        Course title
+        <button class="text-blue-500" (click)="toggleEdit()" [ngClass]="{ hidden: isEditing }">
+          <span>Edit title</span>
+          <span class="ml-2">
+            <i class="fas fa-pencil-alt"></i>
+          </span>
+        </button>
+        <button *ngIf="isEditing" (click)="toggleEdit()" class="text-red-500">Cancel</button>
+      </div>
+      <ng-container *ngIf="!isEditing">
+        <p class="text-sm mt-2">Frontend course</p>
+      </ng-container>
+      <ng-container *ngIf="isEditing">
+        <form>
+          <div class="space-y-4 mt-4">
+            <div class="mb-4">
+              <label
+                for="title"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Title
+              </label>
+              <input
+                id="title"
+                type="text"
+                placeholder="e.g. 'Advanced web development'"
+                class="mt-1 p-2 border rounded-md w-full"
+              />
+              <div class="text-red-500 text-sm mt-1">Title is required</div>
+            </div>
+            <div class="flex items-center gap-x-2">
+              <button
+               
+                class="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+
+    <!-- TITLE END BOX  -->
+
+
+    <!-- DESCRIPTION -->
+
+    <div class="mt-6 border bg-slate-100 rounded-md p-4">
+      <div class="font-medium flex items-center justify-between">
+        Course description
+        <button class="text-blue-500" [ngClass]="{ hidden: isEditing }">
+          <span>Edit description</span>
+          <span class="ml-2">
+            <i class="fas fa-pencil-alt"></i>
+          </span>
+        </button>
+        <button *ngIf="isEditing" class="text-red-500">Cancel</button>
+      </div>
+      <ng-container *ngIf="!isEditing">
+        <p class="text-sm mt-2">
+          {{ "No description" }}
+        </p>
+      </ng-container>
+      <ng-container *ngIf="isEditing">
+        <form>
+          <div class="space-y-4 mt-4">
+            <div class="mb-4">
+              <label
+                for="description"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Description
+              </label>
+              <textarea
+                id="description"
+                placeholder="e.g. 'This course is about...'"
+                class="mt-1 p-2 border rounded-md w-full"
+              ></textarea>
+              <div class="text-red-500 text-sm mt-1">
+                Description is required
+              </div>
+            </div>
+            <div class="flex items-center gap-x-2">
+              <button
+              
+                class="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </div>
+    <!-- DESCRIPTION END-->
+
+
+    <!-- CATEGORIES -->
+
+    <div class="mt-6 border bg-slate-100 rounded-md p-4">
+        <div class="font-medium flex items-center justify-between">
+          Course category
+          <button class="bg-transparent   rounded px-2">
+            <ng-container *ngIf="isEditing; else editCategory">
+              Cancel
+            </ng-container>
+            <ng-template #editCategory>
+                <button class="text-blue-500">
+                    <span>Edit categories</span>
+                    <span class="ml-2">
+                      <i class="fas fa-pencil-alt"></i>
+                      <!-- PLACE FOR ICON -->
+                    </span>
+                  </button>
+            </ng-template>
+          </button>
+        </div>
+        <ng-container *ngIf="!isEditing; else editCategoryView">
+          <p class="text-sm mt-2" >
+         'No category' 
+          </p>
+        </ng-container>
+        
+        <ng-template #editCategoryView>
+          <div  class="space-y-4 mt-4">
+            <ng-select
+            [items]="categories$ | async"
+            [multiple]="true"
+            [closeOnSelect]="false"
+            [hideSelected]="true"
+            bindLabel="name"
+            placeholder="Select categories"
+            [(ngModel)]="selectedCategories">
+        </ng-select>
+        
+           
+          
+        
+            <div class="flex items-center gap-x-2">
+              <button  class="bg-blue-500 text-white px-4 py-2 rounded">
+                Save
+              </button>
+            </div>
+        </div>
+        </ng-template>
+      </div>
+      
+
+       <!-- CATEGORIES  END-->
+
+
+        <!-- IMAGE UPLOAD -->
+    <div class="mt-6 border bg-slate-100 rounded-md p-4">
+      <div class="font-medium flex items-center justify-between">
+        Course image
+        <button *ngIf="isEditing" class="text-red-500">Cancel</button>
+        <button class="text-blue-500">
+          <span>Edit image</span>
+          <span class="ml-2">
+            <i class="fas fa-pencil-alt"></i>
+          </span>
+        </button>
+      </div>
+      <ng-container *ngIf="!isEditing">
+        <ng-container>
+          <div class="relative aspect-video mt-2">
+            <img
+              alt="Upload"
+              class="object-cover rounded-md"
+              src="https://github.com/TomasSirotek/SkillSphere/assets/72190589/8df94a8b-97c4-4cc2-af17-a637e4df69f0"
+            />
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="isEditing">
+        <div>
+          <div class="text-xs text-muted-foreground mt-4">
+            16:9 aspect ratio recommended
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+
   </div>
-  
+
+
+
+  <div class="space-y-6 dark:text-black">
+    <div>
+      <div class="flex items-center gap-x-2 ">
+        <h2 class="text-xl">Course chapters</h2>
+      </div>
+
+      <div class="relative mt-6 border bg-slate-100 rounded-md p-4">
+        <div
+          *ngIf="isUpdating"
+          class="absolute h-full w-full bg-slate-500/20 top-0 right-0 rounded-md flex items-center justify-center"
+        >
+          <div class="animate-spin h-6 w-6 text-sky-700">
+            <!-- Add loader icon here -->
+          </div>
+        </div>
+        <div class="font-medium flex items-center justify-between">
+          Course chapters
+          <button class="text-blue-500" [ngClass]="{ hidden: isCreating }">
+            <span>Add a chapter</span>
+            <span class="ml-2">
+              <i class="fas fa-plus-circle"></i>
+            </span>
+          </button>
+          <button *ngIf="isCreating" class="text-red-500">Cancel</button>
+        </div>
+        <ng-container *ngIf="isCreating">
+          <form>
+            <div class="space-y-4 mt-4">
+              <div class="form-item">
+                <div class="form-control">
+                  <input
+                    [disabled]="isSubmitting"
+                    placeholder="e.g. 'Introduction to the course'"
+                    formControlName="title"
+                  />
+                </div>
+                <div class="form-message"></div>
+              </div>
+              <button type="submit">Create</button>
+            </div>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="!isCreating">
+          <div class="text-sm mt-2 text-slate-500 italic">No chapters</div>
+          <!-- <chapters-list
+                *ngIf="initialData.chapters.length"
+                [items]="initialData.chapters"
+                (onEdit)="onEdit($event)"
+                (onReorder)="onReorder($event)"
+              ></chapters-list> -->
+
+
+
+             
+
+
+
+
+          <p class="text-xs text-muted-foreground mt-4">
+            Drag and drop to reorder the chapters
+          </p>
+        </ng-container>
+      </div>
+    </div>
+    <div>
+      <div class="flex items-center gap-x-2">
+        <h2 class="text-xl">Sell your course</h2>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</div>

@@ -3,8 +3,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-// regular style toast
 @import 'ngx-toastr/toastr';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 
 @layer base {
