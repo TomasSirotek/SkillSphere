@@ -7,10 +7,11 @@ public class Course : BaseAuditableEntity
     public string? CoverImageRelativePath { get; set; }
 
     public bool? IsPublished { get; set; } = false;
-    
     public float Price { get; set; }
     
     public IList<Chapter> Chapters { get; init; } = new List<Chapter>();
 
     public IList<CourseCategory> Categories { get; init; } = new List<CourseCategory>();
+    
+    public IList<UserCourse> UserCourses { get; init; } = new List<UserCourse>();
 }

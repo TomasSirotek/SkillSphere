@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { By } from '@angular/platform-browser';
-import { Box } from '../../models/box';
 
 describe('CoursesDetailComponent', () => {
   let component: CoursesDetailComponent;

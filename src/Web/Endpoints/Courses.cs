@@ -11,15 +11,20 @@ public class Courses : EndpointGroupBase
     {
         app.MapGroup(this)
             .MapPost(CreateCourse)
+            .MapGet(GetCoursesByUserId, "{id}")
             .MapGet(GetCourses);
     }
     
-    public async Task<int> CreateCourse(ISender sender,CreateCourseCommand command)
+    public async Task<Guid> CreateCourse(ISender sender,CreateCourseCommand command)
     {
         return await sender.Send(command);
     }
     
     public async Task<GetCourseVm> GetCourses(ISender sender)
+    {
+        return await sender.Send(new GetCoursesQuery());
+    }
+    public async Task<GetCourseVm> GetCoursesByUserId(ISender sender,Guid id)
     {
         return await sender.Send(new GetCoursesQuery());
     }

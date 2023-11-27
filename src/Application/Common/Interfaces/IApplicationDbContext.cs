@@ -15,6 +15,8 @@ public interface IApplicationDbContext
     DbSet<CourseCategory> CourseCategories { get; }
     
     DbSet<Chapter> Chapters { get; }
+    
+    DbSet<UserCourse> UsersCourses { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

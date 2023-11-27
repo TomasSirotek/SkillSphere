@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SkillSphere.Domain.Entities;
 using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Domain.Identity;
 using SkillSphere.Infrastructure.Identity;
 
 namespace skillSphere.Infrastructure.Data;
@@ -22,6 +23,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<CourseCategory> CourseCategories => Set<CourseCategory>();
     
     public DbSet<Chapter> Chapters => Set<Chapter>();
+    
+    public DbSet<UserCourse> UsersCourses => Set<UserCourse>();
 
     
     protected override void OnModelCreating(ModelBuilder builder)

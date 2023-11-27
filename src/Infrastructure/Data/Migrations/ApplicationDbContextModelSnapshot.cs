@@ -335,6 +335,29 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                     b.ToTable("TodoLists");
                 });
 
+            modelBuilder.Entity("SkillSphere.Domain.Entities.UserCourse", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("UsersCourses");
+                });
+
             modelBuilder.Entity("SkillSphere.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -515,6 +538,21 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SkillSphere.Domain.Entities.UserCourse", b =>
+                {
+                    b.HasOne("SkillSphere.Infrastructure.Identity.ApplicationUser", null)
+                        .WithMany("UserCourses")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("SkillSphere.Domain.Entities.Course", "Course")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("SkillSphere.Domain.Entities.Category", b =>
                 {
                     b.Navigation("CourseCategories");
@@ -525,11 +563,18 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("Chapters");
+
+                    b.Navigation("UserCourses");
                 });
 
             modelBuilder.Entity("SkillSphere.Domain.Entities.TodoList", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("SkillSphere.Infrastructure.Identity.ApplicationUser", b =>
+                {
+                    b.Navigation("UserCourses");
                 });
 #pragma warning restore 612, 618
         }

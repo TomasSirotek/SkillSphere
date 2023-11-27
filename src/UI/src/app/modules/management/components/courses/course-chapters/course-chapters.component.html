@@ -1,0 +1,160 @@
+<div class="mt-6 border bg-gray-50 rounded-xl">
+  <div class="font-medium flex items-center justify-between border-b p-4">
+    <span>Chapters</span>
+    <button
+      (click)="addChapter()"
+      type="button"
+      class="text-sm text-grey-200 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+    >
+      + Add chapter
+    </button>
+  </div>
+
+  <div class="space-y-4">
+    <div class="p-4">
+      <ng-template #recursiveList let-list>
+        <div *ngFor="let item of list" class="py-1">
+          <div
+            [dndDraggable]="item"
+            dndEffectAllowed="move"
+            (dndMoved)="onDragged(item, list, 'move')"
+            class="custom-cursor border px-4"
+            data-accordion="collapse"
+            [attr.data-active-classes]="
+              'hover:cursor-move bg-red-500 dark:bg-gray-900 text-gray-900 dark:text-white'
+            "
+            [attr.data-inactive-classes]="
+              'hover:cursor-move text-gray-500 dark:text-gray-400'
+            "
+          >
+            <div id="accordion-flush">
+              <h2>
+                <button
+                  type="button"
+                  class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                  [attr.aria-controls]="'accordion-flush-body-' + item.id"
+                  (click)="toggleAccordion(item.id)"
+                >
+                  <ng-icon  class="text-xl hover:cursor-move" name="heroBars3"></ng-icon>
+                  <span>{{ item.title }}</span>
+                  <svg
+                    data-accordion-icon
+                    class="w-3 h-3 rotate-180 shrink-0"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5 5 1 1 5"
+                    />
+                  </svg>
+                </button>
+              </h2>
+              <div *ngIf="item.isExpanded" >
+                <div class="py-5  border-gray-200 dark:border-gray-700">
+                  <div
+                    *ngFor="let child of item.children"
+                    class="py-5 border-gray-200 dark:border-gray-700"
+                  >
+                  <div >
+                    <label
+                    for="title"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white "
+                    >Title</label
+                  >
+                    <input
+                    [(ngModel)]="item.title"
+                    id="title"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Advanced Web development"
+                    required
+                  />
+                  </div>
+                    <div class="mt-2">
+                      <label
+                        for="first_name"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >Description</label
+                      >
+                      <input
+                      [(ngModel)]=" child.description"
+                        id="first_name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Advanced Web development"
+                        required
+                      />
+                    </div>
+                   
+                    <div>
+                      <label
+                      for="video"
+                      class="mt-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >VideoURL</label
+                    >
+                      <input
+                      [(ngModel)]=" child.videoURL"
+                      id="video"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="https://yt.com"
+                      required
+                    />
+                    </div>
+                    <div class="py-5">
+                      <label
+                        class="relative inline-flex items-center cursor-pointer "
+                      >
+                        <input
+                          type="checkbox"
+                          class="sr-only peer"
+                          [checked]="!child.isFree"
+                        />
+                        <div
+                          class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+                        ></div>
+                        <span
+                          class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                          >Paid</span
+                        >
+                      </label>
+                    </div>
+
+                    <!-- <div><strong>Position:</strong> {{ child.position }}</div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="row">
+        <div class="col-12 offset-lg-2 col-lg-4">
+          <mat-list
+            (dndDrop)="onDrop($event, draggableList)"
+            class="d-flex flex-column bg-light gap-1"
+            dndDropzone
+            dndEffectAllowed="move"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                recursiveList;
+                context: { $implicit: draggableList }
+              "
+            />
+          </mat-list>
+        </div>
+      </div>
+    </div>
+
+      <div class=" text-sm text-gray-500 pl-6 pb-6">
+        <span
+          >Drag and drop to reorder the chapters</span
+        >
+      </div>
+  </div>
+</div>

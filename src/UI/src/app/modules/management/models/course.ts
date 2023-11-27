@@ -23,4 +23,8 @@ export interface Categories {
     isFree:boolean;
   }
   
-  
+  // price tier list 
+  // Free
+  // 19.99 (tier 1)
+  // 29.99 (tier 2)
+  // 30.99 (tier 3)

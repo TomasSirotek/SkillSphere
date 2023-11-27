@@ -4,33 +4,47 @@ using SkillSphere.Domain.Events;
 
 namespace SkillSphere.Application.Features.Courses.Commands.CreateCourse;
 
-public record CreateCourseCommand : IRequest<int>
+public record CreateCourseCommand : IRequest<Guid>
 {
+    
+    public Guid UserId { get; init; }
     public string? Title { get; init; }
 }
 
-public class CreateTodoItemCommandHandler : IRequestHandler<CreateCourseCommand, int>
+public class CreateTodoItemCommandHandler : IRequestHandler<CreateCourseCommand, Guid>
 {
     private readonly IApplicationDbContext _context;
+    
+    private readonly IIdentityService _userService;
 
-    public CreateTodoItemCommandHandler(IApplicationDbContext context)
+
+    public CreateTodoItemCommandHandler(IApplicationDbContext context, IIdentityService userService)
     {
         _context = context;
+        _userService = userService;
     }
     
-    public Task<int> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
     {
         var entity = new Course()
         {
-            Title = request.Title,
-           
+            Title = request.Title
+        };
+        
+        var newCourse = _context.Courses.Add(entity);
+        await _context.SaveChangesAsync(cancellationToken);
+        
+        var userCourse = new UserCourse
+        {
+            UserId = request.UserId,
+            CourseId = newCourse.Entity.Id
         };
 
-        var test = _context.Courses.ToList();
+        _context.UsersCourses.Add(userCourse);
         
+        await _context.SaveChangesAsync(cancellationToken);
         
-
-        return Task.FromResult(1);
+        return newCourse.Entity.Id;
     }
 }
 

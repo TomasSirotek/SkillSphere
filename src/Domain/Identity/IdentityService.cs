@@ -1,13 +1,10 @@
-﻿using System.Collections.Immutable;
-using System.Security.Authentication;
-using SkillSphere.Application.Common.Interfaces;
-using SkillSphere.Application.Common.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SkillSphere.Infrastructure.Authentication.Services;
+using SkillSphere.Infrastructure.Identity;
 
-namespace SkillSphere.Infrastructure.Identity;
+namespace SkillSphere.Domain.Identity;
 
 public class IdentityService : IIdentityService
 {

@@ -1,0 +1,61 @@
+<div class=" mx-auto container mt-5 ">
+  <div class="flex items-center justify-between">
+    <div class="flex flex-col gap-y-2">
+      <div class="flex flex-row gap-2 items-center">
+        <h2 class="text-2xl dark:text-white">{{ coursesTitles }}</h2>
+        <span
+          *ngIf="!coursez.isPublished"
+          class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+          >DRAFT</span
+        >
+        <span
+          *ngIf="coursez.isPublished"
+          class="bg-green-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+          >PUBLISHED</span
+        >
+      </div>
+      <span class="text-sm text-slate-700 dark:text-white">
+        Complete all fields {{ completionText }}
+      </span>
+    </div>
+
+    <div class="flex items-center gap-x-2">
+      <button
+      (click)="saveAsDraft()"
+        class="flex-none button border border-gray-200 rounded-md bg-white px-4 py-2.5 text-xs font-semibold text-black hover:text-black"
+      >
+        Save as draft
+      </button>
+      <button
+      (click)="publishCourse()"
+        class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600"
+      >
+        Publish
+      </button>
+      <button
+      (click)="publishCourse()"
+        class="flex-none button rounded-md bg-red-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-red-600"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto">
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mx-auto">
+    <div>
+      <app-course-title [(courseTitle)]="coursez.title" />
+      <app-course-description [(courseDescription)]="coursez.description" />
+      <app-course-categories [(courseCategories)]="coursez.categories" />
+      <app-course-price [(coursePrice)]="coursez.price" />
+    </div>
+
+    <div class="space-y-6 dark:text-black">
+      <div></div>
+      <app-course-image-upload  [(uploadedFileUrl)]="coursez.coverImageRelativePath" />
+      <app-course-chapters />
+    </div>
+  </div>
+</div>

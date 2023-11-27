@@ -37,11 +37,7 @@ export class Menu {
           label: 'Settings',
           route: '/settings',
         },
-        {
-          icon: 'heroBuildingStorefront',
-          label: 'Notifications',
-          route: '/gift',
-        },
+      
       ],
     }, 
   ];

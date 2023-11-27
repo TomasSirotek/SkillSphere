@@ -1,0 +1,19 @@
+<div class="mt-6 border bg-gray-50 rounded-md">
+  <div class="font-medium flex items-center justify-between border-b p-4">
+    <span>Cover image</span>
+  </div>
+  <div class="space-y-4">
+    <div class="p-4">
+      <ng-select
+        [items]="categories$ | async"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        [hideSelected]="true"
+        bindLabel="name"
+        placeholder="Select categories"
+        [(ngModel)]="courseCategories"
+      >
+      </ng-select>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,11 @@
  <!-- Header -->
- <div class="mx-auto px-4 py-4 sm:px-8 lg:container sm:container bg-white dark:bg-night-700 h-screen ">
+ <div class="mx-auto  py-4  container bg-white dark:bg-night-700 h-screen ">
  
-    <app-boxes-header  [isDetail]="false" title="My course" subTitle="Manage your courses"></app-boxes-header>
- 
- 
+    <app-boxes-header [showButton]="showButton" title="Courses" subTitle="Manage your courses"></app-boxes-header>
 
+ 
+    <!-- LIST OF ALL USERS OR COURSE DRAFTS AND PUBLISHED COURSES -->
+    <app-user-courses (coursesLengthChange)="handleCoursesLengthChange($event)"></app-user-courses>
+    
   </div>
+

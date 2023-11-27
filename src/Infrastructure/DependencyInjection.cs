@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Domain.Constants;
+using SkillSphere.Domain.Identity;
 using SkillSphere.Infrastructure.Authentication;
 using SkillSphere.Infrastructure.Authentication.Services;
 using skillSphere.Infrastructure.Data;

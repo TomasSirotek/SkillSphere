@@ -13,6 +13,7 @@ import { Course } from '../models/course';
 
 
 export class CourseService {
+ 
   
 
   public coursesState: Observable<Course[]>;
@@ -39,6 +40,17 @@ export class CourseService {
     return this.coursesState;
   }
 
+  public createCourse(courseTitle: string,userId: string): Observable<string> {
+    return this._http.post<any>('https://localhost:5001/api/courses', { title: courseTitle,userId: userId }).pipe(
+      map(response => response),
+      catchError(error => {
+        // Handle the error as needed, e.g., log it or show a notification
+        console.error('Error creating course:', error);
+        // You can rethrow the error or return a default value
+        throw error;
+      })
+    );
+  }
 
 
   // get user courses if any

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SkillSphere.Domain.Constants;
+using SkillSphere.Domain.Identity;
 using skillSphere.Infrastructure.Data;
 using Roles = SkillSphere.Infrastructure.Identity.Roles;
 

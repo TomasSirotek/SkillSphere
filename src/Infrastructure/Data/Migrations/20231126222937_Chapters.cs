@@ -47,9 +47,44 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UsersCourses",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersCourses", x => new { x.UserId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_UsersCourses_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_UsersCourses_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Chapters_CourseId",
                 table: "Chapters",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersCourses_ApplicationUserId",
+                table: "UsersCourses",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersCourses_CourseId",
+                table: "UsersCourses",
                 column: "CourseId");
         }
 
@@ -58,6 +93,9 @@ namespace SkillSphere.Infrastructure.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Chapters");
+
+            migrationBuilder.DropTable(
+                name: "UsersCourses");
 
             migrationBuilder.DropColumn(
                 name: "IsPublished",

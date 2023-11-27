@@ -1,0 +1,70 @@
+<div class="mt-6 border bg-gray-50 rounded-md">
+  <div class="font-medium flex items-center justify-between border-b p-4">
+    <span>Cover image</span>
+  </div>
+  <div class="space-y-4">
+    <div class="p-4">
+      <div class="flex items-center justify-center w-full">
+        <label
+          *ngIf="!uploadedFileUrl"
+          for="dropzone-file"
+          class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        >
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <svg
+              class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 16"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+              />
+            </svg>
+            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              <span class="font-semibold">Click to upload</span> or drag and
+              drop
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              SVG, PNG, JPG or GIF (MAX. 800x400px)
+            </p>
+          </div>
+          <input
+            (change)="handleFileUpload($event)"
+            id="dropzone-file"
+            type="file"
+            class="hidden"
+          />
+        </label>
+
+        <div *ngIf="uploadedFileUrl" class="relative">
+          <img
+            [src]="uploadedFileUrl"
+            alt="course image"
+            class="w-full h-64 object-cover rounded-lg"
+          />
+          
+          <div class="text-white   shadow-md absolute top-2 right-2 cursor-pointer">
+            <ng-icon class="text-xl bg-blue-500  rounded-xl  shadow-md" name="heroXMark" (click)="reuploadImage()">
+            </ng-icon>
+
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="mt-2 text-sm p-2 text-gray-500">
+        <span
+          >Upload your course image here. It must meet our course image quality
+          standards to be accepted. Important guidelines: 750x422 pixels; .jpg,
+          .jpeg,. gif, or .png. no text on the image.</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

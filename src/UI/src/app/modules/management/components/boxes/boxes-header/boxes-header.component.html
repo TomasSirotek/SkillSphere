@@ -6,16 +6,18 @@
         <span >{{subTitle}}</span>
       </div>
     </div>
-    <div class="inline-block space-x-4" *ngIf="!isDetail">
+    <div class="inline-block space-x-4" *ngIf="showButton">
       <button
         (click)="openModal()"
         data-testid="open-modal-button"
         class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600">
-        Create course
+        New course
       </button>
-
     </div>
   </div>
+
+  <app-modal (canceled)="handleCancleModal()" ></app-modal>
+
 
   
   

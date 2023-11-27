@@ -85,4 +85,9 @@ export class AuthService  {
   private getStoredUserData(): AuthResponse {
     return JSON.parse(localStorage.getItem('auth_userData')) as AuthResponse;
   }
+
+  public getUserId(): string {
+    const userData = this.getStoredUserData();
+    return userData?.userId;
+  }
 }
