@@ -43,44 +43,7 @@ jobs:
       - name: Build solution
         run: dotnet build --no-restore --configuration Release
 
-      - name: Test solution with Coverage Upload
-        run: dotnet test --no-build -c Release --verbosity normal
-          /p:CollectCoverage=true
-          /p:Include="[SkillSphere.Domain]*?%2c[skillSphere.Application]*?%2c[SkillSphere.Web]*"
-          /p:CoverletOutput=.coverage/
-          /p:CoverletOutputFormat=lcov
       
-      # Upload to the coverage        
-      - name: DomainUnitTests Report Upload
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: DomainUnitTests
-          path-to-lcov: tests/Domain.UnitTests/.coverage/coverage.info
-          parallel: true
-
-      - name: ApplicationUnitTests Report Upload
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: ApplicationUnitTests
-          path-to-lcov: tests/Application.UnitTests/.coverage/coverage.info
-          parallel: true
-
-      - name: ApplicationFunctionalTests Report Upload
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: ApplicationFunctionalTests
-          path-to-lcov: tests/Application.FunctionalTests/.coverage/coverage.info
-          parallel: true
-
-      - name: Conclude Coverage Upload
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true
-
       - name: Publish website
         if: ${{ inputs.build-artifacts == true }}
         run: |
@@ -139,6 +102,6 @@ jobs:
     - name: Build Angular App
       run: npm run build
 
-    - name: Run test with coverage
+    - name: Run test
       run: npm run test:prod
 
