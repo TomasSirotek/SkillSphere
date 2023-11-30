@@ -6,6 +6,8 @@
     <div class="NgxEditor__Wrapper" class="p-4 bg-gray-50  ">
       <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
       <ngx-editor
+        (input)="onInputChange($event)" 
+        (change)="onInputChange($event)"
         [editor]="editor"
         [ngModel]="courseDescription"
         [disabled]="false"

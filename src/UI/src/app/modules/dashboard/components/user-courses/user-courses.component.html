@@ -2,7 +2,7 @@
   <div class="space-y-4">
     <div>
       <div
-        *ngIf="userCourses === undefined"
+        *ngIf="userCourses?.length === 0"
         class="flex justify-between border bg-gray-50 rounded-md p-6"
       >
         <div>
@@ -10,23 +10,18 @@
         </div>
 
         <div>
-          <button
-            data-testid="open-modal-button"
-            class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600"
-          >
-            New course
-          </button>
+          <img src="path" alt="ready for image" />
         </div>
       </div>
 
-      <div *ngIf="userCourses !== undefined">
+      <div *ngIf="userCourses?.length > 0">
         <div *ngFor="let course of userCourses">
           <div
             class="w-full flex my-2 flex justify-between border bg-gray-50 rounded-md"
           >
             <div class="image-wrapper">
               <img
-                class="w-48 h-32 object-cover "
+                class="w-48 h-32 object-cover"
                 src="{{ course?.coverImageRelativePath }}"
                 alt="sss"
               />
@@ -40,8 +35,14 @@
                   <div class="font-bold">{{ course.title }}</div>
                   <div>
                     <span
-                      class="bg-gray-300 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+                      *ngIf="!course?.isPublished"
+                      class="bg-orange-300 text-orange-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
                       >DRAFT</span
+                    >
+                    <span
+                      *ngIf="course?.isPublished"
+                      class="bg-green-300 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+                      >PUBLISHED</span
                     >
                   </div>
                 </div>
@@ -49,7 +50,7 @@
 
               <div class="w-1/3 flex items-center justify-center">
                 <button
-                (click)="goToDetailPage(course.id)"
+                  (click)="goToDetailPage(course.id)"
                   data-testid="open-modal-button"
                   class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600"
                 >

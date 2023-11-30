@@ -10,14 +10,14 @@ export interface Course {
   }
 
 export interface Categories {
-    id: string; 
+    categoryId: string; 
     name: string; 
-    avatar_url: string; 
   }
 
   export interface Chapter {
     id: string;
     title: string; 
+    description: string;
     videoURL: string; 
     position:number;
     isFree:boolean;

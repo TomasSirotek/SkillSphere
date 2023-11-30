@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Application.Common.Models;
 using SkillSphere.Infrastructure.Authentication.Services;
 using SkillSphere.Infrastructure.Identity;
 

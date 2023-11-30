@@ -1,4 +1,4 @@
-﻿using SkillSphere.Application.Common.Models;
+﻿using SkillSphere.Domain.Common.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace SkillSphere.Infrastructure.Identity;

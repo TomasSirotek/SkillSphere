@@ -4,14 +4,19 @@
       <div class="flex flex-row gap-2 items-center">
         <h2 class="text-2xl dark:text-white">{{ coursesTitles }}</h2>
         <span
-          *ngIf="!coursez.isPublished"
-          class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+          *ngIf="!course?.isPublished"
+          class="bg-orange-200 text-orange-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
           >DRAFT</span
         >
         <span
-          *ngIf="coursez.isPublished"
+          *ngIf="course?.isPublished && !isChanged"
           class="bg-green-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
           >PUBLISHED</span
+        >
+        <span
+          *ngIf="isChanged"
+          class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+          >CHANGED</span
         >
       </div>
       <span class="text-sm text-slate-700 dark:text-white">
@@ -21,41 +26,41 @@
 
     <div class="flex items-center gap-x-2">
       <button
-      (click)="saveAsDraft()"
-        class="flex-none button border border-gray-200 rounded-md bg-white px-4 py-2.5 text-xs font-semibold text-black hover:text-black"
+      [disabled]="!isChanged  || course?.isPublished && !isCourseCompleted"
+        (click)="saveCourse()"
+        class="flex-none button border border-gray-200 rounded-md bg-white px-4 py-2.5 text-xs font-semibold text-black hover:text-black disabled:text-gray-200"
       >
-        Save as draft
+        {{ course?.isPublished  ? 'Update changes' : 'Update draft' }}
+
       </button>
       <button
-      (click)="publishCourse()"
-        class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600"
+        [disabled]="!isCourseCompleted || isChanged"
+        (click)="publishCourse()"
+        class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600 disabled:hover:bg-blue-400 disabled:bg-blue-400"
       >
-        Publish
+        {{ course?.isPublished  ? 'Unpublish' : 'Publish' }}
       </button>
-      <button
-      (click)="publishCourse()"
-        class="flex-none button rounded-md bg-red-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-red-600"
-      >
-        Delete
-      </button>
+    
+    
     </div>
   </div>
 </div>
 
 <div class="container mx-auto">
-  
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mx-auto">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mx-auto" *ngIf="course">
     <div>
-      <app-course-title [(courseTitle)]="coursez.title" />
-      <app-course-description [(courseDescription)]="coursez.description" />
-      <app-course-categories [(courseCategories)]="coursez.categories" />
-      <app-course-price [(coursePrice)]="coursez.price" />
+      <app-course-title [(title)]="course.title" (titleChange)="onCourseTitleChange($event)" />
+      <app-course-description [(courseDescription)]="course.description"  (courseDescriptionChange)="onCourseDescriptionChange($event)" />
+      <app-course-categories [(courseCategories)]="course.categories"  (courseCategoriesChange)="onCourseCategoryChange($event)" />
+      <app-course-chapters [(courseChapters)]="course.chapters" (courseChaptersChange)="onCourseChapterChange($event)" />
     </div>
 
     <div class="space-y-6 dark:text-black">
       <div></div>
-      <app-course-image-upload  [(uploadedFileUrl)]="coursez.coverImageRelativePath" />
-      <app-course-chapters />
+      <app-course-image-upload  [(uploadedFileUrl)]="course.coverImageRelativePath" (uploadedFileUrlChange)="onCourseImageRelativePath($event)" />
+      <app-course-price [(coursePrice)]="course.price" (coursePriceChange)="onCoursePriceChange($event)" />
+      
     </div>
   </div>
 </div>

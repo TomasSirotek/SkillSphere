@@ -8,10 +8,9 @@ import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 @Component({
   selector: 'app-course-description',
   standalone: true,
-  imports: [CommonModule,FormsModule,NgIconComponent,NgxEditorModule],
+  imports: [CommonModule, FormsModule, NgIconComponent, NgxEditorModule],
   templateUrl: './course-description.component.html',
-  viewProviders: [provideIcons({heroChevronDoubleDown})]
-
+  viewProviders: [provideIcons({ heroChevronDoubleDown })],
 })
 export class CourseDescriptionComponent {
   isEditing = false;
@@ -20,7 +19,6 @@ export class CourseDescriptionComponent {
   @Output() courseDescriptionChange = new EventEmitter<string>();
 
   editor: Editor;
-  
 
   toolbar: Toolbar = [
     ['bold', 'italic'],
@@ -35,13 +33,25 @@ export class CourseDescriptionComponent {
   ngOnDestroy(): void {
     this.editor.destroy();
   }
-  
+
   toggleEdit() {
     this.isEditing = !this.isEditing;
-    }
+  }
 
-    toggleSave() {
-      this.isEditing = false;
-      this.courseDescriptionChange.emit(this.courseDescription);
+  toggleSave() {
+    this.isEditing = false;
+    this.courseDescriptionChange.emit(this.courseDescription);
+  }
+
+  onInputChange(event: Event) {
+    const newDescription = (event.target as HTMLElement).innerHTML;
+
+    this.courseDescription = newDescription;
+
+    if (newDescription === '<p><br></p>') {
+      this.courseDescriptionChange.emit(newDescription);
+    } else {
+      this.courseDescriptionChange.emit(newDescription);
     }
-  }    
+  }
+}

@@ -16,34 +16,38 @@ import {
   viewProviders: [provideIcons({ heroChevronDoubleDown, heroXMark })],
 })
 export class CourseImageUploadComponent implements OnInit {
+
+
   ngOnInit(): void {}
 
   isEditing = true;
+  isUrlValid: boolean = true;
 
   @Input() uploadedFileUrl: string | null = null;
   @Output() uploadedFileUrlChange = new EventEmitter<string>();
 
-  handleFileUpload(event: any): void {
-    const fileInput = event.target;
-    const uploadedFile = fileInput.files[0];
-
-    if (uploadedFile) {
-      this.convertFileToUrl(uploadedFile);
-    }
-  }
-
-  convertFileToUrl(file: File): void {
-    const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-      this.uploadedFileUrl = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  reuploadImage(): void {
-    // Handle the logic for reuploading or deleting the image
+ 
+  reuploadImage() {
     this.uploadedFileUrl = null;
   }
+
+  onInputChange(event: Event) {
+    const newUrl = (event.target as HTMLInputElement).value;
+
+    this.uploadedFileUrl = newUrl;
+    this.uploadedFileUrlChange.emit(newUrl);
+  }
+
+  // validateUrl() {
+  //   // Regular expression for a valid URL
+  //   const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
+  //   this.isUrlValid = urlRegex.test(this.uploadedFileUrl);
+
+  //   // If the URL is not valid, you can reset it or take other actions
+  //   if (!this.isUrlValid) {
+  //     this.uploadedFileUrl = this.uploadedFileUrl; // Reset the URL
+  //   }
+  // }
+
 }

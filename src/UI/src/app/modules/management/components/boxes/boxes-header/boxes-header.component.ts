@@ -113,12 +113,5 @@ export class BoxesHeaderComponent implements OnInit {
 
  
 
-  //   createBoxAsync(data: PostBoxDto) {
-  //     // creat ebox and get all boxes
-  //     this.boxService.createBox(data).then(() => {
-  //       this.boxService.getBoxes().then(() => {
-  //         this.state.boxes = this.state.boxes;
-  //       });
-  //     });
-  // }
+ 
 }

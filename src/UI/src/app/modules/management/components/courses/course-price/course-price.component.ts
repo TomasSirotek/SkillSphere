@@ -28,6 +28,7 @@ interface PriceOption {
   templateUrl: './course-price.component.html',
 })
 export class CoursePriceComponent implements OnInit {
+
   @Input() coursePrice: number;
   @Output() coursePriceChange = new EventEmitter<number>();
 
@@ -41,6 +42,15 @@ export class CoursePriceComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedOption = this.getPriceTier(this.coursePrice);
+  }
+
+  onOptionChange() {
+    const selectedOption = this.priceTiers.find(option => option.tier === this.selectedOption);
+    
+    if (selectedOption) {
+      // Emit the amount to the parent component
+      this.coursePriceChange.emit(selectedOption.amount);
+    }
   }
 
   updatePrice(): void {

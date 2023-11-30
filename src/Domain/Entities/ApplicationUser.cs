@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SkillSphere.Domain.Entities;
 
 namespace SkillSphere.Domain.Identity;
 
