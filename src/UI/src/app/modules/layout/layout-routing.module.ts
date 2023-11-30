@@ -3,8 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { AuthGuard } from 'src/app/core/auth/service/auth-guard';
 
+// looking from perspective comming first and seaing tho pages 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', 
+    redirectTo: 'dashboard', 
+    pathMatch: 'full' 
+  },
   {
     path: 'dashboard',
     component: LayoutComponent,

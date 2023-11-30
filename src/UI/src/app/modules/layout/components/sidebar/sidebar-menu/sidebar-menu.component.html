@@ -10,7 +10,7 @@
       <!-- List items -->
       <li *ngFor="let item of menu.items">
         <!-- Menu List -->
-        <div (click)="toggleMenu(item)" class="group relative text-gray-400 dark:text-night-400">
+        <div (click)="toggleMenu(item)" class="group relative text-gray-400 dark:text-night-400"  [ngClass]="item.active ? 'bg-primary-500 rounded-xl my-2' : ''">
           <!-- Icon -->
           <div
             [ngClass]="item.active && !menuService.showSideBar ? 'text-primary-500' : ''"

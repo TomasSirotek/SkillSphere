@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ManagementRoutingModule } from './management-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BoxServiceService } from './services/box-service.service';
+import { CourseService } from './services/course-service.service';
 import { DialogService ,DialogRef} from '@ngneat/dialog';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -10,14 +10,15 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     ManagementRoutingModule,
     HttpClientModule,
     NgxDatatableModule,
+  
   ],
   providers: [
     {
       provide: DialogRef,
       useValue: {}
     },
-    HttpClient, // Ensure HttpClient is provided
-    BoxServiceService, // Your service
+    HttpClient, 
+    CourseService,
     DialogService,
   ],
 })

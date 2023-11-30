@@ -12,12 +12,10 @@ public record RegisterUserCommand : IRequest<Result>
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,Result>
 {
-    private readonly IApplicationDbContext _context;
     private readonly IIdentityService _userService;
 
-    public RegisterUserCommandHandler(IApplicationDbContext context,IIdentityService userService)
+    public RegisterUserCommandHandler(IIdentityService userService)
     {
-        _context = context;
         _userService = userService;
     }
     public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -25,8 +23,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,Re
             Guard.Against.NullOrEmpty(request.Email, nameof(request.Email));
             Guard.Against.NullOrEmpty(request.Password, nameof(request.Password));
             
-            var result = await _userService.CreateUserAsync(request.Email, request.Password);
-            return result;
+            return await _userService.CreateUserAsync(request.Email, request.Password);
         }
  
 }

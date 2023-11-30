@@ -3,16 +3,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using SkillSphere.Infrastructure.Authentication.Model;
-using SkillSphere.Infrastructure.Identity;
+using SkillSphere.Domain.Entities;
+
 
 namespace SkillSphere.Infrastructure.Authentication.Services;
 
 
-    public interface IJwtTokenGen
-    {
-        ValueTask<string> CreateToken(ApplicationUser user, CancellationToken cancellationToken = default);
-    }
     
     public class JwtGenerator : IJwtTokenGen
     {
@@ -36,7 +32,7 @@ namespace SkillSphere.Infrastructure.Authentication.Services;
             var claimList = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, user.UserName)
             };
 
@@ -47,7 +43,7 @@ namespace SkillSphere.Infrastructure.Authentication.Services;
                 Audience = null,
                 Issuer = null,
                 Subject = new ClaimsIdentity(claimList),
-                Expires = DateTime.UtcNow.AddSeconds(20),
+                Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

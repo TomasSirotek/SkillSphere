@@ -12,7 +12,9 @@ export class Menu {
           route: '/dashboard',
           children: [
             { label: 'Overview', route: '/dashboard' },
-            { label: 'My Courses', route: '/courses/boxes' },
+            { label: 'Teaching', route: '/dashboard/teaching' },
+            { label: 'Purchased', route: '/dashboard/purchased' },
+
           ],
         },
         {
@@ -20,8 +22,8 @@ export class Menu {
           label: 'Courses',
           route: '/courses',
           children: [
-            { label: 'Course store', route: '/store' },
-            { label: 'Saved courses', route: '/dashboard' },
+            { label: 'Course store', route: '/courses' },
+            { label: 'Saved courses', route: '/teaching' },
           ],
         },
       ],
@@ -35,11 +37,7 @@ export class Menu {
           label: 'Settings',
           route: '/settings',
         },
-        {
-          icon: 'heroBuildingStorefront',
-          label: 'Notifications',
-          route: '/gift',
-        },
+      
       ],
     }, 
   ];

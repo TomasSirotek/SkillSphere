@@ -8,13 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Domain.Constants;
+using SkillSphere.Domain.Entities;
+using SkillSphere.Domain.Identity;
 using SkillSphere.Infrastructure.Authentication;
 using SkillSphere.Infrastructure.Authentication.Services;
 using skillSphere.Infrastructure.Data;
 using SkillSphere.Infrastructure.Data;
-using SkillSphere.Infrastructure.Data.Interceptors;
-using SkillSphere.Infrastructure.Identity;
-using testSphere.Infrastructure.Data.Interceptors;
+
 using Roles = SkillSphere.Domain.Constants.Roles;
 
 namespace SkillSphere.Infrastructure;
@@ -27,8 +27,7 @@ public static class DependencyInjection
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
-        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
-        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+   
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
@@ -40,11 +39,11 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
-        
+
         // Setting up Identity
         services
             .AddDefaultIdentity<ApplicationUser>()
-            .AddRoles<IdentityRole>()
+            .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
             
         // Set up Time

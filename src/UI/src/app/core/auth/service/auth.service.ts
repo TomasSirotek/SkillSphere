@@ -12,8 +12,6 @@ import { Register } from '../models/register';
 })
 
 export class AuthService  {
-  
-
   public signInState: Observable<AuthResponse>;
   private _signInState = new BehaviorSubject<AuthResponse>(null);
 
@@ -80,12 +78,16 @@ export class AuthService  {
   public isTokenValid(): boolean {
     const expiresAt = +localStorage.getItem('auth_tokenExpiresAt');
     const currentTime = Date.now();
-  
     return expiresAt > currentTime;
-  }
   
+  }
 
   private getStoredUserData(): AuthResponse {
     return JSON.parse(localStorage.getItem('auth_userData')) as AuthResponse;
+  }
+
+  public getUserId(): string {
+    const userData = this.getStoredUserData();
+    return userData?.userId;
   }
 }

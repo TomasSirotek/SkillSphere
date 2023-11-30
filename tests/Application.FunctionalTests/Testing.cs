@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SkillSphere.Domain.Constants;
+using SkillSphere.Domain.Entities;
+using SkillSphere.Domain.Identity;
 using skillSphere.Infrastructure.Data;
 using Roles = SkillSphere.Infrastructure.Identity.Roles;
 
@@ -16,7 +18,7 @@ public partial class Testing
     private static ITestDatabase _database;
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
-    private static string? _userId;
+    private static Guid _userId;
 
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
@@ -46,22 +48,22 @@ public partial class Testing
         await mediator.Send(request);
     }
 
-    public static string? GetUserId()
+    public static Guid? GetUserId()
     {
         return _userId;
     }
 
-    public static async Task<string> RunAsDefaultUserAsync()
+    public static async Task<Guid> RunAsDefaultUserAsync()
     {
         return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
     }
 
-    public static async Task<string> RunAsAdministratorAsync()
+    public static async Task<Guid> RunAsAdministratorAsync()
     {
         return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
     }
 
-    public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
+    public static async Task<Guid> RunAsUserAsync(string userName, string password, string[] roles)
     {
         using var scope = _scopeFactory.CreateScope();
 
@@ -105,7 +107,7 @@ public partial class Testing
         {
         }
 
-        _userId = null;
+        _userId = Guid.Empty;
     }
 
     public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues)

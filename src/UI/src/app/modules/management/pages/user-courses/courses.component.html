@@ -1,0 +1,31 @@
+<!-- Your sidebar page -->
+<div class="mx-auto px-4 py-4 sm:px-8 lg:container sm:container bg-white dark:bg-night-700 h-screen ">
+  <!-- Header -->
+  <app-boxes-header  [isDetail]="true" title="Courses shop" subTitle="Purchase new courses"></app-boxes-header>
+  <!-- end Header -->
+
+  
+  <div *ngIf="!isLoaded" >
+    <ngx-skeleton-loader
+      count="1"
+      [theme]="{ 
+        'height.px': 300,
+        'background-color': 'grey',
+        'width.px': '300',
+    
+      }"
+    ></ngx-skeleton-loader>
+  </div>
+
+ 
+  
+  <div *ngIf="isLoaded" class="mx-auto flex flex-wrap gap-2">
+    <div *ngFor="let course of courses" class="my-1 w-full md:w-1/2 lg:my-4 lg:w-1/4">
+      <app-courses-card  [course]="course" />
+    </div>
+  </div>
+
+   
+
+
+</div>

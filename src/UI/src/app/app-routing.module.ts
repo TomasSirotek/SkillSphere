@@ -17,7 +17,7 @@ const routes: Routes = [
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'courses',
+    path: '',
     loadChildren: () =>
       import('./modules/management/management.module').then(
         (m) => m.ManagementModule

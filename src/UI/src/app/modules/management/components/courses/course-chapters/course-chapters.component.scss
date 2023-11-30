@@ -1,0 +1,13 @@
+.dndDraggingSource {
+    opacity: 0.5;
+    transform: scale(0.98);
+    pointer-events: none;
+  
+    &>* {
+      pointer-events: none;
+    }
+  }
+
+  .custom-cursor{
+    cursor: move !important;
+  }
