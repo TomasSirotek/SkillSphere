@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeachingComponent } from './teaching.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Toast, ToastrModule } from 'ngx-toastr';
 
 describe('TeachingComponent', () => {
   let component: TeachingComponent;
@@ -8,7 +11,7 @@ describe('TeachingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TeachingComponent]
+      imports: [TeachingComponent,RouterTestingModule,HttpClientTestingModule, ToastrModule.forRoot()]
     });
     fixture = TestBed.createComponent(TeachingComponent);
     component = fixture.componentInstance;

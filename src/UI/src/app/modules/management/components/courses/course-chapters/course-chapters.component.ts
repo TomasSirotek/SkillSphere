@@ -74,9 +74,9 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
 
 
   addChapter() {
-    if (this.draggableList.length <= 3) {
+    if (this.draggableList?.length <= 3) {
       // Add new chapter to coursesMoc
-      const newPosition = this.draggableList.length;
+      const newPosition = this.draggableList?.length;
       this.draggableList.push({
         id: uuidv4(),
         title: '',
@@ -117,10 +117,10 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
   }
   mapChaptersToDraggable(chapters: Chapter[]): DraggableItem[] {
     // Sort chapters based on their position property
-    const sortedChapters = chapters.sort((a, b) => a.position - b.position);
+    const sortedChapters = chapters?.sort((a, b) => a.position - b.position);
   
     // Map the sorted chapters to DraggableItem
-    return sortedChapters.map((chapter) => ({
+    return sortedChapters?.map((chapter) => ({
       id: chapter.id,
       title: chapter?.title,
       children: [
@@ -142,7 +142,7 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
       return []; // or handle appropriately for your use case
     }
 
-    return draggableList.map((draggableItem) => ({
+    return draggableList?.map((draggableItem) => ({
       id: draggableItem.id,
       title: draggableItem?.title,
       position: draggableItem.position, // Added null check here
@@ -165,7 +165,7 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
       let index = event.index;
   
       if (typeof index === 'undefined') {
-        index = list.length;
+        index = list?.length;
       }
   
       // Insert the dragged item at the dropped index
@@ -194,7 +194,7 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
   
 
   removeChapter(chapterId: string): void {
-    if(this.draggableList.length === 1) {
+    if(this.draggableList?.length === 1) {
       alert("You must have at least one chapter");
       return;
     }
