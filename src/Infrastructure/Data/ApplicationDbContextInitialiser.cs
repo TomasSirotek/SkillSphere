@@ -32,9 +32,9 @@ public class ApplicationDbContextInitialiser
     private readonly ILogger<ApplicationDbContextInitialiser> _logger;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<ApplicationRole> _roleManager;
 
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
     {
         _logger = logger;
         _context = context;
@@ -71,8 +71,12 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // Default roles
-        var administratorRole = new IdentityRole(Roles.Administrator);
+        var administratorRole = new ApplicationRole();
+        administratorRole.Name = Roles.Administrator;
 
+        var roles = _roleManager.Roles.All(r => r.Name != administratorRole.Name);
+        
+        
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
             await _roleManager.CreateAsync(administratorRole);
@@ -95,7 +99,7 @@ public class ApplicationDbContextInitialiser
         {
             var course1 = new Course
             {
-                Title = "Course 1",
+                Title = "Course 3",
                 Description = "Course 1 Description",
                 CoverImageRelativePath = "https://images.pexels.com/photos/693859/pexels-photo-693859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                 Price = 9.99f,
@@ -104,6 +108,14 @@ public class ApplicationDbContextInitialiser
                     new CourseCategory
                     {
                         Category = new Category { Name = "Web development" }
+                    },
+                    new CourseCategory
+                    {
+                        Category = new Category { Name = "Drawing" }
+                    },
+                    new CourseCategory
+                    {
+                        Category = new Category { Name = "Machine Learning" }
                     },
                    
                 },

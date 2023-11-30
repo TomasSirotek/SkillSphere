@@ -1,6 +1,6 @@
 using SkillSphere.Domain.Entities;
 
-namespace SkillSphere.Application.Common.Interfaces;
+namespace SkillSphere.Infrastructure.Authentication.Services;
 
 public interface IJwtTokenGen
 {

@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

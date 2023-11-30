@@ -1,5 +1,4 @@
-﻿using SkillSphere.Domain.Events;
-using SkillSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 
 namespace SkillSphere.Application.TodoItems.Commands.DeleteTodoItem;
 
@@ -23,9 +22,7 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
 
         _context.TodoItems.Remove(entity);
 
-        entity.AddDomainEvent(new TodoItemDeletedEvent(entity));
 
-        await _context.SaveChangesAsync(cancellationToken);
     }
 
 }

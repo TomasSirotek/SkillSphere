@@ -1,5 +1,4 @@
-﻿using SkillSphere.Domain.Enums;
-using SkillSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Application.Common.Models;
 using SkillSphere.Application.Common.Security;
 using SkillSphere.Application.Features.TodoLists.Queries.GetTodos;
@@ -24,10 +23,7 @@ public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
     {
         return new TodosVm
         {
-            PriorityLevels = Enum.GetValues(typeof(PriorityLevel))
-                .Cast<PriorityLevel>()
-                .Select(p => new LookupDto { Id = (int)p, Title = p.ToString() })
-                .ToList(),
+           
 
             Lists = await _context.TodoLists
                 .AsNoTracking()

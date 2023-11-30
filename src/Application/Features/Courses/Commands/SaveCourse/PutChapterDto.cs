@@ -1,6 +1,6 @@
 namespace SkillSphere.Application.Features.Courses.Commands;
 
-public class PostChapterDto
+public class PutChapterDto
 {
     public string? Id { get; set; }
     public string? Title { get; set; }

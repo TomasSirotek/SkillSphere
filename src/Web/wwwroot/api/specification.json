@@ -71,7 +71,77 @@
         }
       }
     },
+    "/api/Categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "GetCategories",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Courses/{userId}": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "GetCoursesByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCourseVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Courses": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "GetCourses",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCourseVm"
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "Courses"
@@ -102,54 +172,76 @@
             }
           }
         }
-      },
-      "get": {
-        "tags": [
-          "Courses"
-        ],
-        "operationId": "GetCourses",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCourseVm"
-                }
-              }
-            }
-          }
-        }
       }
     },
-    "/api/Courses/{id}": {
-      "get": {
+    "/api/Courses/{courseId}/publish": {
+      "put": {
         "tags": [
           "Courses"
         ],
-        "operationId": "GetCoursesByUserId",
+        "operationId": "PublishCourse",
         "parameters": [
           {
-            "name": "id",
+            "name": "courseId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "guid"
+              "type": "string"
             },
             "x-position": 1
           }
         ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetCourseVm"
-                }
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishCourseCommand"
               }
             }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Courses/{courseId}": {
+      "put": {
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "SaveCourseAsDraft",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveCourseDraftCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
           }
         }
       }
@@ -515,6 +607,7 @@
           },
           "userId": {
             "type": "string",
+            "format": "guid",
             "nullable": true
           },
           "email": {
@@ -566,15 +659,27 @@
           }
         }
       },
-      "CreateCourseCommand": {
+      "GetCategoryVm": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "userId": {
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryDto"
+            }
+          }
+        }
+      },
+      "CategoryDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
             "type": "string",
             "format": "guid"
           },
-          "title": {
+          "name": {
             "type": "string",
             "nullable": true
           }
@@ -622,7 +727,7 @@
           "categories": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CategoryDto"
+              "$ref": "#/components/schemas/CategoryDto2"
             }
           },
           "chapters": {
@@ -633,7 +738,7 @@
           }
         }
       },
-      "CategoryDto": {
+      "CategoryDto2": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -650,6 +755,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
           "title": {
             "type": "string",
             "nullable": true
@@ -669,6 +779,121 @@
           },
           "isFree": {
             "type": "boolean",
+            "nullable": true
+          }
+        }
+      },
+      "PublishCourseCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "courseId": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
+          "isPublished": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SaveCourseDraftCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "coverImageRelativePath": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPublished": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PutCategoryDto"
+            }
+          },
+          "chapters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PutChapterDto"
+            }
+          }
+        }
+      },
+      "PutCategoryDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PutChapterDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "videoURL": {
+            "type": "string",
+            "nullable": true
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isFree": {
+            "type": "boolean",
+            "nullable": true
+          }
+        }
+      },
+      "CreateCourseCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "title": {
+            "type": "string",
             "nullable": true
           }
         }
@@ -767,30 +992,11 @@
             "type": "string",
             "format": "guid"
           },
-          "priority": {
-            "$ref": "#/components/schemas/PriorityLevel"
-          },
           "note": {
             "type": "string",
             "nullable": true
           }
         }
-      },
-      "PriorityLevel": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "None",
-          "Low",
-          "Medium",
-          "High"
-        ],
-        "enum": [
-          0,
-          1,
-          2,
-          3
-        ]
       },
       "TodosVm": {
         "type": "object",

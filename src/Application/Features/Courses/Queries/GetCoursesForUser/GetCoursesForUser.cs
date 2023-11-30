@@ -1,19 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
+using SkillSphere.Domain.Constants;
 
 namespace SkillSphere.Application.Features.Courses.Queries.GetCoursesForUser;
 
 
-// public record GetCourseByUsedIdQuery : IRequest<GetCourseVm>;
-
-
-public record GetCourseByUsedIdQuery : IRequest<GetCourseVm>
-{
-    public Guid UserId { get; init; }
-}
-
-
-public class GetCoursesForUser
-{
     public class GetCoursesQueryHandler : IRequestHandler<GetCourseByUsedIdQuery, GetCourseVm>
     {
         private readonly IApplicationDbContext _context;
@@ -27,21 +19,18 @@ public class GetCoursesForUser
 
         public async Task<GetCourseVm> Handle(GetCourseByUsedIdQuery request, CancellationToken cancellationToken)
         {
-            var courses = await _context.UsersCourses
-                .Where(uc => uc.UserId == request.UserId)
-                .Select(uc => uc.Course)
-                .Include(c => c!.Categories)
-                .Include(c => c!.Chapters)
-                .AsQueryable()
-                .AsNoTracking()
-                .ProjectTo<QueryDto>(_mapper.ConfigurationProvider)
-                .OrderBy(t => t.Title)
-                .ToListAsync(cancellationToken);
+            Guid userId = request.UserId;
 
             return new GetCourseVm
             {
-                Courses = courses
+                Courses = await _context.Courses
+                    .AsNoTracking()
+                    .Include(c => c.Categories)
+                    .Include(c => c.Chapters)
+                    .Where(c => c.UserCourses.Any(uc => uc.UserId == userId)) // Filter courses for the specified user
+                    .ProjectTo<QueryDto>(_mapper.ConfigurationProvider)
+                    .OrderBy(t => t.Title)
+                    .ToListAsync(cancellationToken)
             };
         }
     }
-}

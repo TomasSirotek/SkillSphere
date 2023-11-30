@@ -28,7 +28,6 @@ public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemComman
         Guard.Against.NotFound(request.Id, entity);
 
         entity.Title = request.Title;
-        entity.Done = request.Done;
 
         await _context.SaveChangesAsync(cancellationToken);
     }

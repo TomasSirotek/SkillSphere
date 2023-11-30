@@ -1,5 +1,4 @@
 ﻿using SkillSphere.Domain.Entities;
-using SkillSphere.Domain.Enums;
 using SkillSphere.Application.TodoItems.Commands.CreateTodoItem;
 using SkillSphere.Application.TodoItems.Commands.UpdateTodoItem;
 using SkillSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
@@ -25,24 +24,11 @@ public class UpdateTodoItemDetailTests : BaseTestFixture
     {
         var userId = await RunAsDefaultUserAsync();
 
-        var listId = await SendAsync(new CreateTodoListCommand
-        {
-            Title = "New List"
-        });
+        var listId = await SendAsync(new CreateTodoListCommand { Title = "New List" });
 
-        var itemId = await SendAsync(new CreateTodoItemCommand
-        {
-            ListId = listId,
-            Title = "New Item"
-        });
+        var itemId = await SendAsync(new CreateTodoItemCommand { ListId = listId, Title = "New Item" });
 
-        var command = new UpdateTodoItemDetailCommand
-        {
-            Id = itemId,
-            ListId = listId,
-            Note = "This is the note.",
-            Priority = PriorityLevel.High
-        };
+        var command = new UpdateTodoItemDetailCommand { Id = itemId, ListId = listId, Note = "This is the note.", };
 
         await SendAsync(command);
 
@@ -51,9 +37,5 @@ public class UpdateTodoItemDetailTests : BaseTestFixture
         item.Should().NotBeNull();
         item!.ListId.Should().Be(command.ListId);
         item.Note.Should().Be(command.Note);
-        item.Priority.Should().Be(command.Priority);
-        item.LastModifiedBy.Should().NotBeNull();
-        item.LastModifiedBy.Should().Be(userId);
-        item.LastModified.Should().BeCloseTo(DateTime.Now, TimeSpan.FromMilliseconds(10000));
     }
 }

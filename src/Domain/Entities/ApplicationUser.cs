@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SkillSphere.Domain.Entities;
 
-namespace SkillSphere.Domain.Identity;
+namespace SkillSphere.Domain.Entities;
 
-public class ApplicationUser : IdentityUser
+public class ApplicationUser : IdentityUser<Guid>
 {
      public IList<UserCourse>? UserCourses { get; set; }
 }

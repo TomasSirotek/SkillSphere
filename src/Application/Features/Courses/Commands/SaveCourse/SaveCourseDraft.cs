@@ -19,9 +19,10 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
         var guidString = Guid.Parse(request.Id ?? String.Empty);
 
         var existingCourse = await _context.Courses
-            .FindAsync(new object[] { guidString }, cancellationToken);
+            .Include(c => c.Chapters) 
+            .FirstOrDefaultAsync(c => c.Id == guidString, cancellationToken);
 
-
+        
         Guard.Against.NotFound(guidString, existingCourse);
 
         // update entity depending on the values recieved 
@@ -32,12 +33,58 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
         existingCourse.Price = request.Price;
 
         await UpdateCategories(existingCourse, request.Categories, cancellationToken);
-        // update chapters
+        await UpdateChapters(existingCourse, request.Chapters, cancellationToken);
 
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    private async Task UpdateCategories(Course existingCourse, IList<PostCategoryDto> categoriesList,
+    private async Task UpdateChapters(Course existingCourse, IList<PutChapterDto> requestChapters, CancellationToken cancellationToken)
+    {
+        var chaptersToRemove = existingCourse.Chapters.ToList();
+
+        foreach (var requestChapter in requestChapters)
+        {
+            
+            var guidString = Guid.Parse(requestChapter.Id ?? String.Empty);
+            var existingChapter = existingCourse.Chapters.FirstOrDefault(c => c.Id == guidString);
+
+            if (existingChapter != null)
+            {
+                // Update existing chapter
+                existingChapter.Title = requestChapter.Title;
+                existingChapter.Description = requestChapter.Description;
+                existingChapter.VideoURL = requestChapter.VideoURL;
+                existingChapter.Position = requestChapter.Position;
+                existingChapter.IsFree = requestChapter.IsFree;
+                
+                // Remove from the list of chapters to remove
+                chaptersToRemove.Remove(existingChapter);
+            }
+            else
+            {
+                // Add new chapter
+                existingCourse.Chapters.Add(new Chapter
+                {
+                    // Set properties based on requestChapter
+                    Title = requestChapter.Title,
+                    Description = requestChapter.Description,
+                    VideoURL = requestChapter.VideoURL,
+                    Position = requestChapter.Position,
+                    IsFree = requestChapter.IsFree,
+                });
+            }
+        }
+
+        // Remove any chapters that were not in the request
+        foreach (var chapterToRemove in chaptersToRemove)
+        {
+            existingCourse.Chapters.Remove(chapterToRemove);
+        }
+
+        // Save changes to the database
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+    private async Task UpdateCategories(Course existingCourse, IList<PutCategoryDto> categoriesList,
         CancellationToken cancellationToken)
     {
         // STEP 1: Find all categories for this course and delete them from the joining table (CourseCategories)

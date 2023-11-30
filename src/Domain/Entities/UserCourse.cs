@@ -1,13 +1,16 @@
 
+
 namespace SkillSphere.Domain.Entities;
 
 
-public class UserCourse : BaseEntity
+public class UserCourse
 {
     public Guid UserId { get; set; }
+    
+    public ApplicationUser? User { get; set; }
     public Guid CourseId { get; set; }
     
-    public Course Course { get; set; } = new Course();
+    public Course? Course { get; set; }
 }
 
 // STUFF I HAVE TO DO AND WHAT IS WRONG

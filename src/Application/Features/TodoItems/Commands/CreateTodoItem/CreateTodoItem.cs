@@ -1,5 +1,4 @@
 ﻿using SkillSphere.Domain.Entities;
-using SkillSphere.Domain.Events;
 using SkillSphere.Application.Common.Interfaces;
 
 namespace SkillSphere.Application.TodoItems.Commands.CreateTodoItem;
@@ -26,10 +25,9 @@ public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemComman
         {
             ListId = request.ListId,
             Title = request.Title,
-            Done = false
+            
         };
 
-        entity.AddDomainEvent(new TodoItemCreatedEvent(entity));
 
         _context.TodoItems.Add(entity);
 

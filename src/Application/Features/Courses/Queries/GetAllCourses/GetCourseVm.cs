@@ -1,3 +1,5 @@
+using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
+
 namespace SkillSphere.Application.Features.Courses.Queries;
 
 public class GetCourseVm

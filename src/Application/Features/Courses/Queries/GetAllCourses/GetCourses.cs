@@ -1,6 +1,6 @@
 using SkillSphere.Application.Common.Interfaces;
 
-namespace SkillSphere.Application.Features.Courses.Queries;
+namespace SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
 
 public record GetCoursesQuery : IRequest<GetCourseVm>;
 

@@ -1,5 +1,4 @@
-﻿using SkillSphere.Domain.Enums;
-using SkillSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 
 namespace SkillSphere.Application.TodoItems.Commands.UpdateTodoItemDetail;
 
@@ -9,7 +8,6 @@ public record UpdateTodoItemDetailCommand : IRequest
 
     public Guid ListId { get; init; }
 
-    public PriorityLevel Priority { get; init; }
 
     public string? Note { get; init; }
 }
@@ -31,7 +29,6 @@ public class UpdateTodoItemDetailCommandHandler : IRequestHandler<UpdateTodoItem
         Guard.Against.NotFound(request.Id, entity);
 
         entity.ListId = request.ListId;
-        entity.Priority = request.Priority;
         entity.Note = request.Note;
 
         await _context.SaveChangesAsync(cancellationToken);

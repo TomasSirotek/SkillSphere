@@ -12,7 +12,7 @@ public class SaveCourseDraftCommand: IRequest
     public bool? IsPublished { get; set; }
     public float Price { get; set; }
     
-    public IList<PostCategoryDto> Categories { get; init; } = new List<PostCategoryDto>();
+    public IList<PutCategoryDto> Categories { get; init; } = new List<PutCategoryDto>();
 
-    public IList<PostChapterDto> Chapters { get; init; } = new List<PostChapterDto>();
+    public IList<PutChapterDto> Chapters { get; init; } = new List<PutChapterDto>();
 }

@@ -16,12 +16,5 @@ public class TodoItemDto
 
     public string? Note { get; init; }
 
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemDto>().ForMember(d => d.Priority, 
-                opt => opt.MapFrom(s => (int)s.Priority));
-        }
-    }
+    
 }
