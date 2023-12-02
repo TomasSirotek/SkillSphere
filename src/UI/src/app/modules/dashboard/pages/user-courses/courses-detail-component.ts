@@ -130,8 +130,10 @@ export class CoursesDetailComponent implements OnInit {
       this.course = data.courses?.find(
         (course: Course) => course.id === this.courseId
       );
+      console.log(this.courseService.coursesState.subscribe(data))
     });
   }
+
 
   onCourseTitleChange(newTitle: string): void {
     this.course.title = newTitle;

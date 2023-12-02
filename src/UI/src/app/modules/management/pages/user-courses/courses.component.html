@@ -1,11 +1,16 @@
 <!-- Your sidebar page -->
-<div class="mx-auto px-4 py-4 sm:px-8 lg:container sm:container bg-white dark:bg-night-700 h-screen ">
+<div
+  class="mx-auto px-4 py-4 sm:px-8 lg:container sm:container bg-white dark:bg-night-700 h-screen"
+>
   <!-- Header -->
-  <app-boxes-header  [isDetail]="true" title="Courses shop" subTitle="Purchase new courses"></app-boxes-header>
+  <app-boxes-header
+    [isDetail]="true"
+    title="Courses shop"
+    subTitle="Purchase new courses"
+  ></app-boxes-header>
   <!-- end Header -->
 
-  
-  <div *ngIf="!isLoaded" >
+  <div *ngIf="!isLoaded">
     <ngx-skeleton-loader
       count="1"
       [theme]="{ 
@@ -17,15 +22,277 @@
     ></ngx-skeleton-loader>
   </div>
 
- 
-  
-  <div *ngIf="isLoaded" class="mx-auto flex flex-wrap gap-2">
-    <div *ngFor="let course of courses" class="my-1 w-full md:w-1/2 lg:my-4 lg:w-1/4">
-      <app-courses-card  [course]="course" />
+  <div
+    class="mb-4 border-b border-gray-200 dark:border-gray-700 flex justify-between"
+  >
+    <div class="w-full">
+      <ul
+        class="flex flex-wrap -mb-px text-sm font-medium text-center"
+        id="default-tab"
+        data-tabs-toggle="#default-tab-content"
+        role="tablist"
+      >
+        <li class="me-2" role="presentation">
+          <button
+            class="inline-block p-4 border-b-2 rounded-t-lg"
+            id="profile-tab"
+            data-tabs-target="#profile"
+            type="button"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+          >
+            All courses
+          </button>
+        </li>
+        <li class="me-2" role="presentation">
+          <button
+            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            id="dashboard-tab"
+            data-tabs-target="#dashboard"
+            type="button"
+            role="tab"
+            aria-controls="dashboard"
+            aria-selected="false"
+          >
+            Web development
+          </button>
+        </li>
+        <li class="me-2" role="presentation">
+          <button
+            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            id="settings-tab"
+            data-tabs-target="#settings"
+            type="button"
+            role="tab"
+            aria-controls="settings"
+            aria-selected="false"
+          >
+            Drawing
+          </button>
+        </li>
+        <li role="presentation">
+          <button
+            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            id="contacts-tab"
+            data-tabs-target="#contacts"
+            type="button"
+            role="tab"
+            aria-controls="contacts"
+            aria-selected="false"
+          >
+            Machine learning
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-1/2">
+      <form>
+        <div class="flex">
+          <label
+            for="search-dropdown"
+            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+            >Your Email</label
+          >
+          <button
+            id="dropdown-button"
+            data-dropdown-toggle="dropdown"
+            class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+            type="button"
+          >
+            Filters
+            <svg
+              class="w-2.5 h-2.5 ms-2.5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+          <div
+            id="dropdown"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+          >
+            <ul
+              class="py-2 text-sm text-gray-700 dark:text-gray-200"
+              aria-labelledby="dropdown-button"
+            >
+              <li>
+                <button
+                  type="button"
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Mockups
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Templates
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Design
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Logos
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="relative w-full">
+            <input
+              id="search-dropdown"
+              class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+              placeholder="Search by title,price"
+              required
+            />
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 
-   
+  <div id="default-tab-content">
+    <div
+      class="hidden rounded-lg"
+      id="profile"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <!-- Card Blog -->
+      <div class="py-4 mx-auto">
+        <!-- Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Loop through courses -->
+          <div
+            *ngFor="let course of courses"
+            class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]"
+          >
+            <div
+              class="h-52 flex flex-col justify-center items-center bg-blue-600 rounded-t-xl"
+            >
+              <img
+                [src]="course.coverImageRelativePath"
+                alt=""
+                class="w-full h-full object-cover rounded-t-xl"
+              />
+            </div>
+
+            <div class="p-4 md:p-6">
+              <span
+                class="block mb-1 text-xs font-semibold uppercase text-blue-600 dark:text-blue-500"
+              >
+                <!-- {{ course.categories[0]?.name }} -->
+                Best course of the year
+              </span>
+              <h3
+                class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white"
+              >
+                {{ course.title }}
+              </h3>
+             
+            </div>
+
+            <div
+              class="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-gray-700 dark:divide-gray-700"
+            >
+              <button
+                (click)="openDrawer(course)"
+                class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-es-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                href="#"
+              >
+                View detail
+              </button>
+              <a
+                class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-ee-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                href="#"
+              >
+                Purchase
+              </a>
+            </div>
+          </div>
+          <!-- End Card -->
+        </div>
 
 
+        
+        <!-- End Grid -->
+      </div>
+      <!-- End Card Blog -->
+    </div>
+    <div
+      class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+      id="dashboard"
+      role="tabpanel"
+      aria-labelledby="dashboard-tab"
+    >
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        This is some placeholder content the
+        <strong class="font-medium text-gray-800 dark:text-white"
+          >Dashboard tab's associated content</strong
+        >. Clicking another tab will toggle the visibility of this one for the
+        next. The tab JavaScript swaps classes to control the content visibility
+        and styling.
+      </p>
+    </div>
+    <div
+      class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+      id="settings"
+      role="tabpanel"
+      aria-labelledby="settings-tab"
+    >
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        This is some placeholder content the
+        <strong class="font-medium text-gray-800 dark:text-white"
+          >Settings tab's associated content</strong
+        >. Clicking another tab will toggle the visibility of this one for the
+        next. The tab JavaScript swaps classes to control the content visibility
+        and styling.
+      </p>
+    </div>
+    <div
+      class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+      id="contacts"
+      role="tabpanel"
+      aria-labelledby="contacts-tab"
+    >
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        This is some placeholder content the
+        <strong class="font-medium text-gray-800 dark:text-white"
+          >Contacts tab's associated content</strong
+        >. Clicking another tab will toggle the visibility of this one for the
+        next. The tab JavaScript swaps classes to control the content visibility
+        and styling.
+      </p>
+    </div>
+  </div>
+
+  <!-- End Card Blog -->
+  <!-- <div *ngIf="isLoaded" class="mx-auto flex flex-wrap gap-2">
+    <div *ngFor="let course of courses" class="my-1 w-full md:w-1/2 lg:my-4 lg:w-1/4">
+      <app-courses-card  [course]="course" />
+    </div>
+  </div> -->
 </div>
+<app-detail-drawer />

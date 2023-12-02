@@ -128,7 +128,7 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
           description: chapter.description,
           isFree: chapter.isFree,
           videoURL: chapter.videoURL,
-          position: chapter.position, // Keep the original position from the database
+          // position: chapter.position, // Keep the original position from the database
         },
       ],
       position: chapter.position,

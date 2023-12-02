@@ -66,7 +66,7 @@ module.exports = {
         custom: '0px 0px 50px 0px rgb(82 63 105 / 15%)',
       },
       colors: {
-        primary: colors.blue,
+        primary: colors.slate,
         night: {
           50: '#ffffff',   /* Lightest shade (white) */
           100: '#ffffff',  /* Lighter shade */

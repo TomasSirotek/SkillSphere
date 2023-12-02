@@ -3,9 +3,14 @@ import { MenuItem } from '../models/menu.model';
 export class Menu {
   public static pages: MenuItem[] = [
     {
-      group: 'Pages',
+      group: '',
       separator: true,
       items: [
+        {
+          icon:' heroBuildingStorefront',
+          label: 'Courses',
+          route: '/courses',
+        },
         {
           icon: 'heroFolderOpen',
           label: 'Dashboard',
@@ -13,19 +18,9 @@ export class Menu {
           children: [
             { label: 'Overview', route: '/dashboard' },
             { label: 'Teaching', route: '/dashboard/teaching' },
-            { label: 'Purchased', route: '/dashboard/purchased' },
-
           ],
         },
-        {
-          icon:' heroBuildingStorefront',
-          label: 'Courses',
-          route: '/courses',
-          children: [
-            { label: 'Course store', route: '/courses' },
-            { label: 'Saved courses', route: '/teaching' },
-          ],
-        },
+        
       ],
     },
     {
@@ -34,7 +29,7 @@ export class Menu {
       items: [
         {
           icon: 'heroBuildingStorefront',
-          label: 'Settings',
+          label: 'Account settings',
           route: '/settings',
         },
       

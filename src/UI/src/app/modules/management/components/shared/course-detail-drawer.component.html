@@ -1,0 +1,235 @@
+<div *ngIf="isDrawerOpen" class="fixed inset-0 bg-black opacity-50 z-30"></div>
+
+<!-- drawer component -->
+
+<div
+  #drawerElement
+  [ngClass]="{ hidden: !isDrawerOpen }"
+  class="rounded-t-md p-6 fixed top-0 right-0 z-40 w-full h-screen  max-w-md transition-transform bg-white dark:bg-gray-900"
+  tabindex="-1"
+  aria-labelledby="drawer-label"
+  aria-hidden="true"
+>
+  <h5
+    class="inline-flex items-center mb-6 text-sm text-wrap font-semibold text-gray-500 uppercase dark:text-gray-400"
+  ></h5>
+
+  <div class="space-y-4 overflow-auto h-screen">
+    
+    <div>
+      <img
+        src="{{ course?.coverImageRelativePath }}"
+        alt=""
+        class="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+
+    <div class="flex justify-between flex-wrap">
+      <div>
+        <h3 class="text-3xl font-bold text-gray-900 dark:text-white">
+          {{ course?.title }}
+        </h3>
+      </div>
+      <div>
+        <button
+          data-testid="open-modal-button"
+          (click)="handleLikeCourse(course?.id)"
+          class="flex-none button rounded-md px-4 text-xs font-semibold text-white"
+        >
+          <ng-icon *ngIf="!isLiked" name="heroHeart" class="text-3xl"></ng-icon>
+          <ng-icon
+            *ngIf="isLiked"
+            name="heroHeartSolid"
+            class="text-3xl text-red-500"
+          ></ng-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class=" overflow-auto h-screen mt-5 ">
+      <div class="grid grid-cols-2 gap-4 mb-2">
+        <div class="space-y-2">
+          <span class="dark:text-white">Category</span>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+              *ngFor="let category of course?.categories"
+            >
+              {{ category.name }}
+            </span>
+            <div></div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <span class="dark:text-white">Creator</span>
+          <div class="flex">
+            <div>
+              <!-- <img class="w-10 h-10 rounded" src="/docs/images/people/profile-picture-5.jpg" alt="Default avatar"> -->
+              <h1 class="dark:text-white font-bold">John Doe</h1>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="space-y-2">
+          <span class="dark:text-white">Chapter No.</span>
+          <div class="flex">
+            <div>
+              <span class="dark:text-white">{{
+                course?.chapters?.length
+              }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <span class="dark:text-white">Price</span>
+          <div class="flex">
+            <div>
+              <span [class]="course?.price === 0 ? 'text-green-500' : 'text-yellow-400'" class=" font-bold">
+              {{
+                course?.price != 0 ? course?.price + " " + "DKK" : "Free"
+              }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+       
+      </div>
+
+      <div class="space-y-2 mt-5">
+        <span class="dark:text-white font-bold">Description</span>
+        <div class="flex">
+            <div class="">
+                <p class="dark:text-white text-justify" [innerHTML]="showFullDescription ? course?.description : (course?.description | slice: 0 : 250) ">
+                </p>
+                <div (click)="toggleDescription()" class="hover:cursor-pointer flex text-center justify-center p-1 rounded-xl">
+                    <ng-icon class="text-2xl dark:text-white" name="{{ !showFullDescription ? 'heroArrowDownCircle' : 'heroArrowUpCircle' }}"></ng-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+      <div class="h-screen " >
+        <div class="py-4 ">
+          <span class="dark:text-white font-bold ">Chapters</span>
+
+        </div>
+
+        <div *ngFor="let chapter of course?.chapters" class="py-1">
+          <div
+            class="custom-cursor border px-4"
+            data-accordion="collapse"
+            [attr.data-active-classes]="
+              'hover:cursor-move bg-red-500 dark:bg-gray-900 text-gray-900 dark:text-white'
+            "
+            [attr.data-inactive-classes]="
+              'hover:cursor-move text-gray-500 dark:text-gray-400'
+            "
+          >
+            <div id="accordion-flush" >
+              <h2>
+                <button
+                  type="button"
+                  class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500  dark:text-gray-400 gap-3 "
+                  [attr.aria-controls]="'accordion-flush-body-' + chapter.id"
+                  (click)="toggleAccordion(chapter.id)"
+                >
+                  <div class="flex items-center gap-3 break-words" >
+                    <svg
+                      *ngIf="chapter.isFree"
+                      data-accordion-icon
+                      [ngClass]="{ 'rotate-180': !chapter['isExpanded'] }"
+                      class="w-3 h-3 shrink-0"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 10 6"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5 5 1 1 5"
+                      />
+                    </svg>
+                    <ng-icon *ngIf="!chapter.isFree" name="heroLockClosed" class="text-yellow-400"/>
+                    <span  >{{ chapter?.title }}</span>
+                  </div>
+                  <span>2h 30min</span>
+                </button>
+              </h2>
+              
+              <div *ngIf="chapter && chapter['isExpanded']" class="border-t">
+                
+            
+                  <div class="flex  items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500  dark:text-gray-400 gap-3 ">
+                    <div class="flex items-center gap-3">
+                        
+                      <ng-icon name="heroDocument" />
+                      <span>Description</span>
+      
+                    </div> 
+                    <a class="underline text-blue-500" href="">Read</a>
+                    
+                  </div>
+
+                  <div class="flex  items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500  dark:text-gray-400 gap-3 ">
+
+                  <div class="flex items-center gap-3">
+                        
+                    <ng-icon name="heroTv" />
+                    <span>The begging of an end</span>
+    
+                  </div>
+                  <a  class="underline text-blue-500" href="">View preview</a>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="flex flex-wrap items-center justify-between py-4">
+
+          <span class="dark:text-white font-bold ">Accepted methods</span>
+          <div class="flex flex-wrap">
+            <img src="https://i.imgur.com/2ISgYja.png" width="40">
+            <img src="https://i.imgur.com/W1vtnOV.png" width="40">
+            <img src="https://i.imgur.com/35tC99g.png" width="40">
+            <img src="https://i.imgur.com/2ISgYja.png" width="40">
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    (click)="closeDrawer()"
+    type="button"
+    class="text-gray-400 bg-transparent rounded-lg text-sm p-2 absolute top-3 left-0 inline-flex items-center"
+  >
+    <ng-icon name="heroXCircle" class="text-3xl"></ng-icon>
+    <span class="sr-only">Close menu</span>
+  </button>
+
+  <!-- Other content within the drawer -->
+
+  <!-- Fixed button at the bottom of the drawer -->
+  <div
+    class="absolute bottom-0 left-0 right-0 flex justify-center items-center p-4 border-t bg-gray-100 shadow-inner dark:bg-slate-800"
+  >
+    <button
+      data-testid="open-modal-button"
+      class="w-full max-w-screen-sm button rounded-md bg-blue-500 px-4 py-2.5 text-md font-semibold text-white hover:bg-primary-600"
+    >
+      Purchase
+      <ng-icon name="heroShoppingBag" class="ml-2 pt-1 text-xl"></ng-icon>
+    </button>
+  </div>
+</div>
