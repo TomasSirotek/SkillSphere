@@ -14,12 +14,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'teaching',
+    path: 'my-courses',
     component: TeachingComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'teaching/:id',
+    path: 'my-courses/:id',
     component: CoursesDetailComponent,
     canActivate: [AuthGuard],
   },

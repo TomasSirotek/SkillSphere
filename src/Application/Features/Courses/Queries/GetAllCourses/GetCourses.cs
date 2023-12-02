@@ -24,9 +24,12 @@ public class GetCoursesQueryHandler : IRequestHandler<GetCoursesQuery, GetCourse
                 .AsNoTracking()
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
+                .Include(c => c.UserCourses)
+                .Where(c => c.IsPublished.Equals(true))
                 .ProjectTo<QueryDto>(_mapper.ConfigurationProvider)
                 .OrderBy(t => t.Title)
                 .ToListAsync(cancellationToken)
         };
+
     }
 }

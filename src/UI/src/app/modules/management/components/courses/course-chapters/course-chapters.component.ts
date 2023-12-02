@@ -128,7 +128,7 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
           description: chapter.description,
           isFree: chapter.isFree,
           videoURL: chapter.videoURL,
-          position: chapter.position, // Keep the original position from the database
+          // position: chapter.position, // Keep the original position from the database
         },
       ],
       position: chapter.position,
@@ -182,9 +182,6 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
       // Update item positions after change detection
       this.updateItemPositions();
   
-      console.log(this.draggableList[0].title + " " + this.draggableList[0].position);
-      console.log(this.draggableList[1].title + " " +  this.draggableList[1].position);
-      console.log(this.draggableList[2].title + " " + this.draggableList[2].position);
      
       this.courseChaptersChange.emit(
         this.mapDraggableToChapters(this.draggableList)

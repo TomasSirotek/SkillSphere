@@ -735,6 +735,10 @@
             "items": {
               "$ref": "#/components/schemas/ChapterDto"
             }
+          },
+          "authorName": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

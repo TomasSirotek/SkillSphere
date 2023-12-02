@@ -8,9 +8,7 @@
     <div class="font-bold text-xl mb-2 dark:text-white">
       {{ course?.title }}
     </div>
-    <p class="text-gray-700 text-base">
-      {{ course?.description }}
-    </p>
+    <p class="text-gray-700 text-base"  [innerHTML]="course?.description">  </p>
   </div>
   <div class="flex flex-wrap px-4 pb-2  ">
     <div *ngFor="let category of course?.categories">

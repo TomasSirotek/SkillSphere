@@ -133,6 +133,7 @@ export class CoursesDetailComponent implements OnInit {
     });
   }
 
+
   onCourseTitleChange(newTitle: string): void {
     this.course.title = newTitle;
     this.isChanged = true;
@@ -174,7 +175,6 @@ export class CoursesDetailComponent implements OnInit {
     // 1. cannot save if the fields are not filled out 
     // 2. must be able to save as draft
 
-    console.log(this.course.chapters)
 
     this.courseService.saveCourseDraft(this.course.id, this.course).subscribe({
       next: (response) => {

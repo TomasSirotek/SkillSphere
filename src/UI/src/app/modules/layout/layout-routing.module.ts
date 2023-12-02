@@ -6,7 +6,7 @@ import { AuthGuard } from 'src/app/core/auth/service/auth-guard';
 // looking from perspective comming first and seaing tho pages 
 const routes: Routes = [
   { path: '', 
-    redirectTo: 'dashboard', 
+    redirectTo: 'courses', 
     pathMatch: 'full' 
   },
   {

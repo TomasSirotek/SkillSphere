@@ -15,6 +15,7 @@ import { DialogConfig, DialogService } from '@ngneat/dialog';
 import { BoxesModalComponent } from '../boxes-modal/boxes-modal.component';
 import {
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
@@ -40,7 +41,7 @@ interface PostBoxDto {
 @Component({
   selector: 'app-boxes-header',
   standalone: true,
-  imports: [CommonModule, ModalComponent],
+  imports: [CommonModule, ModalComponent,FormsModule],
   templateUrl: './boxes-header.component.html',
   styleUrls: ['./boxes-header.component.scss'],
 })
@@ -48,11 +49,13 @@ export class BoxesHeaderComponent implements OnInit {
 
 
   @Output() dataEmitter = new EventEmitter<any>();
+  @Output() searchTermEmitter = new EventEmitter<string>();
   @Input() showButton: boolean;
 
   private modalSubscription: Subscription;
   modal: ModalInterface;
   formGroup: FormGroup;
+searchTerm: string;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -91,17 +94,8 @@ export class BoxesHeaderComponent implements OnInit {
   @Input() isDetail: boolean = true;
   @ViewChild('template', { static: true })
   messageFromDialog: string;
-  dataFromDialog: PostBoxDto;
 
-  postDataDto: PostBoxDto = {
-    title: '',
-    type: '',
-    image: '',
-    status: '',
-    price: 0,
-    color: '',
-    description: '',
-  };
+
 
   ngOnInit() {
     this.dataEmitter.emit(this.showButton);
@@ -110,6 +104,12 @@ export class BoxesHeaderComponent implements OnInit {
   handleCancleModal() {
     this.modal.hide();
     }
+
+    onSearchQueryChange(event: any): void {
+      this.searchTerm = event.target.value;
+      this.searchTermEmitter.emit(this.searchTerm);
+    }
+      
 
  
 

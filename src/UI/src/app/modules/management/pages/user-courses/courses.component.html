@@ -1,31 +1,153 @@
 <!-- Your sidebar page -->
-<div class="mx-auto px-4 py-4 sm:px-8 lg:container sm:container bg-white dark:bg-night-700 h-screen ">
+<div
+  class="mx-auto px-4 py-4 sm:px-8 bg-white dark:bg-night-700 h-screen container"
+>
   <!-- Header -->
-  <app-boxes-header  [isDetail]="true" title="Courses shop" subTitle="Purchase new courses"></app-boxes-header>
+  <app-boxes-header
+    [isDetail]="true"
+    title="Courses shop"
+    (searchTermEmitter)="onSearchTermChange($event)"
+    subTitle="Purchase new courses"
+  ></app-boxes-header>
   <!-- end Header -->
 
-  
-  <div *ngIf="!isLoaded" >
-    <ngx-skeleton-loader
-      count="1"
-      [theme]="{ 
-        'height.px': 300,
-        'background-color': 'grey',
-        'width.px': '300',
-    
-      }"
-    ></ngx-skeleton-loader>
-  </div>
+  <!-- Card Blog -->
+  <div class="py-4 mx-auto">
+    <!-- Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4"   *ngIf="filteredCourses && filteredCourses.length > 0; else noResults" >
+      
+      <ng-container *ngIf="!isLoaded; else loadedContent">
+        <ng-container *ngFor="let _ of [0, 1, 2, 3,4,5,6,7]">
+            <div class=" rounded-md shadow overflow-hidden ">
+              <ngx-skeleton-loader count="1" [theme]="{ 'height.px': 250, 'background-color': 'grey', 'width.px': '300' }"></ngx-skeleton-loader>
+            </div>
+        </ng-container>
+      </ng-container>
+      <!-- Course cards -->
+      <ng-template  #loadedContent>
+     
 
- 
-  
-  <div *ngIf="isLoaded" class="mx-auto flex flex-wrap gap-2">
-    <div *ngFor="let course of courses" class="my-1 w-full md:w-1/2 lg:my-4 lg:w-1/4">
-      <app-courses-card  [course]="course" />
-    </div>
-  </div>
+       
+      <div
+        *ngFor="let course of filteredCourses"
+        class="group shadow-sm dark:border-gray-700 hover:scale-105 transform transition-transform duration-300"
+      >
+        <div
+
+          class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden"
+        >
+          <div class="relative">
+            <div class="absolute top-2 right-2 text-black dark:text-white">
+              <button
+                data-testid="open-modal-button"
+                (click)="handleLikeCourse(course?.id)"
+                class="flex-none button rounded-md px-4 text-xs font-semibold text-white hover:cursor-pointer"
+              >
+                <ng-icon
+                  *ngIf="!isLiked"
+                  name="heroHeart"
+                  class="text-3xl"
+                ></ng-icon>
+                <ng-icon
+                  *ngIf="isLiked"
+                  name="heroHeartSolid"
+                  class="text-3xl text-red-500"
+                ></ng-icon>
+              </button>
+            </div>
+
+            <div class="h-48 overflow-hidden">
+              <img
+                [src]="course.coverImageRelativePath"
+                alt=""
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <div class="absolute -bottom-3 left-4">
+              <div class="flex flex-wrap gap-2 items-center">
+                <span
+                  *ngFor="let category of course?.categories"
+                  class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+                >
+                  {{ category.name }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="p-4 md:p-6 space-y-2 hover:cursor-pointer"
+            (click)="openDrawer(course)"
+          >
+            <h3
+              class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white"
+            >
+              {{ course.title }}
+            </h3>
+
+            <div class="flex flex-wrap gap-2">
+              <div>
+                <img
+                  class="w-5 h-5 rounded-full"
+                  src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt="Rounded avatar"
+                />
+              </div>
+
+              <div>
+                <span
+                  class="block mb-1 text-sm font-bold text-black dark:text-white"
+                  >{{ course?.authorName}}</span
+                >
+              </div>
+            </div>
+
+            <div class="flex flex-wrap justify-between">
+              <div>
+                <ng-icon
+                  name="heroHeart"
+                  class="text-black dark:text-white mr-2"
+                />
+                <span class="text-black dark:text-white text-sm">349</span>
+              </div>
+
+              <div>
+                <span
+                  [class]="
+                    course?.price === 0 ? 'text-green-500' : 'text-yellow-400'
+                  "
+                  class="font-bold"
+                >
+                  {{
+                    course?.price != 0 ? course?.price + " " + "DKK" : "FREE"
+                  }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+     
+      </div>
+    
 
    
 
 
+      </ng-template>
+      <!-- End Card -->
+    </div>
+    <ng-template #noResults>
+      <div class="text-center text-gray-500 dark:text-gray-400 mt-8">
+        <p>No courses found.</p>
+      </div>
+    </ng-template>
+    <!-- End Grid -->
+  </div>
+
+  <!-- End Card Blog -->
 </div>
+
+<app-detail-drawer />
