@@ -13,6 +13,8 @@ public class QueryDto
     public IReadOnlyCollection<CategoryDto> Categories { get; set; }
     public IReadOnlyCollection<ChapterDto> Chapters { get; init; }
     
+    public string? AuthorName { get; set; }
+    
     public QueryDto()
     {
         Categories = Array.Empty<CategoryDto>();
@@ -24,6 +26,8 @@ public class QueryDto
         public Mapping()
         {
             CreateMap<Course, QueryDto>()
+                .ForMember(dto => dto.AuthorName, 
+                    c => c.MapFrom(c => c.UserCourses.FirstOrDefault()!.User!.UserName))
                 .ForMember(dto => dto.Categories, 
                     c 
                         => c.MapFrom(c 

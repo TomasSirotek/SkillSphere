@@ -7,6 +7,7 @@ export interface Course {
     price: number; 
     categories: Categories[]; 
     chapters: Chapter[]; 
+    authorName: string;
   }
 
 export interface Categories {

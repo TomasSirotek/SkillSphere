@@ -17,7 +17,7 @@ export class Menu {
           route: '/dashboard',
           children: [
             { label: 'Overview', route: '/dashboard' },
-            { label: 'Teaching', route: '/dashboard/teaching' },
+            { label: 'My courses', route: '/dashboard/my-courses' },
           ],
         },
         

@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy{
     this.authService.authenticate(email, password)
     .subscribe({
       next: () => {
-        this._router.navigate(['/dashboard']);
+        this._router.navigate(['/courses']);
       },
       error: (err: any) => {
         this.toastr.error(JSON.stringify(err));

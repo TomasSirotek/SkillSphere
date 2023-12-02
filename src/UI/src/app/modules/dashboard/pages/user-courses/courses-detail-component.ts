@@ -130,7 +130,6 @@ export class CoursesDetailComponent implements OnInit {
       this.course = data.courses?.find(
         (course: Course) => course.id === this.courseId
       );
-      console.log(this.courseService.coursesState.subscribe(data))
     });
   }
 
@@ -176,7 +175,6 @@ export class CoursesDetailComponent implements OnInit {
     // 1. cannot save if the fields are not filled out 
     // 2. must be able to save as draft
 
-    console.log(this.course.chapters)
 
     this.courseService.saveCourseDraft(this.course.id, this.course).subscribe({
       next: (response) => {

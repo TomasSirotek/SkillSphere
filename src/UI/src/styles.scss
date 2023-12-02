@@ -7,6 +7,10 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
 
+
+
+
+
 @layer base {
 	[type='text'],
 	[type='email'],
@@ -30,11 +34,13 @@
 	[type='radio'] {
 		@apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-night-600 dark:bg-night-700 dark:ring-offset-night-800 dark:focus:ring-green-600;
 	}
+	
 
 
 }
 
 @layer components {
+	
 	.dropdown-content {
 		@apply pointer-events-none scale-95 opacity-0 duration-100 ease-in;
 	}

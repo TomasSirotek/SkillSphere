@@ -1,11 +1,11 @@
-<div *ngIf="isDrawerOpen" class="fixed inset-0 bg-black opacity-50 z-30"></div>
+<div *ngIf="isDrawerOpen" class="fixed inset-0 bg-black opacity-50 z-30 "></div>
 
 <!-- drawer component -->
 
 <div
   #drawerElement
   [ngClass]="{ hidden: !isDrawerOpen }"
-  class="rounded-t-md p-6 fixed top-0 right-0 z-40 w-full h-screen  max-w-md transition-transform bg-white dark:bg-gray-900"
+  class="rounded-t-md p-6 fixed top-0 right-0 z-40 w-full h-screen  max-w-md transition-transform bg-white dark:bg-gray-900  animate-fade-in-"
   tabindex="-1"
   aria-labelledby="drawer-label"
   aria-hidden="true"
@@ -14,13 +14,13 @@
     class="inline-flex items-center mb-6 text-sm text-wrap font-semibold text-gray-500 uppercase dark:text-gray-400"
   ></h5>
 
-  <div class="space-y-4 overflow-auto h-screen">
+  <div class="space-y-4 overflow-auto h-screen animate-fade-in-up ">
     
     <div>
       <img
         src="{{ course?.coverImageRelativePath }}"
         alt=""
-        class="w-full h-full object-cover rounded-2xl"
+        class="w-full h-full object-cover"
       />
     </div>
 
@@ -121,7 +121,7 @@
 
         <div *ngFor="let chapter of course?.chapters" class="py-1">
           <div
-            class="custom-cursor border px-4"
+            class="custom-cursor border  px-4"
             data-accordion="collapse"
             [attr.data-active-classes]="
               'hover:cursor-move bg-red-500 dark:bg-gray-900 text-gray-900 dark:text-white'
@@ -226,7 +226,7 @@
   >
     <button
       data-testid="open-modal-button"
-      class="w-full max-w-screen-sm button rounded-md bg-blue-500 px-4 py-2.5 text-md font-semibold text-white hover:bg-primary-600"
+      class="w-full max-w-screen-sm button rounded-md  bg-blue-500 px-4 py-2.5 text-md font-semibold text-white hover:bg-primary-600"
     >
       Purchase
       <ng-icon name="heroShoppingBag" class="ml-2 pt-1 text-xl"></ng-icon>
