@@ -27,7 +27,7 @@ namespace SkillSphere.Application.Features.Courses.Queries.GetCoursesForUser;
                     .AsNoTracking()
                     .Include(c => c.Categories)
                     .Include(c => c.Chapters)
-                    .Where(c => c.UserCourses.Any(uc => uc.UserId == userId)) // Filter courses for the specified user
+                    .Where(c => c.UserCourses.Any(uc => uc.UserId == userId)) 
                     .ProjectTo<QueryDto>(_mapper.ConfigurationProvider)
                     .OrderBy(t => t.Title)
                     .ToListAsync(cancellationToken)

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, catchError, finalize, firstValueFrom, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, finalize, firstValueFrom, map, of, tap } from 'rxjs';
 import { Box, ResponseDto } from '../models/box';
 import { State } from 'src/app/shared/state';
 import { AlertServiceService } from 'src/app/shared/service/alert-service.service';
@@ -14,6 +14,7 @@ import { PostCourseDraftDto } from './dto/PostCourseDraftDto';
 
 
 export class CourseService {
+
  
   public coursesState: Observable<Course[]>;
   private _coursesState = new BehaviorSubject<Course[]>([]);
@@ -47,6 +48,34 @@ export class CourseService {
         console.error('Error creating course:', error);
         // You can rethrow the error or return a default value
         throw error;
+      })
+    );
+  }
+
+  public addCourseToWishlist(courseId: string,userId: string) {
+    return this._http.post<any>('https://localhost:5001/api/courses/wishlist', { courseId: courseId,userId: userId }).pipe(
+      catchError(error => {
+
+        if (error.status === 404) {
+          // Return a different status code (e.g., 204 for no content)
+          return of({ status: 204, message: 'Course not found' });
+        } else {
+          throw error;
+        }
+      })
+  
+    );
+  }
+
+  public removeCourseFromWishlist(courseId: string,userId: string) {
+    return this._http.delete<any>(`https://localhost:5001/api/courses/${userId}/wishlist/${courseId}`).pipe(
+      catchError(error => {
+        if (error.status === 404) {
+          // Return a different status code (e.g., 204 for no content)
+          return of({ status: 204, message: 'Course not found' });
+        } else {
+          throw error;
+        }
       })
     );
   }

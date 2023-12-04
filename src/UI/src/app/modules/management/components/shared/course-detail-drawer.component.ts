@@ -3,9 +3,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   HostListener,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { Chapter, Course } from '../../models/course';
@@ -45,14 +47,12 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   ],
 })
 export class CourseDetailDrawer implements OnInit {
-  handleLikeCourse(arg0: string) {
-    this.isLiked = !this.isLiked;
-  }
+  
   @ViewChild('drawerElement') drawerElement: ElementRef;
+  @Output() emitLikeCourseChange = new EventEmitter<string>();
 
   isDrawerOpen = false;
   showFullDescription = false;
-  isLiked: boolean = false;
   course: Course = null;
 
   constructor(
@@ -68,6 +68,11 @@ export class CourseDetailDrawer implements OnInit {
        this.processCourseData(course);
     });
   }
+
+handleLikeCourse(courseId: string) {
+  this.emitLikeCourseChange.emit(courseId);
+  this.course.isLiked = !this.course.isLiked;
+}
 
 processCourseData(course: Course): void {
 
@@ -126,9 +131,6 @@ processCourseData(course: Course): void {
   }
 
   getVideoEmbedUrl(url: string): any {
-    // Example YouTube URL formats:
-    // https://www.youtube.com/watch?v=VIDEO_ID
-    // https://youtu.be/VIDEO_ID
     const videoId = this.extractVideoId(url);
     if (videoId) {
       const embedUrl = `https://www.youtube.com/embed/${videoId}`;

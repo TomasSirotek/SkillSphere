@@ -1,6 +1,7 @@
 <nav
   [ngClass]="menuService.showSideBar ? 'w-52 xl:w-64' : 'w-[70px]'"
-  class="scrollbar-thumb-rounded scrollbar-track-rounded hidden h-full flex-col justify-between overflow-auto bg-white pt-3 transition-all duration-300 scrollbar-thin scrollbar-track-gray-50 scrollbar-thumb-gray-100 dark:bg-night-700 dark:scrollbar-thumb-night-500 dark:scrollbar-track-night-600 lg:flex">
+  (mouseenter)="onMouseEnter()"
+  class="m scrollbar-thumb-rounded scrollbar-track-rounded hidden h-full flex-col justify-between overflow-auto bg-white pt-3 transition-all duration-300 scrollbar-thin scrollbar-track-gray-50 scrollbar-thumb-gray-100 dark:bg-night-700 dark:scrollbar-thumb-night-500 dark:scrollbar-track-night-600 lg:flex">
   <div class="px-4">
     <!-- Logo -->
     <div class="relative h-10">
@@ -18,6 +19,8 @@
         [ngClass]="{ 'rotate-180': !menuService.showSideBar }">
         <ng-icon class="text-md" name="heroChevronDoubleLeft"></ng-icon>
       </button>
+
+      
     </div>
 
     <!-- Separator -->
