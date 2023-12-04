@@ -27,8 +27,11 @@ import { CourseDetailDrawer } from '../../components/shared/course-detail-drawer
 import { DrawerService } from '../../services/drawer.service';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroHeart } from '@ng-icons/heroicons/outline';
+import { heroBookOpen, heroHeart } from '@ng-icons/heroicons/outline';
 import { heroHeartSolid } from '@ng-icons/heroicons/solid';
+import { UserService } from 'src/app/core/auth/service/user.service';
+import { AuthService } from 'src/app/core/auth/service/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-courses',
@@ -48,18 +51,18 @@ import { heroHeartSolid } from '@ng-icons/heroicons/solid';
     NgIcon,
   ],
   templateUrl: './courses.component.html',
-  viewProviders: [provideIcons({ heroHeart, heroHeartSolid })],
+  viewProviders: [provideIcons({ heroHeart, heroHeartSolid, heroBookOpen })],
 })
 export class CoursesComponent implements OnInit {
-  isLiked = false;
-
   isLoaded = false;
-  courses: Course[] = [];
   isDrawerOpen = false;
 
   currentOpenCourse: Course = null;
 
+  courses: Course[] = [];
   filteredCourses: Course[] = [];
+
+  wishListIds: string[] = [];
 
   @Input() searchQuery: string = '';
 
@@ -73,30 +76,91 @@ export class CoursesComponent implements OnInit {
     this.currentOpenCourse = null;
   }
 
-  handleLikeCourse(arg0: string) {
-    // find the course by id and toggle the like
-    // also hit the endpoint for liking the course SignalR
-    this.isLiked = !this.isLiked;
+  handleLikeCourse(courseId: string) {
+    // Find the course by ID in the loaded courses
+    const course = this.courses.find((c) => c.id === courseId);
+
+    if (!course) {
+      return;
+    }
+
+     // Toggle the like
+    course.isLiked = !course.isLiked;
+
+
+    if (course.isLiked) {
+      this.courseService
+        .addCourseToWishlist(courseId, this.authService.getUserId())
+        .subscribe({
+          next: () => {
+            course.likes++;
+            course.isLiked = true;
+          },
+          error: (error) => this.handleError(error, course),
+        });
+    } else {
+      this.courseService
+        .removeCourseFromWishlist(courseId, this.authService.getUserId())
+        .subscribe({
+          next: () => {
+            course.likes--;
+            course.isLiked = false;
+          },
+          error: (error) => this.handleError(error, course),
+        });
+    }
   }
+
+  private handleError(error: any, course: Course) {
+    // Handle error (e.g., display an error message or roll back the change)
+    this.toastr.error(error.message, 'Error');
+    course.isLiked = !course.isLiked; // Roll back the change
+
+  }
+
 
   constructor(
     private courseService: CourseService,
     private router: Router,
-    private drawerService: DrawerService
-  ) {
-    courseService.getAllCourses().subscribe((data: any) => {
+    private drawerService: DrawerService,
+    private userService: UserService,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {}
+
+  ngOnInit(): void {
+    this.getWishList();
+    this.getAllCourses();
+  }
+
+  private getWishList() {
+    this.userService.wishList.subscribe((wishlistCourses) => {
+      if (wishlistCourses !== null && Array.isArray(wishlistCourses)) {
+        this.wishListIds.push(...wishlistCourses.map((course) => course.id));
+      }
+    });
+    
+  }
+
+  private getAllCourses() {
+    this.courseService.getAllCourses().subscribe((data: any) => {
       this.courses = data.courses;
 
+      // just for demo
       setTimeout(() => {
-       this.isLoaded = true;
-      }, 1000);
+        this.isLoaded = true;
+      }, 500);
 
+      
+      this.courses?.map((course) => {
+        course.isLiked = this.wishListIds.includes(course.id);
+      })
+      
       this.filteredCourses = this.courses;
     });
   }
 
-  ngOnInit(): void {}
-
+  
   filterCourses(): void {
     this.filteredCourses = this.courses.filter((course) =>
       course.title.toLowerCase().includes(this.searchQuery.toLowerCase())
@@ -107,6 +171,4 @@ export class CoursesComponent implements OnInit {
     this.searchQuery = searchTerm;
     this.filterCourses();
   }
-
-
 }

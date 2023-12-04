@@ -13,9 +13,9 @@
         <div (click)="toggleMenu(item)" class="group relative text-gray-400 dark:text-night-400"  [ngClass]="item.active ? 'bg-primary-500 rounded-xl my-2' : ''">
           <!-- Icon -->
           <div
-            [ngClass]="item.active && !menuService.showSideBar ? 'text-primary-500' : ''"
+            [ngClass]="item.active && !menuService.showSideBar ? 'text-black' : ''"
             class="pointer-events-none absolute m-2">
-            <ng-icon class="text-lg" name="{{ item.icon }}"></ng-icon>
+            <ng-icon class="text-lg text-black dark:text-white" name="{{ item.icon }}"></ng-icon>
           </div>
   
           <!-- Condition -->
@@ -30,7 +30,7 @@
               class="flex h-9 cursor-pointer items-center justify-start rounded text-gray-600 hover:bg-gray-100 dark:text-night-100 dark:hover:bg-night-600">
               <a
                 routerLink="{{ item.route }}"
-                routerLinkActive="text-primary-500"
+                routerLinkActive="text-black"
                 class="ml-10 truncate text-xs font-semibold tracking-wide focus:outline-none">
                 {{ item.label }}
               </a>

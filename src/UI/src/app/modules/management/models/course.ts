@@ -5,6 +5,8 @@ export interface Course {
     coverImageRelativePath: string; 
     isPublished:boolean; 
     price: number; 
+    likes: number;
+    isLiked?: boolean;
     categories: Categories[]; 
     chapters: Chapter[]; 
     authorName: string;

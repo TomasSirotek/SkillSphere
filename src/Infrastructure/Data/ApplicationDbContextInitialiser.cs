@@ -103,6 +103,7 @@ public class ApplicationDbContextInitialiser
                 Description = "Course 1 Description",
                 CoverImageRelativePath = "https://images.pexels.com/photos/693859/pexels-photo-693859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                 Price = 9.99f,
+                Likes = 0,
                 Categories = new List<CourseCategory>
                 {
                     new CourseCategory

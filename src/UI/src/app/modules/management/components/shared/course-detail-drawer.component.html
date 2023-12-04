@@ -36,9 +36,9 @@
           (click)="handleLikeCourse(course?.id)"
           class="flex-none button rounded-md px-4 text-xs font-semibold text-white"
         >
-          <ng-icon *ngIf="!isLiked" name="heroHeart" class="text-3xl"></ng-icon>
+          <ng-icon *ngIf="!course?.isLiked" name="heroHeart" class="text-3xl"></ng-icon>
           <ng-icon
-            *ngIf="isLiked"
+            *ngIf="course?.isLiked"
             name="heroHeartSolid"
             class="text-3xl text-red-500"
           ></ng-icon>
@@ -226,7 +226,7 @@
   >
     <button
       data-testid="open-modal-button"
-      class="w-full max-w-screen-sm button rounded-md  bg-blue-500 px-4 py-2.5 text-md font-semibold text-white hover:bg-primary-600"
+      class="w-full max-w-screen-sm button rounded-md  bg-primary-500 px-4 py-2.5 text-md font-semibold text-white hover:bg-primary-600"
     >
       Purchase
       <ng-icon name="heroShoppingBag" class="ml-2 pt-1 text-xl"></ng-icon>

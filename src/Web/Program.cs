@@ -3,6 +3,7 @@ using SkillSphere.Infrastructure;
 using SkillSphere.Infrastructure.Data;
 using SkillSphere.Web;
 using SkillSphere.Web.Infrastructure;
+using SkillSphere.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,8 +53,6 @@ app.UseSwaggerUi3(settings =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
 

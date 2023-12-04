@@ -1,7 +1,11 @@
 using SkillSphere.Application.Common.Models;
 using SkillSphere.Application.Features.Courses.Commands;
+using SkillSphere.Application.Features.Courses.Commands.AddCourseUserWL;
 using SkillSphere.Application.Features.Courses.Commands.CreateCourse;
+using SkillSphere.Application.Features.Courses.Commands.DecreaseLike;
+using SkillSphere.Application.Features.Courses.Commands.IncreaseLikes;
 using SkillSphere.Application.Features.Courses.Commands.PublishCourse;
+using SkillSphere.Application.Features.Courses.Commands.RemoveCourseWL;
 using SkillSphere.Application.Features.Courses.Queries;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
 using SkillSphere.Application.Features.Courses.Queries.GetCoursesForUser;
@@ -17,9 +21,12 @@ public class Courses : EndpointGroupBase
         app.MapGroup(this)
             .MapGet(GetCoursesByUserId, "{userId}")
             .MapGet(GetCourses)
-            .MapPut(PublishCourse,"{courseId}/publish")
+            .MapGet(GetUserWishList, "{userId}/wishlist")
+            .MapPut(PublishCourse, "{courseId}/publish")
             .MapPut(SaveCourseAsDraft, "{courseId}")
-            .MapPost(CreateCourse);
+            .MapPost(CreateCourse)
+            .MapPost(AddCourseToWishList, "wishlist")
+            .MapDelete(RemoveCourseFromWishList, "{userId}/wishlist/{courseId}");
     }
     
     public async Task<Guid> CreateCourse(ISender sender,CreateCourseCommand command)
@@ -27,10 +34,32 @@ public class Courses : EndpointGroupBase
         return await sender.Send(command);
     }
     
+
+    // public async Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
+    // {
+    //     return await sender.Send(query);
+    // }
+    
+    public async Task<GetCourseVm> GetUserWishList(ISender sender,Guid userId)
+    {
+        
+        return await sender.Send(new GetUserWishListQuery { UserId = userId });
+    }
+    
     public async Task<GetCourseVm> GetCourses(ISender sender)
     {
         return await sender.Send(new GetCoursesQuery());
     }
+    
+    public async Task<IResult> AddCourseToWishList(ISender sender,AddCourseUserWLCommand command)
+    {
+        await sender.Send(command);
+        await sender.Send(new IncreaseLikesCommand(command.CourseId));
+
+        return Results.NoContent();
+        
+    }
+    
     public async Task<GetCourseVm> GetCoursesByUserId(ISender sender,Guid userId)
     {
         return await sender.Send(new GetCourseByUsedIdQuery { UserId = userId });
@@ -47,6 +76,14 @@ public class Courses : EndpointGroupBase
         await sender.Send(command);
         return Results.NoContent();
     }
+
+    public async Task<IResult> RemoveCourseFromWishList(ISender sender,Guid courseId, Guid userId)
+    {
+        await sender.Send(new RemoveCourseWLCommand(courseId,userId));
+        await sender.Send(new DecreaseLikeCountCommand(courseId));
+        return Results.NoContent();
+    }
+
 }
 
 

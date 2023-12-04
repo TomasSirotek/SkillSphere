@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using skillSphere.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using skillSphere.Infrastructure.Data;
 namespace SkillSphere.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231203160959_Likes")]
+    partial class Likes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -384,21 +387,6 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                     b.ToTable("UsersCourses");
                 });
 
-            modelBuilder.Entity("SkillSphere.Domain.Entities.WishListItem", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("WishlistItems");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("SkillSphere.Domain.Entities.ApplicationRole", null)
@@ -510,30 +498,9 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SkillSphere.Domain.Entities.WishListItem", b =>
-                {
-                    b.HasOne("SkillSphere.Domain.Entities.Course", "Course")
-                        .WithMany("WishList")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SkillSphere.Domain.Entities.ApplicationUser", "User")
-                        .WithMany("WishList")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SkillSphere.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("UserCourses");
-
-                    b.Navigation("WishList");
                 });
 
             modelBuilder.Entity("SkillSphere.Domain.Entities.Category", b =>
@@ -548,8 +515,6 @@ namespace SkillSphere.Infrastructure.Data.Migrations
                     b.Navigation("Chapters");
 
                     b.Navigation("UserCourses");
-
-                    b.Navigation("WishList");
                 });
 
             modelBuilder.Entity("SkillSphere.Domain.Entities.TodoList", b =>

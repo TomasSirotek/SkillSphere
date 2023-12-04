@@ -25,8 +25,6 @@ public static class DependencyInjection
 
         services.AddExceptionHandler<CustomExceptionHandler>();
 
-        services.AddRazorPages();
-
         services.AddScoped(provider =>
         {
             var validationRules = provider.GetService<IEnumerable<FluentValidationRule>>();
@@ -65,7 +63,7 @@ public static class DependencyInjection
             
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
-
+        
         return services;
     }
 

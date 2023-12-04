@@ -17,6 +17,7 @@ public interface IApplicationDbContext
     DbSet<Chapter> Chapters { get; }
     
     DbSet<UserCourse> UsersCourses { get; }
+    DbSet<WishListItem> WishlistItems { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

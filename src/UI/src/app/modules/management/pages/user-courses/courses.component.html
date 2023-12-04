@@ -14,9 +14,9 @@
   <!-- Card Blog -->
   <div class="py-4 mx-auto">
     <!-- Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4"   *ngIf="filteredCourses && filteredCourses.length > 0; else noResults" >
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4" *ngIf="filteredCourses && filteredCourses.length > 0; else noResults" >
       
-      <ng-container *ngIf="!isLoaded; else loadedContent">
+      <ng-container *ngIf="!isLoaded; else loadedContent" >
         <ng-container *ngFor="let _ of [0, 1, 2, 3,4,5,6,7]">
             <div class=" rounded-md shadow overflow-hidden ">
               <ngx-skeleton-loader count="1" [theme]="{ 'height.px': 250, 'background-color': 'grey', 'width.px': '300' }"></ngx-skeleton-loader>
@@ -44,12 +44,12 @@
                 class="flex-none button rounded-md px-4 text-xs font-semibold text-white hover:cursor-pointer"
               >
                 <ng-icon
-                  *ngIf="!isLiked"
+                  *ngIf="!course?.isLiked"
                   name="heroHeart"
                   class="text-3xl"
                 ></ng-icon>
                 <ng-icon
-                  *ngIf="isLiked"
+                *ngIf="course?.isLiked"
                   name="heroHeartSolid"
                   class="text-3xl text-red-500"
                 ></ng-icon>
@@ -109,7 +109,13 @@
                   name="heroHeart"
                   class="text-black dark:text-white mr-2"
                 />
-                <span class="text-black dark:text-white text-sm">349</span>
+                <span class="text-black dark:text-white text-sm">{{course?.likes}}</span>
+                <ng-icon
+                  name="heroBookOpen"
+                  class="text-black dark:text-white ml-4 mr-2"
+                />
+                <span class="text-black dark:text-white text-sm">{{ course?.chapters?.length}}</span>
+
               </div>
 
               <div>
@@ -150,4 +156,4 @@
   <!-- End Card Blog -->
 </div>
 
-<app-detail-drawer />
+<app-detail-drawer (emitLikeCourseChange)="handleLikeCourse($event)" />

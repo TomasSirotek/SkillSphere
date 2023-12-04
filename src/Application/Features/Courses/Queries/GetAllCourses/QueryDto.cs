@@ -10,10 +10,11 @@ public class QueryDto
     public string? CoverImageRelativePath { get; set; }
     public bool IsPublished { get; set; }
     public float Price { get; set; }
+    public int Likes { get; set; }
+    public string? AuthorName { get; set; }
     public IReadOnlyCollection<CategoryDto> Categories { get; set; }
     public IReadOnlyCollection<ChapterDto> Chapters { get; init; }
     
-    public string? AuthorName { get; set; }
     
     public QueryDto()
     {
