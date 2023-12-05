@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   NgModule,
+  OnDestroy,
   OnInit,
   TemplateRef,
   ViewChild,
@@ -27,11 +28,12 @@ import { CourseDetailDrawer } from '../../components/shared/course-detail-drawer
 import { DrawerService } from '../../services/drawer.service';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroBookOpen, heroHeart } from '@ng-icons/heroicons/outline';
+import { heroBookOpen, heroCheckBadge, heroHeart } from '@ng-icons/heroicons/outline';
 import { heroHeartSolid } from '@ng-icons/heroicons/solid';
 import { UserService } from 'src/app/core/auth/service/user.service';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, filter, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -51,9 +53,9 @@ import { ToastrService } from 'ngx-toastr';
     NgIcon,
   ],
   templateUrl: './courses.component.html',
-  viewProviders: [provideIcons({ heroHeart, heroHeartSolid, heroBookOpen })],
+  viewProviders: [provideIcons({ heroHeart, heroHeartSolid, heroBookOpen,heroCheckBadge })],
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
   isLoaded = false;
   isDrawerOpen = false;
 
@@ -63,6 +65,7 @@ export class CoursesComponent implements OnInit {
   filteredCourses: Course[] = [];
 
   wishListIds: string[] = [];
+  purchasedIds: string[] = [];
 
   @Input() searchQuery: string = '';
 
@@ -112,13 +115,12 @@ export class CoursesComponent implements OnInit {
   }
 
   private handleError(error: any, course: Course) {
-    // Handle error (e.g., display an error message or roll back the change)
     this.toastr.error(error.message, 'Error');
     course.isLiked = !course.isLiked; // Roll back the change
 
   }
 
-
+  
   constructor(
     private courseService: CourseService,
     private router: Router,
@@ -129,38 +131,61 @@ export class CoursesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    this.getPurchasedCourses();
     this.getWishList();
+
+
     this.getAllCourses();
+
+
   }
 
-  private getWishList() {
+  ngOnDestroy(): void {
+   
+  }
+  
+
+
+  private async getWishList() {
+    await this.userService.loadData().pipe(take(1)).toPromise();
     this.userService.wishList.subscribe((wishlistCourses) => {
       if (wishlistCourses !== null && Array.isArray(wishlistCourses)) {
         this.wishListIds.push(...wishlistCourses.map((course) => course.id));
       }
     });
-    
   }
-
-  private getAllCourses() {
+  
+  private async getPurchasedCourses() {
+    await this.userService.loadData().pipe(take(1)).toPromise();
+    this.userService.ownedCourses.subscribe((ownedCourses) => {
+      if (ownedCourses !== null && Array.isArray(ownedCourses)) {
+        this.purchasedIds.push(...ownedCourses.map((course) => course.id));
+      }
+    });
+  }
+  
+  private async getAllCourses() {
+    await this.userService.loadData().pipe(take(1)).toPromise();
     this.courseService.getAllCourses().subscribe((data: any) => {
       this.courses = data.courses;
-
+  
       // just for demo
       setTimeout(() => {
         this.isLoaded = true;
       }, 500);
-
-      
+  
       this.courses?.map((course) => {
         course.isLiked = this.wishListIds.includes(course.id);
-      })
-      
+      });
+  
+      this.courses?.map((course) => {
+        course.isPurchased = this.purchasedIds.includes(course.id);
+      });
+  
       this.filteredCourses = this.courses;
     });
   }
-
-  
   filterCourses(): void {
     this.filteredCourses = this.courses.filter((course) =>
       course.title.toLowerCase().includes(this.searchQuery.toLowerCase())

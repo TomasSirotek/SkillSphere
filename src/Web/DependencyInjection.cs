@@ -17,6 +17,7 @@ public static class DependencyInjection
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         services.AddScoped<IUser, CurrentUser>();
+        
 
         services.AddHttpContextAccessor();
 

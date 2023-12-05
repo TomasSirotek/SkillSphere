@@ -10,8 +10,8 @@
       <img
         clickOutside
         (clickOutside)="isMenuOpen = false"
-        class="h-9 w-9 rounded-md"
-        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsp-images.summitpost.org%2F947006.jpg%3Fauto%3Dformat%26fit%3Dmax%26ixlib%3Dphp-2.1.1%26q%3D35%26w%3D1024%26s%3Dd877834568578388ef13b78e3cd7ba2b&f=1&nofb=1&ipt=d3b64144bdcb78de228b02723bbf478d0364f019876f1c69b709a2fc7378dbbb&ipo=images"
+        class="h-7 w-7 rounded-md"
+        src="https://api.dicebear.com/7.x/identicon/svg"
         alt="" />
     </button>
     <!-- Dropdown -->
@@ -21,28 +21,25 @@
           ? 'pointer-events-auto scale-100 animate-fade-in-up opacity-100 duration-200'
           : 'pointer-events-none scale-95 opacity-0 duration-100 ease-in'
       "
-      class="absolute right-0 mt-2 w-60 origin-top-right transform rounded-md bg-white py-4 shadow-custom ring-1 ring-transparent ring-opacity-5 transition focus:outline-none dark:bg-night-600">
+      class="z-20 absolute right-0 mt-2 w-60 origin-top-right transform rounded-md bg-white py-4 shadow-custom ring-1 ring-transparent ring-opacity-5 transition focus:outline-none dark:bg-night-600">
       <div class="flext-row flex items-center px-4 pb-4">
-        <div class="w-10 shrink-0">
-          <img class="rounded-md" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsp-images.summitpost.org%2F947006.jpg%3Fauto%3Dformat%26fit%3Dmax%26ixlib%3Dphp-2.1.1%26q%3D35%26w%3D1024%26s%3Dd877834568578388ef13b78e3cd7ba2b&f=1&nofb=1&ipt=d3b64144bdcb78de228b02723bbf478d0364f019876f1c69b709a2fc7378dbbb&ipo=images" alt="" />
+        <div class="w-7 shrink-0">
+          <img class="rounded-md" src="https://api.dicebear.com/7.x/identicon/svg" alt="" />
         </div>
-        <div class="overflow-hidden px-2 text-sm font-semibold text-gray-700 dark:text-night-50">
-          Mr.Simpson
-          <p class="truncate text-ellipsis text-xs font-semibold text-gray-400 dark:text-night-300">{{authResponse?.email}}</p>
+
+        <div>
+          <span class="block rounded-md px-3 py-2 text-sm font-semibold text-gray-700  dark:text-white ">
+          {{authResponse?.email}}
+
+          </span>
         </div>
+       
       </div>
   
       <div class="border-b border-dashed border-gray-200 dark:border-night-500"></div>
   
       <ul class="my-2 mx-4">
-        <li
-          class="block cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 hover:text-primary-500 dark:text-night-200 dark:hover:bg-night-500 dark:hover:text-primary-500">
-          Profile
-        </li>
-        <li
-          class="block cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 hover:text-primary-500 dark:text-night-200 dark:hover:bg-night-500 dark:hover:text-primary-500">
-          Settings
-        </li>
+      
         <li
           (click)="logout()"
           routerLink="/auth/login"

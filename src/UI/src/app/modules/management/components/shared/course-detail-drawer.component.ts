@@ -15,9 +15,11 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   heroArrowDownCircle,
   heroArrowUpCircle,
+  heroArrowUpRight,
   heroDocument,
   heroHeart,
   heroLockClosed,
+  heroLockOpen,
   heroShoppingBag,
   heroTv,
   heroXCircle,
@@ -26,11 +28,14 @@ import { heroHeartSolid } from '@ng-icons/heroicons/solid';
 import { FormsModule } from '@angular/forms';
 import { DrawerService } from '../../services/drawer.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
+import { PaymentLinkRequest, PaymentService } from 'src/app/shared/service/payment.service';
+import { AuthService } from 'src/app/core/auth/service/auth.service';
 
 @Component({
   selector: 'app-detail-drawer',
   standalone: true,
-  imports: [CommonModule, NgIcon, FormsModule],
+  imports: [CommonModule, NgIcon, FormsModule,RouterLink],
   templateUrl: './course-detail-drawer.component.html',
   viewProviders: [
     provideIcons({
@@ -43,6 +48,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       heroTv,
       heroLockClosed,
       heroDocument,
+      heroArrowUpRight,
+      heroLockOpen
     }),
   ],
 })
@@ -54,12 +61,15 @@ export class CourseDetailDrawer implements OnInit {
   isDrawerOpen = false;
   showFullDescription = false;
   course: Course = null;
+  generatedLink: string | null = null
 
   constructor(
     private sanitizer: DomSanitizer,
     private drawerService: DrawerService,
     private elementRef: ElementRef,
-    private senitaizer: DomSanitizer
+    private senitaizer: DomSanitizer,
+    private paymentService: PaymentService,
+    private authService: AuthService
   ) {
     this.drawerService.getOpenModalStatus().subscribe((isOpen) => {
       this.isDrawerOpen = isOpen;
@@ -73,6 +83,47 @@ handleLikeCourse(courseId: string) {
   this.emitLikeCourseChange.emit(courseId);
   this.course.isLiked = !this.course.isLiked;
 }
+
+// PURCHASE
+loading = false;
+linkGenerated = false;
+
+
+generateLink() {
+  if(!this.course.isPurchased){
+    this.loading = true;
+
+    const userId = this.authService.getUserId();
+
+    const request: PaymentLinkRequest = {
+      courseToPurchase: {
+        id: this.course.id,
+        title: this.course.title,
+        description: this.course.description,
+        price: this.course.price,
+        imageUrl: this.course.coverImageRelativePath,
+      },
+      quantity: 1,
+      metadata: { userId: userId, courseId: this.course.id },
+      successRedirectUrl:  'http://localhost:4200/dashboard',
+      cancelRedirectUrl:  'http://localhost:4200/courses',
+    };
+    
+
+    this.paymentService.generatePaymentLink(request).subscribe(response => {
+      this.generatedLink = response.checkoutUrl;
+      this.linkGenerated = true;
+      this.loading = false;
+    });
+    
+  }else {
+    // open the course preview
+    alert("open the course preview");
+  }
+ 
+}
+
+// END
 
 processCourseData(course: Course): void {
 
@@ -127,6 +178,8 @@ processCourseData(course: Course): void {
   closeDrawer() {
     this.drawerService.closeModal();
     this.course = null;
+    this.generatedLink = null;
+    this.linkGenerated = false;
     this.isDrawerOpen = false;
   }
 

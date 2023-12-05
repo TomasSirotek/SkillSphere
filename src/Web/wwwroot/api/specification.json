@@ -174,6 +174,38 @@
         }
       }
     },
+    "/api/Courses/{userId}/owned": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "GetCoursesForUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCourseVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Courses/{userId}/wishlist": {
       "get": {
         "tags": [
@@ -331,6 +363,63 @@
             "x-position": 2
           }
         ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Payments": {
+      "post": {
+        "tags": [
+          "Payments"
+        ],
+        "operationId": "CreatePayment",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Payments/webhook": {
+      "post": {
+        "tags": [
+          "Payments"
+        ],
+        "operationId": "Webhook",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": ""
@@ -1009,6 +1098,123 @@
           "courseId": {
             "type": "string",
             "format": "guid"
+          }
+        }
+      },
+      "PaymentResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "checkoutUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CreatePaymentCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "courseToPurchase": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PurchasedItem"
+              }
+            ]
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "successRedirectUrl": {
+            "type": "string"
+          },
+          "cancelRedirectUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "PurchasedItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "imageUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "WebhookCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/WebhookDataRequest"
+              }
+            ]
+          }
+        }
+      },
+      "WebhookDataRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "object": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/WebhookObjectRequest"
+              }
+            ]
+          }
+        }
+      },
+      "WebhookObjectRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": {
+              "type": "string"
+            }
           }
         }
       },

@@ -17,7 +17,7 @@
       <div *ngIf="userCourses?.length > 0">
         <div *ngFor="let course of userCourses">
           <div
-            class="w-full flex my-2 flex justify-between border bg-gray-50 rounded-md"
+            class="w-full gap-4 flex my-2 flex justify-between dark:border-gray-700  hover:scale-105 cursor-pointer dark:bg-gray-800 rounded-md"
           >
             <div class="image-wrapper">
               <img
@@ -32,7 +32,7 @@
               <!-- div 1 (title and status) -->
               <div class="w-2/3 p-2">
                 <div class="flex flex-col space-y-12">
-                  <div class="font-bold">{{ course.title }}</div>
+                  <div class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-whit">{{ course.title }}</div>
                   <div>
                     <span
                       *ngIf="!course?.isPublished"

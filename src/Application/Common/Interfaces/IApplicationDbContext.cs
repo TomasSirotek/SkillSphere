@@ -18,6 +18,7 @@ public interface IApplicationDbContext
     
     DbSet<UserCourse> UsersCourses { get; }
     DbSet<WishListItem> WishlistItems { get; }
+    DbSet<PurchasedCourse> OwnedCourses { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

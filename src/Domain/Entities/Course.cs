@@ -18,4 +18,6 @@ public class Course : BaseAuditableEntity
     public IList<UserCourse> UserCourses { get; init; } = new List<UserCourse>();
     
     public IList<WishListItem> WishList { get; init; } = new List<WishListItem>();
+    public IList<PurchasedCourse> OwnedCourses { get; private set; } = new List<PurchasedCourse>();
+
 }

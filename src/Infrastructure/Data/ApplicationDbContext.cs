@@ -28,6 +28,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     
     public DbSet<UserCourse> UsersCourses => Set<UserCourse>();
     public DbSet<WishListItem> WishlistItems => Set<WishListItem>();
+    public DbSet<PurchasedCourse> OwnedCourses => Set<PurchasedCourse>();
 
     
     protected override void OnModelCreating(ModelBuilder builder)

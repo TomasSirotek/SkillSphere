@@ -4,7 +4,7 @@ export class Menu {
   public static pages: MenuItem[] = [
     {
       group: '',
-      separator: true,
+      separator: false,
       items: [
         {
           icon:' heroBuildingStorefront',
@@ -23,17 +23,5 @@ export class Menu {
         
       ],
     },
-    {
-      group: 'Config',
-      separator: false,
-      items: [
-        {
-          icon: 'heroBuildingStorefront',
-          label: 'Account settings',
-          route: '/settings',
-        },
-      
-      ],
-    }, 
   ];
 }

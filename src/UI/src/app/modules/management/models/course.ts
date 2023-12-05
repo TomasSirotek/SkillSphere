@@ -7,6 +7,7 @@ export interface Course {
     price: number; 
     likes: number;
     isLiked?: boolean;
+    isPurchased?: boolean;
     categories: Categories[]; 
     chapters: Chapter[]; 
     authorName: string;
