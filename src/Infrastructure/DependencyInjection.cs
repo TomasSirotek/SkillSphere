@@ -12,11 +12,12 @@ using SkillSphere.Domain.Entities;
 using SkillSphere.Domain.Identity;
 using SkillSphere.Infrastructure.Authentication;
 using SkillSphere.Infrastructure.Authentication.Services;
+using SkillSphere.Infrastructure.Config;
 using skillSphere.Infrastructure.Data;
 using SkillSphere.Infrastructure.Data;
-
+using SkillSphere.Infrastructure.PaymentGateway;
 using Roles = SkillSphere.Domain.Constants.Roles;
-
+using Microsoft.AspNetCore.Mvc;
 namespace SkillSphere.Infrastructure;
 
 public static class DependencyInjection
@@ -39,7 +40,7 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
-
+        
         // Setting up Identity
         services
             .AddDefaultIdentity<ApplicationUser>()
@@ -48,6 +49,10 @@ public static class DependencyInjection
             
         // Set up Time
         services.AddSingleton(TimeProvider.System);
+        
+        // Set up Stripe 
+        services.AddOptions<StripeConfig>().BindConfiguration(nameof(StripeConfig));
+        services.AddTransient<IPaymentGateway, StripePaymentGateway>();
         
         // Register Identity Service and its Interfaces
         services.AddTransient<IIdentityService, IdentityService>();

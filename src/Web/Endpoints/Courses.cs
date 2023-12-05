@@ -9,6 +9,7 @@ using SkillSphere.Application.Features.Courses.Commands.RemoveCourseWL;
 using SkillSphere.Application.Features.Courses.Queries;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
 using SkillSphere.Application.Features.Courses.Queries.GetCoursesForUser;
+using SkillSphere.Application.Features.Courses.Queries.GetUserCourse;
 using SkillSphere.Web.Infrastructure;
 
 namespace SkillSphere.Web.Endpoints;
@@ -21,6 +22,7 @@ public class Courses : EndpointGroupBase
         app.MapGroup(this)
             .MapGet(GetCoursesByUserId, "{userId}")
             .MapGet(GetCourses)
+            .MapGet(GetCoursesForUser, "{userId}/owned")
             .MapGet(GetUserWishList, "{userId}/wishlist")
             .MapPut(PublishCourse, "{courseId}/publish")
             .MapPut(SaveCourseAsDraft, "{courseId}")
@@ -33,16 +35,13 @@ public class Courses : EndpointGroupBase
     {
         return await sender.Send(command);
     }
-    
 
-    // public async Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
-    // {
-    //     return await sender.Send(query);
-    // }
-    
+    public async Task<GetCourseVm> GetCoursesForUser(ISender sender,Guid userId)
+    {
+        return await sender.Send(new GetUserOwnedCoursesQuery { UserId = userId });
+    }
     public async Task<GetCourseVm> GetUserWishList(ISender sender,Guid userId)
     {
-        
         return await sender.Send(new GetUserWishListQuery { UserId = userId });
     }
     
@@ -83,6 +82,12 @@ public class Courses : EndpointGroupBase
         await sender.Send(new DecreaseLikeCountCommand(courseId));
         return Results.NoContent();
     }
+    
+    
+    // public async Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
+    // {
+    //     return await sender.Send(query);
+    // }
 
 }
 

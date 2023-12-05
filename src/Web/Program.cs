@@ -62,6 +62,12 @@ app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
 
+app.Use((context, next) =>
+{
+    context.Request.EnableBuffering();
+    return next();
+});
+
 app.UseCors(options =>
 {
     options.SetIsOriginAllowed(origin => true)

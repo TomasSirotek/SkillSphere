@@ -18,6 +18,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
@@ -30,12 +31,14 @@
     <PackageVersion Include="Microsoft.Extensions.Identity.Core" Version="8.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageVersion Include="Moq" Version="4.20.69" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="NSwag.AspNetCore" Version="14.0.0-preview009" />
     <PackageVersion Include="NSwag.MSBuild" Version="14.0.0-preview009" />
     <PackageVersion Include="nunit" Version="3.14.0" />
     <PackageVersion Include="NUnit.Analyzers" Version="3.9.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageVersion Include="Respawn" Version="6.1.0" />
+    <PackageVersion Include="Stripe.net" Version="43.5.0" />
     <PackageVersion Include="Testcontainers.MsSql" Version="3.6.0" />
     <PackageVersion Include="ZymLabs.NSwag.FluentValidation.AspNetCore" Version="0.6.2" />
     <PackageVersion Include="Microsoft.Playwright" Version="1.39.0" />

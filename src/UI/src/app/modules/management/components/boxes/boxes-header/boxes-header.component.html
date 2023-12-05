@@ -5,17 +5,19 @@
         <!-- <a href="" class="hover:text-primary-500">Dashboards</a> -->
         <span >{{subTitle}}</span>
       </div>
+      
     </div>
-    <div class="inline-block space-x-4" *ngIf="showButton">
+
+    <div class="inline-block  space-x-4 " *ngIf="showButton">
       <button
         (click)="openModal()"
         data-testid="open-modal-button"
-        class="flex-none button rounded-md bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600">
+        class="flex-none button rounded-md w-full  bg-primary-500 px-4 py-2.5 text-xs font-semibold text-white hover:bg-primary-600">
         New course
       </button>
     </div>
 
-    <div class="w-1/2">
+    <div class="w-1/2"  *ngIf="!showButton">
         <div class="flex">
           <label
             for="search-dropdown"
@@ -85,7 +87,7 @@
               id="search-dropdown"
              [(ngModel)]="searchTerm"
              (input)="onSearchQueryChange($event)"
-              class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-night-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-night-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
               placeholder="Search by title ..."
               required
             />
