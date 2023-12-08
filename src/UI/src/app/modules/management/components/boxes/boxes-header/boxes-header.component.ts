@@ -52,6 +52,7 @@ interface PostBoxDto {
 export class BoxesHeaderComponent implements OnInit {
 
 
+
   @Output() dataEmitter = new EventEmitter<any>();
   @Output() searchTermEmitter = new EventEmitter<string>();
   @Input() showButton: boolean;
@@ -109,12 +110,10 @@ searchTerm: string;
     this.modal.hide();
     }
 
-    onSearchQueryChange(event: any): void {
-      this.searchTerm = event.target.value;
-      this.searchTermEmitter.emit(this.searchTerm);
-    }
-      
-
+    onSortChange(sortTerm: string) {
+      // emit the value to the parent component
+      this.searchTermEmitter.emit(sortTerm);
+      }
  
 
  

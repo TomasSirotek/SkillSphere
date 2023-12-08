@@ -55,7 +55,8 @@ import { Subject, filter, take, takeUntil } from 'rxjs';
   templateUrl: './courses.component.html',
   viewProviders: [provideIcons({ heroHeart, heroHeartSolid, heroBookOpen,heroCheckBadge })],
 })
-export class CoursesComponent implements OnInit, OnDestroy {
+export class CoursesComponent implements OnInit {
+
   isLoaded = false;
   isDrawerOpen = false;
 
@@ -67,15 +68,53 @@ export class CoursesComponent implements OnInit, OnDestroy {
   wishListIds: string[] = [];
   purchasedIds: string[] = [];
 
-  @Input() searchQuery: string = '';
+  // pagination  
+  pageNumber = 1; // Current page number
+  itemsPerPage = 8; // Items per page
+  sortBy = 'title'; // Sort by column
+  sortDir: 'asc' | 'desc' = 'asc'; // Sort direction
+  pageInfo = {}
+
+  constructor(
+    private courseService: CourseService,
+    private router: Router,
+    private drawerService: DrawerService,
+    private userService: UserService,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {}
+
+
+  ngOnInit(): void {
+
+    
+    
+    this.loadCourses();
+    
+    
+    this.getWishList();
+    this.getPurchasedCourses();
+  }
+
+  handleSearchTerm($event: string) {
+    console.log($event);
+
+    // search term 
+  }
+
+  handleChange($event: any) {
+    this.itemsPerPage = $event.target.value;
+    this.loadCourses();
+
+    }
+  
+
 
   openDrawer(course: Course) {
     this.drawerService.openModal();
     this.drawerService.setModalData(course);
   }
 
-  currentPage = 1; // Current page number
-  itemsPerPage = 8; // Items per page
 
   closeDrawer() {
     this.isDrawerOpen = false;
@@ -83,7 +122,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   get startIndex(): number {
-    return (this.currentPage - 1) * this.itemsPerPage;
+    return (this.pageNumber - 1) * this.itemsPerPage;
   }
 
   get endIndex(): number {
@@ -134,34 +173,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   
-  constructor(
-    private courseService: CourseService,
-    private router: Router,
-    private drawerService: DrawerService,
-    private userService: UserService,
-    private authService: AuthService,
-    private toastr: ToastrService
-  ) {}
-
-  ngOnInit(): void {
-
-    this.getPurchasedCourses();
-    this.getWishList();
-
-
-    this.getAllCourses();
-
-
-  }
-
-  ngOnDestroy(): void {
-   
-  }
-  
-
+ 
 
   private async getWishList() {
-    await this.userService.loadData().pipe(take(1)).toPromise();
+    await this.userService.loadData().pipe(take(1))
     this.userService.wishList.subscribe((wishlistCourses) => {
       if (wishlistCourses !== null && Array.isArray(wishlistCourses)) {
         this.wishListIds.push(...wishlistCourses.map((course) => course.id));
@@ -170,7 +185,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
   
   private async getPurchasedCourses() {
-    await this.userService.loadData().pipe(take(1)).toPromise();
+    await this.userService.loadData().pipe(take(1))
     this.userService.ownedCourses.subscribe((ownedCourses) => {
       if (ownedCourses !== null && Array.isArray(ownedCourses)) {
         this.purchasedIds.push(...ownedCourses.map((course) => course.id));
@@ -178,35 +193,35 @@ export class CoursesComponent implements OnInit, OnDestroy {
     });
   }
   
-  private async getAllCourses() {
-    await this.userService.loadData().pipe(take(1)).toPromise();
-    this.courseService.getAllCourses().subscribe((data: any) => {
-      this.courses = data.courses;
-  
-      // just for demo
-      setTimeout(() => {
+  // needs to be replaced with pagination and filter
+  private async loadCourses() {
+
+    
+    await this.userService.loadData().pipe(take(1))
+    this.isLoaded = false;
+    
+
+    this.courseService.getPaginatedCourses(this.pageNumber,this.itemsPerPage,this.sortBy,this.sortDir).subscribe((data: any) => {
+      this.courses = data?.items;
+      this.pageInfo = data?.pageInfo;
+
+            setTimeout(() => {
         this.isLoaded = true;
       }, 500);
-  
-      this.courses?.map((course) => {
-        course.isLiked = this.wishListIds.includes(course.id);
-      });
-  
-      this.courses?.map((course) => {
-        course.isPurchased = this.purchasedIds.includes(course.id);
-      });
-  
-      this.filteredCourses = this.courses;
     });
   }
-  filterCourses(): void {
-    this.filteredCourses = this.courses.filter((course) =>
-      course.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
+
+  private onPageChange(page: number) {
+    this.pageNumber = page;
+    this.loadCourses();
   }
 
-  onSearchTermChange(searchTerm: string): void {
-    this.searchQuery = searchTerm;
-    this.filterCourses();
+  private onSortChange(sortBy: string, sortDir: "asc" | "desc") {
+    this.sortBy = sortBy;
+    this.sortDir = sortDir;
+    this.loadCourses();
   }
+ 
+
+ 
 }

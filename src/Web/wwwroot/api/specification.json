@@ -274,6 +274,68 @@
         }
       }
     },
+    "/api/Courses/paginated": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "GetCoursesWithPagination",
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "SortBy",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "SortOrder",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfQueryDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Courses/{courseId}": {
       "put": {
         "tags": [
@@ -986,6 +1048,36 @@
           }
         }
       },
+      "PaginatedListOfQueryDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QueryDto"
+            }
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
       "SaveCourseDraftCommand": {
         "type": "object",
         "additionalProperties": false,
@@ -1007,8 +1099,7 @@
             "nullable": true
           },
           "isPublished": {
-            "type": "boolean",
-            "nullable": true
+            "type": "boolean"
           },
           "price": {
             "type": "number",

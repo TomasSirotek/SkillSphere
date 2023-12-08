@@ -9,7 +9,7 @@ public class SaveCourseDraftCommand: IRequest
     public string? Description { get; set; }
     public string? CoverImageRelativePath { get; set; }
 
-    public bool? IsPublished { get; set; }
+    public bool IsPublished { get; set; }
     public float Price { get; set; }
     
     public IList<PutCategoryDto> Categories { get; init; } = new List<PutCategoryDto>();

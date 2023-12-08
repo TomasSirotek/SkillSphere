@@ -6,8 +6,7 @@
   <app-boxes-header
     [isDetail]="true"
     title="Courses shop"
-    (searchTermEmitter)="onSearchTermChange($event)"
-    subTitle="Purchase new courses"
+    (searchTermEmitter)="handleSearchTerm($event)"
   ></app-boxes-header>
   <!-- end Header -->
 
@@ -27,12 +26,15 @@
         </ng-container>
       </div>
     </div>
+
+    <input type="number" [(ngModel)]="itemsPerPage" (input)="handleChange($event)" />
+    
   
     <ng-template #skeletonContent>
       <!-- Actual Content -->
-      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto" *ngIf="filteredCourses && filteredCourses.length > 0; else noResults">
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto" *ngIf="courses && courses.length > 0; else noResults">
         <!-- Course cards -->
-        <ng-container *ngFor="let course of filteredCourses.slice(startIndex,endIndex); let i = index">
+        <ng-container *ngFor="let course of courses; let i = index">
           <div class="group shadow-sm dark:border-gray-700 hover:scale-105 transform transition-transform duration-300">
             <div
             [attr.data-index]="i"
@@ -151,11 +153,13 @@
        
       </div>
     </ng-template>
-    <div class="flex justify-between mt-4 absolute bottom-0">
+
+
+    <!-- <div class="flex justify-between mt-4 absolute bottom-0">
       <button class="px-4 py-2 border rounded"    (click)="currentPage = currentPage - 1">Previous</button>
       <span>Page {{ currentPage }} of {{ itemsPerPage }}</span>
       <button class="px-4 py-2 border rounded"   (click)="currentPage = currentPage + 1">Next</button>
-    </div>
+    </div> -->
   
     <ng-template #noResults>
       <div class="text-center text-gray-500 dark:text-gray-400 mt-8">

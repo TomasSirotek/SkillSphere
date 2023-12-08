@@ -24,6 +24,7 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
 
         
         Guard.Against.NotFound(guidString, existingCourse);
+        Guard.Against.Null(existingCourse.IsPublished);
 
         // update entity depending on the values recieved 
         existingCourse.Title = request.Title;

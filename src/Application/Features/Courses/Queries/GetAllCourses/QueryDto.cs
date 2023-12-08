@@ -28,11 +28,13 @@ public class QueryDto
         {
             CreateMap<Course, QueryDto>()
                 .ForMember(dto => dto.AuthorName, 
-                    c => c.MapFrom(c => c.UserCourses.FirstOrDefault()!.User!.UserName))
+                    c => c.MapFrom(
+                        c => c.UserCourses.FirstOrDefault()!.User!.UserName))
                 .ForMember(dto => dto.Categories, 
                     c 
                         => c.MapFrom(c 
                             => c.Categories.Select(cs => cs.Category)));
+            CreateMap<Course, GetCourseVm>();
         }
     }
 }

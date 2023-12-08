@@ -1,6 +1,6 @@
 using SkillSphere.Domain.Entities;
 
-namespace SkillSphere.Application.Features.Courses.Queries;
+namespace SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
 
 public class CategoryDto
 {

@@ -9,6 +9,7 @@ using SkillSphere.Application.Features.Courses.Commands.RemoveCourseWL;
 using SkillSphere.Application.Features.Courses.Queries;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
 using SkillSphere.Application.Features.Courses.Queries.GetCoursesForUser;
+using SkillSphere.Application.Features.Courses.Queries.GetPaginatedCourses;
 using SkillSphere.Application.Features.Courses.Queries.GetUserCourse;
 using SkillSphere.Web.Infrastructure;
 
@@ -25,6 +26,7 @@ public class Courses : EndpointGroupBase
             .MapGet(GetCoursesForUser, "{userId}/owned")
             .MapGet(GetUserWishList, "{userId}/wishlist")
             .MapPut(PublishCourse, "{courseId}/publish")
+            .MapGet(GetCoursesWithPagination, "paginated")
             .MapPut(SaveCourseAsDraft, "{courseId}")
             .MapPost(CreateCourse)
             .MapPost(AddCourseToWishList, "wishlist")
@@ -83,11 +85,12 @@ public class Courses : EndpointGroupBase
         return Results.NoContent();
     }
     
+    public async Task<PaginatedList<QueryDto>> GetCoursesWithPagination(ISender sender, [AsParameters] GetPaginatedCoursesQuery query)
+    {
+        return await sender.Send(query);
+    }
     
-    // public async Task<PaginatedList<TodoItemBriefDto>> GetTodoItemsWithPagination(ISender sender, [AsParameters] GetTodoItemsWithPaginationQuery query)
-    // {
-    //     return await sender.Send(query);
-    // }
+  
 
 }
 

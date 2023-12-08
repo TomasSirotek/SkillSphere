@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, catchError, finalize, firstValueFrom, map, of, tap } from 'rxjs';
 import { Box, ResponseDto } from '../models/box';
@@ -7,6 +7,7 @@ import { AlertServiceService } from 'src/app/shared/service/alert-service.servic
 import { ToastrService } from 'ngx-toastr';
 import { Categories, Course } from '../models/course';
 import { PostCourseDraftDto } from './dto/PostCourseDraftDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,21 @@ import { PostCourseDraftDto } from './dto/PostCourseDraftDto';
 
 
 export class CourseService {
+
+
+
+
+  public getPaginatedCourses(pageNumber: number, pageSize: number, sortBy: string, sortDir: string) {
+    const url = environment.baseUrl + "/courses/paginated";
+
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString())
+      .set('sortBy', sortBy)
+      .set('sortOrder', sortDir);
+  
+    return this._http.get<Course[]>(url, { params });
+}
 
  
   public coursesState: Observable<Course[]>;
