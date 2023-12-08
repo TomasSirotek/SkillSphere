@@ -134,6 +134,15 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/cdk@^16.2.12", "@angular/cdk@>=16.0.0":
+  version "16.2.12"
+  resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-16.2.12.tgz"
+  integrity sha512-wT8/265zm2WKY0BDaRoYbrAT4kadrmejTRLjuimQIEUKnw4vBsJMWCwQkpFo3s6zr6eznGqYVAFb8KKPVLKGBg==
+  dependencies:
+    tslib "^2.3.0"
+  optionalDependencies:
+    parse5 "^7.1.2"
+
 "@angular/cli@~17.0.3":
   version "17.0.3"
   resolved "https://registry.npmjs.org/@angular/cli/-/cli-17.0.3.tgz"
@@ -158,7 +167,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^17.0.0", "@angular/common@^17.0.0-rc.0", "@angular/common@^17.0.4", "@angular/common@>=11.0.2", "@angular/common@>=14.2.0", "@angular/common@>=16.0.0", "@angular/common@>=16.0.0-0", "@angular/common@17.0.4":
+"@angular/common@^16.0.0 || ^17.0.0", "@angular/common@^17.0.0", "@angular/common@^17.0.0-rc.0", "@angular/common@^17.0.4", "@angular/common@>=11.0.2", "@angular/common@>=14.2.0", "@angular/common@>=16.0.0", "@angular/common@>=16.0.0-0", "@angular/common@17.0.4":
   version "17.0.4"
   resolved "https://registry.npmjs.org/@angular/common/-/common-17.0.4.tgz"
   integrity sha512-/y38PbuiaWOuOmP5ZELTlJSjZGijc6Nq2XQloT5pKsaH935prxPjyWazwlY6cUnJMQgSRU644/ULosDJec7Zxw==
@@ -186,7 +195,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^17.0.0", "@angular/core@^17.0.0-rc.0", "@angular/core@^17.0.4", "@angular/core@>=11.0.2", "@angular/core@>=14.0.0", "@angular/core@>=14.2.0", "@angular/core@>=16.0.0", "@angular/core@>=16.0.0-0", "@angular/core@17.0.4":
+"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@^17.0.0", "@angular/core@^17.0.0-rc.0", "@angular/core@^17.0.4", "@angular/core@>=11.0.2", "@angular/core@>=13", "@angular/core@>=14.0.0", "@angular/core@>=14.2.0", "@angular/core@>=16", "@angular/core@>=16.0.0", "@angular/core@>=16.0.0-0", "@angular/core@>16.0.0", "@angular/core@17.0.4":
   version "17.0.4"
   resolved "https://registry.npmjs.org/@angular/core/-/core-17.0.4.tgz"
   integrity sha512-zk+z5sYPZd87pLxECx27quB5FvSmoi9PjJlcSlaBwwqaGnh/tPJI14u3q1dRY/CoZgP9egEiwc428+DzvOzJew==
@@ -1340,12 +1349,36 @@
   dependencies:
     tslib "^2.3.1"
 
+"@ngneat/cmdk@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@ngneat/cmdk/-/cmdk-2.0.0.tgz"
+  integrity sha512-drGM1/iPlZx19i5x8lyPA/Thp0Znt+P5iOTHdL9ZEHLxkj+IKiPwmSMXuUIF2DuA0AOPGUIEhR6wGdicN9Fcyg==
+  dependencies:
+    "@angular/cdk" ">=16.0.0"
+    "@ngneat/overview" ">=5.0.0"
+    "@ngneat/until-destroy" ">=10.0.0"
+    tslib "^2.3.0"
+
 "@ngneat/dialog@^4.1.1":
   version "4.1.1"
   resolved "https://registry.npmjs.org/@ngneat/dialog/-/dialog-4.1.1.tgz"
   integrity sha512-wYtkXGXparx8XEeJ5dLmN/+Q/6EMTHV9btXkWIeZFQbS/y3HYZZinMJ6+qqbCh7N0Y3yPAFLjJ1jXoIsZNeWww==
   dependencies:
     tslib "2.3.1"
+
+"@ngneat/overview@^5.1.1", "@ngneat/overview@>=5.0.0":
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/@ngneat/overview/-/overview-5.1.1.tgz"
+  integrity sha512-Dz7yylhS08Mo+A8SXo7KyJBJMxD18Oq/G5v/ndvd5C8Gi3uOrAiXUjxvqRCPMxrg03FlkvEsD5/4TvMKtrUfAQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngneat/until-destroy@^10.0.0", "@ngneat/until-destroy@>=10.0.0":
+  version "10.0.0"
+  resolved "https://registry.npmjs.org/@ngneat/until-destroy/-/until-destroy-10.0.0.tgz"
+  integrity sha512-xXFAabQ4YVJ82LYxdgUlaKZyR3dSbxqG3woSyaclzxfCgWMEDweCcM/GGYbNiHJa0WwklI98RXHvca+UyCxpeg==
+  dependencies:
+    tslib "^2.3.0"
 
 "@ngtools/webpack@17.0.3":
   version "17.0.3"
@@ -5920,7 +5953,7 @@ parse5-sax-parser@^7.0.0:
   dependencies:
     parse5 "^7.0.0"
 
-parse5@^7.0.0:
+parse5@^7.0.0, parse5@^7.1.2:
   version "7.1.2"
   resolved "https://registry.npmjs.org/parse5/-/parse5-7.1.2.tgz"
   integrity sha512-Czj1WaSVpaoj0wbhMzLmWD69anp2WH7FXMB9n1Sy8/ZFF9jolSQVMu1Ij5WIyGmcBmhk7EOndpO4mIpihVqAXw==
@@ -6633,7 +6666,7 @@ rx@4.1.0:
   resolved "https://registry.npmjs.org/rx/-/rx-4.1.0.tgz"
   integrity sha512-CiaiuN6gapkdl+cZUr67W6I8jquN4lkak3vtIsIWCl4XIPP8ffsoyN6/+PuGXnQy8Cu8W2y9Xxh31Rq4M6wUug==
 
-"rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.6.3 || ^7.4.0", rxjs@^7.8.1, rxjs@>=6.6.3, rxjs@>=7.8.0, rxjs@~7.8.0, rxjs@7.8.1:
+"rxjs@^6.4.0 || ^7.0.0", "rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.6.3 || ^7.4.0", rxjs@^7.8.1, rxjs@>=6.6.3, rxjs@>=7.8.0, rxjs@~7.8.0, rxjs@7.8.1:
   version "7.8.1"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.8.1.tgz"
   integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==

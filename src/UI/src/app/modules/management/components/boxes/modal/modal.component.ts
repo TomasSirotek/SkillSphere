@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/core/auth/service/auth.service';
 })
 export class ModalComponent {
   @Input() isOpen: boolean = false;
-  @Input() title: string = 'Confirmation';
+  @Input() title: string = 'New course';
   @Input() message: string = 'Are you sure you want to delete this item?';
 
   @Output() confirmed = new EventEmitter<string>();
@@ -32,7 +32,7 @@ export class ModalComponent {
     this.confirmed.emit(this.courseTitle);
 
     this.courseService.createCourse(this.courseTitle,this.authService.getUserId()).subscribe((courseId: string) => {
-      this.router.navigate([`/dashboard/teaching/${courseId}`]);
+      this.router.navigate([`/dashboard/my-courses/${courseId}`]);
       this.canceled.emit();
     })
 

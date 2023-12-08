@@ -4,6 +4,12 @@
 >
   <!-- end Header -->
 
+  <app-boxes-header
+    [showButton]="false"
+    title="Purchase courses"
+  ></app-boxes-header>
+
+
   <!-- Card Blog -->
   <div class="py-4 mx-auto">
     <div *ngIf="!isLoaded; else skeletonContent">
@@ -31,22 +37,20 @@
         *ngIf="filteredCourses && filteredCourses.length > 0; else noResults"
       >
         <!-- Course cards -->
-        <ng-container *ngFor="let course of filteredCourses">
+        <ng-container *ngFor="let course of filteredCourses ; let i = index">
+          
           <div
             class="group shadow-sm dark:border-gray-700 hover:scale-105 transform transition-transform duration-300"
           >
             <div
-              class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden"
+              class="bg-white border border-gray-200 rounded-md shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden"
             >
               <div class="relative">
                 <div class="absolute top-2 left-2 text-black dark:text-white">
                   <button
                     class="flex-none button rounded-md px-4 text-xs font-semibold text-white hover:cursor-pointer"
                   >
-                    <ng-icon
-                      name="heroCheckBadge"
-                      class="text-3xl text-green-500"
-                    ></ng-icon>
+                  
                   </button>
                 </div>
 
@@ -89,7 +93,7 @@
                 </div>
               </div>
 
-              <div class="p-4 md:p-6 space-y-2 hover:cursor-pointer">
+              <div class="p-4 md:p-6 space-y-2 hover:cursor-pointer" (click)="openModal(i) "> 
                 <h3
                   class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white"
                 >
@@ -132,7 +136,7 @@
                   </div>
 
                   <div>
-                    <button class="border-green-500 border rounded-md px-2">
+                    <button  class="border-green-500 border rounded-md px-2">
                       <span [class]="'text-green-500'" class="font-bold">
                         Watch now
                       </span>
@@ -142,6 +146,7 @@
               </div>
             </div>
           </div>
+
         </ng-container>
       </div>
     </ng-template>
@@ -153,5 +158,9 @@
     </ng-template>
   </div>
 
+
   <!-- End Card Blog -->
 </div>
+
+<app-modal-preview  [descriptionType]="false" (canceled)="handleCancelPreviewModal()" [course]="selectedCourse"  />
+

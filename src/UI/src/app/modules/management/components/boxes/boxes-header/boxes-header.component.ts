@@ -28,6 +28,8 @@ import { ModalServiceService } from 'src/app/shared/service/modal-service.servic
 import { Subscription } from 'rxjs';
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 import { ModalComponent } from '../modal/modal.component';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroPlusSmall } from '@ng-icons/heroicons/outline';
 
 interface PostBoxDto {
   title: string;
@@ -41,9 +43,11 @@ interface PostBoxDto {
 @Component({
   selector: 'app-boxes-header',
   standalone: true,
-  imports: [CommonModule, ModalComponent,FormsModule],
+  imports: [CommonModule, ModalComponent,FormsModule,NgIcon],
   templateUrl: './boxes-header.component.html',
   styleUrls: ['./boxes-header.component.scss'],
+  viewProviders: [provideIcons({ heroPlusSmall })],
+ 
 })
 export class BoxesHeaderComponent implements OnInit {
 

@@ -1,6 +1,6 @@
-<div class="mt-6 border bg-gray-50 rounded-md">
-  <div class="font-medium flex items-center justify-between border-b p-4">
-    <span>Cover image</span>
+<div class="border  rounded-md dark:bg-night-700 dark:border-gray-700 ">
+  <div class="font-medium flex items-center justify-between border-b p-4 dark:border-gray-700">
+    <span class="text-xl font-semibold text-gray-800 dark:text-gray-300 ">Cover image</span>
   </div>
   <div class="space-y-4">
     <div class="p-4">
@@ -8,7 +8,7 @@
         <label
           *ngIf="!uploadedFileUrl"
           for="dropzone-file"
-          class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          class="p-4 flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-night-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
         >
           <div class="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
@@ -48,17 +48,17 @@
             class="w-full h-64 object-cover rounded-lg"
           />
           
-          <div class="text-white   shadow-md absolute top-2 right-2 cursor-pointer">
+          <!-- <div class="text-white   shadow-md absolute top-2 right-2 cursor-pointer">
             <ng-icon class="text-xl bg-blue-500  rounded-xl  shadow-md" name="heroXMark" (click)="reuploadImage()">
             </ng-icon>
-          </div>
+          </div> -->
         </div>
         
       </div>
 
       <div class="space-y-4  mt-5">
         <div class="px-3 ">
-          <input (change)="onInputChange($event)"  [(ngModel)]="uploadedFileUrl" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="https//my-image.com" required>
+          <input (change)="onInputChange($event)"  [(ngModel)]="uploadedFileUrl" id="first_name" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="https//my-image.com" required>
      
      
         </div>

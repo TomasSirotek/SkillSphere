@@ -8,7 +8,7 @@ import { MenuItem, SubMenuItem } from 'src/app/core/models/menu.model';
   providedIn: 'root',
 })
 export class MenuService implements OnDestroy {
-  private _showSidebar = signal(false); // signal is a helper function to create a BehaviorSubject
+  private _showSidebar = signal(true); // signal is a helper function to create a BehaviorSubject
   private _showMobileMenu = signal(false);
   private _pagesMenu = signal<MenuItem[]>([]);
   private _subscription = new Subscription();

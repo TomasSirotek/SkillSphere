@@ -8,9 +8,7 @@ using SkillSphere.Domain.Entities;
 
 namespace SkillSphere.Infrastructure.Authentication.Services;
 
-
-    
-    public class JwtGenerator : IJwtTokenGen
+public class JwtGenerator : IJwtTokenGen
     {
         private readonly JwtTokenConfig _authSettings;
 

@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { Box } from '../../../models/box';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('BoxesTableComponent', () => {
   let component: BoxesTableComponent;
@@ -12,13 +14,12 @@ describe('BoxesTableComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BoxesTableComponent, HttpClientModule, ToastrModule.forRoot()],
+      imports: [BoxesTableComponent, HttpClientModule, ToastrModule.forRoot(),RouterTestingModule],
     });
     fixture = TestBed.createComponent(BoxesTableComponent);
     component = fixture.componentInstance;
 
-    component.rows = [] as Box[];
-
+ 
     fixture.detectChanges();
   });
 
@@ -29,7 +30,6 @@ describe('BoxesTableComponent', () => {
   describe('input empty table data message', () => {
     it('should render empty message when table data are empty', () => {
       const testRows = [] as Box[];
-      component.rows = testRows;
       component.apiConnected = true;
       component.isLoading = false;
 
@@ -75,7 +75,6 @@ describe('BoxesTableComponent', () => {
     it('should render empty message when table data are empty', () => {
       component.apiConnected = true;
       component.isLoading = false;
-      component.searchTerm = 'test';
       component.filteredRows = component.rows;
 
       fixture.detectChanges();
