@@ -31,7 +31,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/tailwindcss/base.css"
+              "node_modules/tailwindcss/base.css",
+              "node_modules/@ngneat/cmdk/styles/vercel.css"
             ],
             "scripts": [
               "node_modules/flowbite/dist/flowbite.js"

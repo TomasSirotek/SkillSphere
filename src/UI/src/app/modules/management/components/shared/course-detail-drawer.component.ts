@@ -31,11 +31,13 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { PaymentLinkRequest, PaymentService } from 'src/app/shared/service/payment.service';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
+import { Modal, ModalInterface, ModalOptions } from 'flowbite';
+import { ModalPreviewComponent } from 'src/app/shared/components/modal/modal-preview.component';
 
 @Component({
   selector: 'app-detail-drawer',
   standalone: true,
-  imports: [CommonModule, NgIcon, FormsModule,RouterLink],
+  imports: [CommonModule, NgIcon, FormsModule,RouterLink,ModalPreviewComponent],
   templateUrl: './course-detail-drawer.component.html',
   viewProviders: [
     provideIcons({
@@ -49,11 +51,14 @@ import { AuthService } from 'src/app/core/auth/service/auth.service';
       heroLockClosed,
       heroDocument,
       heroArrowUpRight,
-      heroLockOpen
+      heroLockOpen,
     }),
   ],
 })
 export class CourseDetailDrawer implements OnInit {
+handleCancelPreviewModal() {
+this.modal.hide();
+}
   
   @ViewChild('drawerElement') drawerElement: ElementRef;
   @Output() emitLikeCourseChange = new EventEmitter<string>();
@@ -62,14 +67,16 @@ export class CourseDetailDrawer implements OnInit {
   showFullDescription = false;
   course: Course = null;
   generatedLink: string | null = null
+  modal: ModalInterface;
 
+  
   constructor(
     private sanitizer: DomSanitizer,
     private drawerService: DrawerService,
     private elementRef: ElementRef,
     private senitaizer: DomSanitizer,
     private paymentService: PaymentService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.drawerService.getOpenModalStatus().subscribe((isOpen) => {
       this.isDrawerOpen = isOpen;
@@ -122,6 +129,36 @@ generateLink() {
   }
  
 }
+
+setupModal() {
+  const $modalElement: HTMLElement = document.querySelector('#modalCreatePreview');
+
+  const modalOptions: ModalOptions = {
+    placement: 'center',
+    backdrop: 'dynamic',
+    backdropClasses:
+      'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',
+    closable: true,
+    onHide: () => {},
+    onShow: () => {
+      // set modal data
+    },
+    onToggle: () => {},
+  };
+
+  this.modal = new Modal($modalElement, modalOptions);
+}
+
+openModal() {
+  this.setupModal();
+  this.modal.show();
+}
+
+
+handleCancleModal() {
+  this.modal.hide();
+  }
+
 
 // END
 
@@ -183,20 +220,6 @@ processCourseData(course: Course): void {
     this.isDrawerOpen = false;
   }
 
-  getVideoEmbedUrl(url: string): any {
-    const videoId = this.extractVideoId(url);
-    if (videoId) {
-      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-    }
-    return null;
-  }
 
-  private extractVideoId(url: string): string | null {
-    const youtubeRegex =
-      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(youtubeRegex);
-    return match ? match[1] : null;
-  }
   ngOnInit(): void {}
 }

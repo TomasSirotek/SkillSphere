@@ -74,10 +74,23 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.drawerService.setModalData(course);
   }
 
+  currentPage = 1; // Current page number
+  itemsPerPage = 8; // Items per page
+
   closeDrawer() {
     this.isDrawerOpen = false;
     this.currentOpenCourse = null;
   }
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  get endIndex(): number {
+    const lastIndex = this.startIndex + this.itemsPerPage;
+    return lastIndex < this.filteredCourses.length ? lastIndex : this.filteredCourses.length;
+  }
+
 
   handleLikeCourse(courseId: string) {
     // Find the course by ID in the loaded courses

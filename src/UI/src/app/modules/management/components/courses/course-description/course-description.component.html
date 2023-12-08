@@ -1,18 +1,18 @@
-<div class="mt-6 border  rounded-md  dark:bg-gray-800 dark:border-gray-700">
-  <div class="font-medium flex items-center justify-between border-b p-4 ">
-    <span class="text-xl font-semibold text-gray-800 dark:text-gray-300">Course description</span>
+<div class="mt-4 border rounded-md dark:bg-night-700 dark:border-gray-700">
+  <div class="font-medium flex items-center justify-between border-b p-4 dark:border-gray-700">
+    <span class="text-xl font-semibold text-gray-800 dark:text-gray-300"
+      >Course Description</span
+    >
   </div>
   <div class="space-y-4">
-    <div class="NgxEditor__Wrapper" class="p-4  dark:bg-gray-800 dark:border-gray-700">
-      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
-      <ngx-editor
-        (input)="onInputChange($event)" 
-        (change)="onInputChange($event)"
-        [editor]="editor"
+    <div class="p-4 dark:bg-night-700 dark:border-gray-700">
+      <textarea
         [ngModel]="courseDescription"
-        [disabled]="false"
-        [placeholder]="'Type here...'"
-      ></ngx-editor>
+        id="message"
+        rows="11"
+        class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Write your thoughts here..."
+      ></textarea>
     </div>
   </div>
 </div>

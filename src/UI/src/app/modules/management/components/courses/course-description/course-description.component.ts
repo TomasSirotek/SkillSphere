@@ -18,21 +18,13 @@ export class CourseDescriptionComponent {
   @Input() courseDescription: string;
   @Output() courseDescriptionChange = new EventEmitter<string>();
 
-  editor: Editor;
-
-  toolbar: Toolbar = [
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-  ];
 
   ngOnInit(): void {
-    this.editor = new Editor();
+   
   }
 
   // make sure to destory the editor
-  ngOnDestroy(): void {
-    this.editor.destroy();
-  }
+
 
   toggleEdit() {
     this.isEditing = !this.isEditing;
@@ -48,10 +40,7 @@ export class CourseDescriptionComponent {
 
     this.courseDescription = newDescription;
 
-    if (newDescription === '<p><br></p>') {
-      this.courseDescriptionChange.emit(newDescription);
-    } else {
-      this.courseDescriptionChange.emit(newDescription);
-    }
+    this.courseDescriptionChange.emit(newDescription);
+
   }
 }

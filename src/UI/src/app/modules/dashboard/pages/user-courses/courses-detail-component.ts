@@ -1,6 +1,6 @@
 import { Component, HostListener, NgModule, OnInit } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/shared/components/confirm-modal/confirm-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -59,7 +59,7 @@ export class CoursesDetailComponent implements OnInit {
   isSavedFirst =  false;
   isChanged = false;
 
-  constructor(private route: ActivatedRoute, private courseService: CourseService) { }
+  constructor(public router: Router, private courseService: CourseService, private route : ActivatedRoute) { }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): any {

@@ -6,8 +6,9 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { NgClass, NgIf } from '@angular/common';
 
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroGlobeAlt,heroInboxStack,heroChevronDoubleLeft,heroSun,heroMoon,heroArrowLeftOnRectangle } from '@ng-icons/heroicons/outline';
+import { heroGlobeAlt,heroInboxStack,heroChevronDoubleLeft,heroSun,heroMoon,heroArrowLeftOnRectangle, heroBuildingStorefront, heroArrowDownTray } from '@ng-icons/heroicons/outline';
 import { RouterLinkActive, RouterLink } from '@angular/router';
+import { CmdkModule, CmdkService } from '@ngneat/cmdk';
 
 @Component({
     selector: 'app-sidebar',
@@ -20,9 +21,10 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
         SidebarMenuComponent,
         NgIconComponent,
         RouterLinkActive,
+        CmdkModule,
   
     ],
-    viewProviders: [provideIcons({heroGlobeAlt, heroArrowLeftOnRectangle, heroInboxStack,heroChevronDoubleLeft,heroSun, heroMoon})]
+    viewProviders: [provideIcons({heroGlobeAlt,heroBuildingStorefront, heroArrowLeftOnRectangle, heroInboxStack,heroChevronDoubleLeft,heroSun, heroMoon,heroArrowDownTray})]
 })
 export class SidebarComponent implements OnInit {
   public appJson: any = packageJson;
@@ -42,9 +44,7 @@ export class SidebarComponent implements OnInit {
     this.themeService.theme = !this.themeService.isDark ? 'dark' : 'light';
   }
 
-  onMouseEnter() {
-    this.toggleSidebar();
-  }
+
 
  
 }

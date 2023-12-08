@@ -4,9 +4,9 @@
   aria-hidden="true"
   class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
 >
-  <div class="relative p-4 w-full max-w-md max-h-full">
+  <div class="relative p-4 w-full max-w-md max-h-full rounded dark:bg-night-700">
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+    <div class="relative bg-white rounded-lg shadow dark:bg-night-700">
       <!-- Modal header -->
       <div
         class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
@@ -48,21 +48,21 @@
         <input
           [(ngModel)]="courseTitle"
           id="first_name"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="e.g. Learn Angular 12"
           required
         />
       </div>
       <!-- Modal footer -->
       <div
-        class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
+        class="flex items-center p-4 md:p-5 border-t  rounded-b dark:border-gray-600"
       >
         <button
           data-testid="confirm-delete-modal"
           (click)="confirm()"
-          class="w-full mr-2 text-white bg-blue-500 hover:bg-blue-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+          class="w-full mr-2 text-white bg-primary-500 hover:bg-primary-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-md text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-primary-500 dark:text-white "
         >
-          Create project
+          Create course
         </button>
       </div>
     </div>

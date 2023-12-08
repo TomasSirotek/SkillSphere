@@ -1,18 +1,13 @@
-<div class="dropdown relative inline-block" *ngFor="let menu of menuService.pagesMenu">
-    <!-- Button
-    <button
-      [ngClass]="
-        menu.selected || menu.active
-          ? 'bg-primary-500 text-white'
-          : 'text-gray-600 hover:bg-gray-100 hover:text-primary-500 dark:text-night-200 dark:hover:bg-night-600 '
-      "
-      class="mr-2 inline-flex rounded-md px-3 py-2 text-sm font-medium">
-      <span>{{ menu.group }}</span>
-    </button>
-     Dropdown  -->
-    <!-- <div
-      class="dropdown-content absolute top-[100%] min-w-[200px] origin-top-left"
-      navbar-submenu
-      [submenu]="menu.items"></div> -->
+<div class="flex w-full " cdkOverlayOrigin #trigger="cdkOverlayOrigin" [attr.aria-expanded]="isDialogOpen">
+  
+    <div class="w-full flex items-center">
+      <button  class="block flex justify-center items-center gap-1 py-2 px-3 ml-2 shadow-sm  text-xs text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-night-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        Search courses
+
+
+        <kbd class="text-xl">⌘</kbd>
+        <kbd class="text-xs">K</kbd>
+      </button>
+    </div>
   </div>
   

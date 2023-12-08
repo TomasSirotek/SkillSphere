@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Box } from '../../../models/box';
 import { CurrencyPipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Course } from '../../../models/course';
 
 @Component({
   selector: '[boxes-table-item]',
@@ -12,12 +13,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./boxes-table-item.component.scss']
 })
 export class BoxesTableItemComponent {
-  @Input() inventory = <Box>{};
+  @Input() course = <Course>{};
 
 
-constructor(private router: Router) {}
+constructor(private router: Router,    private route: ActivatedRoute,) {}
 
-  editBox(boxId: number) {
-    this.router.navigate(['/management/boxes', boxId]);
+  editBox(courseId: string) {
+    this.router.navigate([courseId], { relativeTo: this.route });
   }
 }

@@ -8,11 +8,11 @@ export class Menu {
       items: [
         {
           icon:' heroBuildingStorefront',
-          label: 'Courses',
+          label: 'Store',
           route: '/courses',
         },
         {
-          icon: 'heroFolderOpen',
+          icon: 'heroSquares2x2',
           label: 'Dashboard',
           route: '/dashboard',
           children: [

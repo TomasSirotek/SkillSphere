@@ -6,13 +6,20 @@ import { ResponsiveHelperComponent } from './shared/components/responsive-helper
 import { AlertComponent } from './shared/component/alert/alert.component';
 import { initFlowbite } from 'flowbite';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommandComponent, EmptyDirective, GroupComponent, InputDirective, ItemDirective, ListComponent } from '@ngneat/cmdk';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [NgClass, RouterOutlet, ResponsiveHelperComponent,AlertComponent,NgIf],
+  
+  imports: [NgClass, RouterOutlet, ResponsiveHelperComponent,AlertComponent,NgIf,CommandComponent,
+    InputDirective,
+    ListComponent,
+    GroupComponent,
+    ItemDirective,
+    EmptyDirective],
 
 })
 export class AppComponent implements OnInit {

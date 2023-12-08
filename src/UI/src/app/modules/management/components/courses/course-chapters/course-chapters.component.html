@@ -1,10 +1,12 @@
-<div class="mt-6 border bg-gray-50 rounded-xl">
-  <div class="font-medium flex items-center justify-between border-b p-4">
-    <span>Chapters</span>
+<div class="mt-4 border rounded-md dark:bg-night-700 dark:border-gray-700">
+  <div class="font-medium flex items-center justify-between border-b p-4 dark:border-gray-700">
+    <span class="text-xl font-semibold text-gray-800 dark:text-gray-300"
+      >Chapters</span
+    >
     <button
       (click)="addChapter()"
       type="button"
-      class="text-sm text-grey-200 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+      class="text-sm text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-500"
     >
       + Add chapter
     </button>
@@ -18,7 +20,7 @@
             [dndDraggable]="item"
             dndEffectAllowed="move"
             (dndMoved)="onDragged(item, list, 'move')"
-            class="custom-cursor border px-4"
+            class="custom-cursor border dark:border-gray-700 px-4"
             data-accordion="collapse"
             [attr.data-active-classes]="
               'hover:cursor-move bg-red-500 dark:bg-gray-900 text-gray-900 dark:text-white'
@@ -31,7 +33,7 @@
               <h2>
                 <button
                   type="button"
-                  class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                  class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-700 dark:border-gray-700 dark:text-gray-400 gap-3"
                   [attr.aria-controls]="'accordion-flush-body-' + item.id"
                   (click)="toggleAccordion(item.id)"
                 >
@@ -59,10 +61,10 @@
                 </button>
               </h2>
               <div *ngIf="item.isExpanded">
-                <div class="py-5 border-gray-200 dark:border-gray-700">
+                <div class="py-5 border-gray-700 dark:border-gray-700">
                   <div
                     *ngFor="let child of item.children"
-                    class="py-5 border-gray-200 dark:border-gray-700"
+                    class="py-5 border-gray-700 dark:border-gray-700"
                   >
                     <div>
                       <label
@@ -74,7 +76,7 @@
                         [(ngModel)]="item.title"
                         (input)="updateValue($event)"
                         id="title"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Advanced Web development"
                         required
                       />
@@ -89,7 +91,7 @@
                         [(ngModel)]="child.description"
                         (input)="updateValue($event)"
                         id="first_name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Advanced Web development"
                         required
                       />
@@ -105,7 +107,7 @@
                         [(ngModel)]="child.videoURL"
                         (input)="updateValue($event)"
                         id="video"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="https://yt.com"
                         required
                       />
