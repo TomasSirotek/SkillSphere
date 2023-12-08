@@ -23,7 +23,7 @@ import { SearchService } from '../../../services/search.service';
         NgClass,
         NavbarSubmenuComponent,
         RouterOutlet,
-        NavbarComponent,
+        
         SidebarComponent,
         AlertComponent,
         CmdkModule,

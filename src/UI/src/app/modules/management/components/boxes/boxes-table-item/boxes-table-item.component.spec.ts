@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BoxesTableItemComponent } from './boxes-table-item.component';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('BoxesTableItemComponent', () => {
   let component: BoxesTableItemComponent;
@@ -8,7 +9,7 @@ describe('BoxesTableItemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BoxesTableItemComponent]
+      imports: [BoxesTableItemComponent,RouterTestingModule]
     });
     fixture = TestBed.createComponent(BoxesTableItemComponent);
     component = fixture.componentInstance;
