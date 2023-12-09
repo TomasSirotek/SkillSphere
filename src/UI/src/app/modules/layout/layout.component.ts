@@ -60,6 +60,7 @@ import { Course } from '../management/models/course';
   ],
 })
 export class LayoutComponent implements OnInit {
+ 
   constructor(
     public themeService: ThemeService,
     public searchService: SearchService,
@@ -149,6 +150,13 @@ export class LayoutComponent implements OnInit {
           label: 'Dashboard',
           itemSelected: () => {
             this.rerouteToDashboard();
+          },
+          separatorOnTop: false,
+        },
+        {
+          label: 'Purchased',
+          itemSelected: () => {
+            this.rerouteToOverview();
           },
           separatorOnTop: false,
         },
@@ -283,5 +291,10 @@ export class LayoutComponent implements OnInit {
 
   searchPurchased() {
     this.pages.push('my-courses');
+  }
+
+  rerouteToOverview() {
+    this.searchService.toggleSidebar();
+    this.routerRouter.navigate(['/dashboard']);
   }
 }

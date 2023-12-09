@@ -5,8 +5,13 @@
   <!-- Header -->
   <app-boxes-header
     [isDetail]="true"
+    [showFilter]="true"
     title="Courses shop"
+    [totalPages]= "totalPages"
     (searchTermEmitter)="handleSearchTerm($event)"
+    (pageEmitter)="handleCurrentPageTerm($event)"
+    (pageSizeEmmiter)="handlePageSizeTerm($event)"
+    (orderByEmitter)="handleOrderByTerm($event)"
   ></app-boxes-header>
   <!-- end Header -->
 
@@ -25,12 +30,12 @@
           </div>
         </ng-container>
       </div>
-    </div>
-
-    <input type="number" [(ngModel)]="itemsPerPage" (input)="handleChange($event)" />
-    
+    </div>    
   
     <ng-template #skeletonContent>
+
+
+
       <!-- Actual Content -->
       <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto" *ngIf="courses && courses.length > 0; else noResults">
         <!-- Course cards -->
@@ -152,6 +157,9 @@
         </ng-container>
        
       </div>
+
+
+
     </ng-template>
 
 

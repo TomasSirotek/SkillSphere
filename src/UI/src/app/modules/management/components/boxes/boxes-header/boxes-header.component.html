@@ -17,8 +17,27 @@
      
     </div>
     
-    <div class="w-full"  *ngIf="!showButton">
-        <div class="flex justify-end">
+
+
+    <div class="w-full flex justify-end gap-2" *ngIf="!showButton && showFilter">
+      
+      <button
+      (click)="onOrderByChange()"
+      class="flex-shrink-0 z-10 inline-flex items-center py-1.5 px-4 max-w-2xl text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-primary-500 dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:ring-primary-700 dark:text-white dark:border-gray-600"
+      type="button"
+    >
+      {{ orderBy }}
+    </button>
+    
+
+
+      <select  [(ngModel)]="selectedOption " (ngModelChange)="onPageSizeChange()"  id="small" class="block w-1/6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+        <option  *ngFor="let option of pageSizes" [value]="option.value ">{{ option.value }}</option>
+      </select>
+
+        <div class="flex justify-end gap-2">
+
+
           <label
             for="search-dropdown"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -27,10 +46,10 @@
           <button
             id="dropdown-button"
             data-dropdown-toggle="dropdown"
-            class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-night-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+            class="flex-shrink-0 z-10 inline-flex items-center py-1.5 px-6 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:border-primary-500 dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:ring-primary-700 dark:text-white dark:border-gray-600"
             type="button"
           >
-            Filters
+            {{ selectedSearchTerm }}
             <svg
               class="w-2.5 h-2.5 ms-2.5"
               aria-hidden="true"
@@ -52,48 +71,91 @@
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-md shadow w-44 dark:bg-gray-700"
           >
             <ul
-              class="py-2 text-sm text-gray-700 dark:text-gray-200"
+              class="py-2 text-sm text-gray-700 dark:text-gray-200 "
               aria-labelledby="dropdown-button"
             >
               <li>
                 <button
                   type="button"
-                  (click)="onSortChange('price')"
+                  (click)="onSortChange('Title')"
+                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white  "
+                >
+                  Title
+                </button>
+              </li>
+              <li>
+                <button    
+                (click)="onSortChange('Price')"
+                  type="button"
                   class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   Price
                 </button>
               </li>
               <li>
-                <button    
-                (click)="onSortChange('title')"
-                  type="button"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Saved
-                </button>
-              </li>
-              <li>
                 <button
+                (click)="onSortChange('Likes')"
                   type="button"
                   class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
-                  Owned
+                  Likes
                 </button>
               </li>
             
             </ul>
           </div>
-          <!-- <div class="relative w-full">
-            <input
-              id="search-dropdown"
-             [(ngModel)]="searchTerm"
-             (input)="onSearchQueryChange($event)"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-night-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-              placeholder="Search by title ..."
-              required
-            />
-          </div> -->
+          <div class="relative w-full">
+           
+
+
+            <nav aria-label="Page navigation example">
+              <ul class="flex items-center -space-x-px h-10 text-sm">
+                <li>
+                  <a
+                    (click)="navigateToPage(false)"
+                    [class.opacity-50]="currentPage === 1"
+                    class="flex items-center justify-center px-3 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  >
+                    <span class="sr-only">Previous</span>
+                    <svg
+                      class="w-2.5 h-2.5 rtl:rotate-180"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10"
+                    >
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  >
+                    {{ currentPage }}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    (click)="navigateToPage(true)"
+                    [class.opacity-50]="currentPage === totalPages"
+                    class="flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  >
+                    <span class="sr-only">Next</span>
+                    <svg
+                      class="w-2.5 h-2.5 rtl:rotate-180"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 6 10"
+                    >
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
     </div>
   </div>

@@ -1,15 +1,20 @@
 import {
   Component,
+  EventEmitter,
   Input,
   NgModule,
   OnDestroy,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BoxesHeaderComponent } from '../../components/boxes/boxes-header/boxes-header.component';
+import {
+  BoxesHeaderComponent,
+  OrderByType,
+} from '../../components/boxes/boxes-header/boxes-header.component';
 import { BoxesTableComponent } from '../../components/boxes/boxes-table/boxes-table.component';
 
 import {
@@ -28,12 +33,24 @@ import { CourseDetailDrawer } from '../../components/shared/course-detail-drawer
 import { DrawerService } from '../../services/drawer.service';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroBookOpen, heroCheckBadge, heroHeart } from '@ng-icons/heroicons/outline';
+import {
+  heroBookOpen,
+  heroCheckBadge,
+  heroHeart,
+} from '@ng-icons/heroicons/outline';
 import { heroHeartSolid } from '@ng-icons/heroicons/solid';
 import { UserService } from 'src/app/core/auth/service/user.service';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, filter, take, takeUntil } from 'rxjs';
+
+interface PageInfo {
+  pageNumber: number;
+  totalPages: number;
+  totalItems: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
 
 @Component({
   selector: 'app-courses',
@@ -53,10 +70,11 @@ import { Subject, filter, take, takeUntil } from 'rxjs';
     NgIcon,
   ],
   templateUrl: './courses.component.html',
-  viewProviders: [provideIcons({ heroHeart, heroHeartSolid, heroBookOpen,heroCheckBadge })],
+  viewProviders: [
+    provideIcons({ heroHeart, heroHeartSolid, heroBookOpen, heroCheckBadge }),
+  ],
 })
 export class CoursesComponent implements OnInit {
-
   isLoaded = false;
   isDrawerOpen = false;
 
@@ -68,12 +86,16 @@ export class CoursesComponent implements OnInit {
   wishListIds: string[] = [];
   purchasedIds: string[] = [];
 
-  // pagination  
+  // pagination
   pageNumber = 1; // Current page number
   itemsPerPage = 8; // Items per page
   sortBy = 'title'; // Sort by column
-  sortDir: 'asc' | 'desc' = 'asc'; // Sort direction
-  pageInfo = {}
+  sortDir: OrderByType;
+  pageInfo: PageInfo;
+  totalPages = 0;
+
+  // search
+  isFilterPaneOpen: boolean = true;
 
   constructor(
     private courseService: CourseService,
@@ -84,37 +106,26 @@ export class CoursesComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-
   ngOnInit(): void {
-
-    
-    
     this.loadCourses();
-    
-    
+
     this.getWishList();
     this.getPurchasedCourses();
-  }
-
-  handleSearchTerm($event: string) {
-    console.log($event);
-
-    // search term 
   }
 
   handleChange($event: any) {
     this.itemsPerPage = $event.target.value;
     this.loadCourses();
+  }
 
-    }
-  
-
+  handleFilterPaneToggle() {
+    this.isFilterPaneOpen = !this.isFilterPaneOpen;
+  }
 
   openDrawer(course: Course) {
     this.drawerService.openModal();
     this.drawerService.setModalData(course);
   }
-
 
   closeDrawer() {
     this.isDrawerOpen = false;
@@ -127,9 +138,10 @@ export class CoursesComponent implements OnInit {
 
   get endIndex(): number {
     const lastIndex = this.startIndex + this.itemsPerPage;
-    return lastIndex < this.filteredCourses.length ? lastIndex : this.filteredCourses.length;
+    return lastIndex < this.filteredCourses.length
+      ? lastIndex
+      : this.filteredCourses.length;
   }
-
 
   handleLikeCourse(courseId: string) {
     // Find the course by ID in the loaded courses
@@ -139,9 +151,8 @@ export class CoursesComponent implements OnInit {
       return;
     }
 
-     // Toggle the like
+    // Toggle the like
     course.isLiked = !course.isLiked;
-
 
     if (course.isLiked) {
       this.courseService
@@ -169,59 +180,87 @@ export class CoursesComponent implements OnInit {
   private handleError(error: any, course: Course) {
     this.toastr.error(error.message, 'Error');
     course.isLiked = !course.isLiked; // Roll back the change
-
   }
 
-  
- 
-
   private async getWishList() {
-    await this.userService.loadData().pipe(take(1))
+    await this.userService.loadData().pipe(take(1));
     this.userService.wishList.subscribe((wishlistCourses) => {
       if (wishlistCourses !== null && Array.isArray(wishlistCourses)) {
         this.wishListIds.push(...wishlistCourses.map((course) => course.id));
       }
     });
   }
-  
+
   private async getPurchasedCourses() {
-    await this.userService.loadData().pipe(take(1))
+    await this.userService.loadData().pipe(take(1)).toPromise();
     this.userService.ownedCourses.subscribe((ownedCourses) => {
       if (ownedCourses !== null && Array.isArray(ownedCourses)) {
-        this.purchasedIds.push(...ownedCourses.map((course) => course.id));
+        // Logic for handling owned courses
       }
     });
   }
-  
-  // needs to be replaced with pagination and filter
+
   private async loadCourses() {
-
-    
-    await this.userService.loadData().pipe(take(1))
+    await this.userService.loadData().pipe(take(1));
     this.isLoaded = false;
-    
 
-    this.courseService.getPaginatedCourses(this.pageNumber,this.itemsPerPage,this.sortBy,this.sortDir).subscribe((data: any) => {
-      this.courses = data?.items;
-      this.pageInfo = data?.pageInfo;
+    this.courseService
+      .getPaginatedCourses(
+        this.pageNumber,
+        this.itemsPerPage,
+        this.sortBy,
+        this.sortDir
+      )
+      .subscribe((data: any) => {
+        this.courses = data?.items;
 
-            setTimeout(() => {
-        this.isLoaded = true;
-      }, 500);
-    });
+        // map to page info all ny values from data object
+        this.pageInfo = {
+          pageNumber: data?.pageNumber,
+          totalPages: data?.totalPages,
+          totalItems: data?.totalItems,
+          hasPreviousPage: data?.hasPreviousPage,
+          hasNextPage: data?.hasNextPage,
+        };
+
+        this.totalPages = data?.totalPages;
+
+        setTimeout(() => {
+          this.isLoaded = true;
+        }, 500);
+      });
   }
 
-  private onPageChange(page: number) {
-    this.pageNumber = page;
-    this.loadCourses();
-  }
-
-  private onSortChange(sortBy: string, sortDir: "asc" | "desc") {
-    this.sortBy = sortBy;
+  private onSortChange(sortDir: OrderByType) {
     this.sortDir = sortDir;
     this.loadCourses();
   }
- 
 
- 
+  handleSearchTerm(sortBy: string) {
+    this.sortBy = sortBy;
+    this.loadCourses();
+  }
+
+  handleCurrentPageTerm($isForward: boolean) {
+    if (this.pageInfo.hasNextPage && $isForward) {
+      this.pageNumber++;
+      this.loadCourses();
+    } else if (this.pageInfo.hasPreviousPage && !$isForward) {
+      this.pageNumber--;
+      this.loadCourses();
+    } else {
+      return;
+    }
+  }
+
+  handlePageSizeTerm($event: number) {
+    this.itemsPerPage = $event;
+    this.pageNumber = 1;
+    this.loadCourses();
+  }
+
+  handleOrderByTerm($event: OrderByType) {
+    this.sortDir = $event;
+    this.onSortChange($event);
+  }
 }
