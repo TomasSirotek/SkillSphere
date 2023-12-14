@@ -37,14 +37,14 @@
 
 
       <!-- Actual Content -->
-      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto" *ngIf="courses && courses.length > 0; else noResults">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto" *ngIf="courses && courses.length > 0; else noResults">
         <!-- Course cards -->
         <ng-container *ngFor="let course of courses; let i = index">
           <div class="group shadow-sm dark:border-gray-700 hover:scale-105 transform transition-transform duration-300">
             <div
             [attr.data-index]="i"
 
-            class="bg-white border border-gray-200 rounded-md shadow dark:bg-gray-900 dark:border-gray-700 overflow-hidden"
+            class="bg-white border h-full border-gray-200 rounded-md shadow dark:bg-gray-900 dark:border-gray-700 overflow-hidden"
           >
             <div class="relative">
               <div class="absolute top-2 left-2 text-black dark:text-white">
@@ -82,7 +82,8 @@
               <div class="h-48 overflow-hidden">
                 <img
                   [src]="course.coverImageRelativePath"
-                  alt=""
+                  [alt]="course.title"
+                  loading="lazy"
                   class="w-full h-full object-cover"
                 />
               </div>
@@ -121,12 +122,18 @@
               </div>
   
               <div class="flex flex-wrap justify-between">
-                <div>
+                <div class="flex items-center justify-center">
                   <ng-icon
-                    name="heroHeart"
-                    class="text-black dark:text-white mr-2"
-                  />
-                  <span class="text-black dark:text-white text-sm">{{course?.likes}}</span>
+                  *ngIf="course?.isLiked"
+                  name="heroHeartSolid"
+                  class="text-gray-400"
+                ></ng-icon>
+                  <ng-icon
+                  *ngIf="!course?.isLiked"
+                  name="heroHeart"
+                  class="text-gray-600 dark:text-gray-400 "
+                ></ng-icon>
+                  <span class="text-black dark:text-white text-sm ml-2">{{course?.likes}}</span>
                   <ng-icon
                     name="heroBookOpen"
                     class="text-black dark:text-white ml-4 mr-2"
@@ -139,12 +146,12 @@
   
                   <span
                     [class]="
-                      course?.price === 0 ? 'text-green-500' : 'text-yellow-400'
+                      course?.price === 0 || course?.isOwned ? 'text-green-500' : 'text-yellow-400'
                     "
                     class="font-bold"
                   >
                     {{
-                      course?.price != 0 ? course?.price + " " + "DKK" : "FREE"
+                     handleCorrectText(course?.price, course?.isOwned,course?.isPurchased)
                     }}
                   </span>
                 </div>
@@ -161,16 +168,8 @@
 
 
     </ng-template>
-
-
-    <!-- <div class="flex justify-between mt-4 absolute bottom-0">
-      <button class="px-4 py-2 border rounded"    (click)="currentPage = currentPage - 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ itemsPerPage }}</span>
-      <button class="px-4 py-2 border rounded"   (click)="currentPage = currentPage + 1">Next</button>
-    </div> -->
-  
     <ng-template #noResults>
-      <div class="text-center text-gray-500 dark:text-gray-400 mt-8">
+      <div class="text-center text-gray-500 dark:text-gray-400 mt-10">
         <p>No courses found.</p>
       </div>
     </ng-template>

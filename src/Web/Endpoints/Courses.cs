@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using SkillSphere.Application.Common.Models;
 using SkillSphere.Application.Features.Courses.Commands;
 using SkillSphere.Application.Features.Courses.Commands.AddCourseUserWL;
@@ -8,9 +9,11 @@ using SkillSphere.Application.Features.Courses.Commands.PublishCourse;
 using SkillSphere.Application.Features.Courses.Commands.RemoveCourseWL;
 using SkillSphere.Application.Features.Courses.Queries;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
+using SkillSphere.Application.Features.Courses.Queries.GetCourseById;
 using SkillSphere.Application.Features.Courses.Queries.GetCoursesForUser;
 using SkillSphere.Application.Features.Courses.Queries.GetPaginatedCourses;
 using SkillSphere.Application.Features.Courses.Queries.GetUserCourse;
+using SkillSphere.Domain.Constants;
 using SkillSphere.Web.Infrastructure;
 
 namespace SkillSphere.Web.Endpoints;
@@ -21,8 +24,10 @@ public class Courses : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .MapGet(GetCoursesByUserId, "{userId}")
+            .RequireAuthorization()
+            .MapGet(GetCoursesByUserId, "{userId}/created")
             .MapGet(GetCourses)
+            .MapGet(GetCourseById, "{courseId}")
             .MapGet(GetCoursesForUser, "{userId}/owned")
             .MapGet(GetUserWishList, "{userId}/wishlist")
             .MapPut(PublishCourse, "{courseId}/publish")
@@ -38,6 +43,11 @@ public class Courses : EndpointGroupBase
         return await sender.Send(command);
     }
 
+    
+    public async Task<QueryDto> GetCourseById(ISender sender,Guid courseId)
+    {
+        return await sender.Send(new GetCourseByIdQuery(courseId));
+    }
     public async Task<GetCourseVm> GetCoursesForUser(ISender sender,Guid userId)
     {
         return await sender.Send(new GetUserOwnedCoursesQuery { UserId = userId });
@@ -58,12 +68,10 @@ public class Courses : EndpointGroupBase
         await sender.Send(new IncreaseLikesCommand(command.CourseId));
 
         return Results.NoContent();
-        
     }
-    
     public async Task<GetCourseVm> GetCoursesByUserId(ISender sender,Guid userId)
     {
-        return await sender.Send(new GetCourseByUsedIdQuery { UserId = userId });
+        return await sender.Send(new GetCourseByUsedIdQuery(userId));
     }
     public async Task<IResult> SaveCourseAsDraft(ISender sender,string courseId,SaveCourseDraftCommand command)
     {

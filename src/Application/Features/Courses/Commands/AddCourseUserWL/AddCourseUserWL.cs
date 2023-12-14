@@ -1,8 +1,10 @@
 using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Application.Common.Security;
 using SkillSphere.Domain.Entities;
 
 namespace SkillSphere.Application.Features.Courses.Commands.AddCourseUserWL;
 
+[Authorize]
 public record AddCourseUserWLCommand(Guid UserId, Guid CourseId) : IRequest;
 
 public class AddCourseUserWLCommandHandler : IRequestHandler<AddCourseUserWLCommand>

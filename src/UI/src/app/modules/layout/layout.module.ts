@@ -14,7 +14,8 @@ import { FullscreenOverlayContainer, OverlayContainer, OverlayModule } from '@an
   providers: [
     HttpClientModule,
     HttpClient,
-    { provide: HTTP_INTERCEPTORS, 
+    { 
+      provide: HTTP_INTERCEPTORS, 
       useClass: AuthInterceptor, 
       multi: true 
     },

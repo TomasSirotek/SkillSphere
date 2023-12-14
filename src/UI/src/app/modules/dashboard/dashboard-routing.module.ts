@@ -11,20 +11,15 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'my-courses',
     component: TeachingComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'my-courses/:id',
     component: CoursesDetailComponent,
-    canActivate: [AuthGuard],
   },
-  
-  
 ];
 
 @NgModule({

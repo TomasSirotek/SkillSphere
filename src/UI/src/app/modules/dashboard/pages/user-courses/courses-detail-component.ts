@@ -15,6 +15,7 @@ import { BoxesHeaderComponent } from 'src/app/modules/management/components/boxe
 import { Course } from 'src/app/modules/management/models/course';
 import { CourseService } from 'src/app/modules/management/services/course-service.service';
 import { heroArrowSmallLeft, heroCheckCircle, heroExclamationCircle } from '@ng-icons/heroicons/outline';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -59,7 +60,7 @@ export class CoursesDetailComponent implements OnInit {
   isSavedFirst =  false;
   isChanged = false;
 
-  constructor(public router: Router, private courseService: CourseService, private route : ActivatedRoute) { }
+  constructor(public router: Router, private courseService: CourseService, private route : ActivatedRoute,private toastService: ToastrService) { }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): any {
@@ -91,9 +92,10 @@ export class CoursesDetailComponent implements OnInit {
   }
   get completionText(): string {
 
+
     const requiredFields = [
       this.course?.title,
-      this.course?.description === '<p></p>' ? null : this.course?.description,
+      this.course?.description,
       this.course?.coverImageRelativePath,
       this.course?.chapters,
       this.course?.categories,
@@ -116,7 +118,7 @@ export class CoursesDetailComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     window.onpopstate = () => {
       this.handleBackNavigation();
@@ -124,14 +126,24 @@ export class CoursesDetailComponent implements OnInit {
     
     this.route.paramMap.subscribe((params) => {
       this.courseId = params.get('id');
+   
     });
 
-    this.courseService.coursesState.subscribe((data: any) => {
-      this.course = data.courses?.find(
-        (course: Course) => course.id === this.courseId
-      );
-    });
+    await this.getCourseById();
+
+
+
   }
+
+  private async getCourseById() {
+    this.courseService
+    .getCourseByUserId(this.courseId)
+    .subscribe((data: any) => {
+      this.course = data;
+    });
+   
+  }
+
 
 
   onCourseTitleChange(newTitle: string): void {
@@ -171,10 +183,10 @@ export class CoursesDetailComponent implements OnInit {
 
 
   saveCourse() {
-    // logic for saving as draft 
-    // 1. cannot save if the fields are not filled out 
-    // 2. must be able to save as draft
-
+    if(this.course.isPublished){
+        this.toastService.error('You can not update a published course! Please unpublish the course first.');
+        return;
+      }
 
     this.courseService.saveCourseDraft(this.course.id, this.course).subscribe({
       next: (response) => {
@@ -189,8 +201,9 @@ export class CoursesDetailComponent implements OnInit {
   }
 
   publishCourse() {
-     // if this course is published then course published true and if not then false
-    // swift boolean values
+
+    // if course has enrolees then you cannot unpublish it only update changes 
+
     this.course.isPublished = !this.course.isPublished;
     this.isChanged = false;
 
@@ -202,12 +215,6 @@ export class CoursesDetailComponent implements OnInit {
         // Handle errors here
       }
     });
-
-    // logic for publishing course
-    // 0. Cannot ppublsj if the course is not complete
-    // 1. All the fields must be filled out
-    // 2. Take whole course and send it to the /publish endpoint with params true or false when ever to publish it 
-    // 3. Get back value
   }
 
 

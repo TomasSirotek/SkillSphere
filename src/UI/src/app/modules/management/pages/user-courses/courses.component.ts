@@ -75,6 +75,22 @@ interface PageInfo {
   ],
 })
 export class CoursesComponent implements OnInit {
+  handleCorrectText(
+    coursePrice: number,
+    isOwned: boolean,
+    isPurchased: boolean
+  ) {
+    if (coursePrice === 0) {
+      return 'Free';
+    } else if (isOwned) {
+      return 'Owned';
+    } else if (isPurchased) {
+      return 'Purchased';
+    } else {
+      return coursePrice;
+    }
+  }
+
   isLoaded = false;
   isDrawerOpen = false;
 
@@ -85,6 +101,7 @@ export class CoursesComponent implements OnInit {
 
   wishListIds: string[] = [];
   purchasedIds: string[] = [];
+  ownedCourseIds: string[] = [];
 
   // pagination
   pageNumber = 1; // Current page number
@@ -106,11 +123,28 @@ export class CoursesComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  ngOnInit(): void {
-    this.loadCourses();
+  async ngOnInit() {
+    await this.loadPurchasedCourses();
+    await this.loadCourses();
 
-    this.getWishList();
-    this.getPurchasedCourses();
+    await this.getWishList();
+    await this.getCreatedCourses();
+  }
+
+  private async getCreatedCourses() {
+    return this.courseService
+      .getUserCourses(this.authService.getUserId())
+      .subscribe((data: any) => {
+        this.ownedCourseIds.push(...data?.courses.map((course) => course.id));
+      });
+  }
+
+  private async loadPurchasedCourses() {
+    return this.courseService
+      .getOwnedCourses(this.authService.getUserId())
+      .subscribe((data: any) => {
+        this.purchasedIds.push(...data?.courses.map((course) => course.id));
+      });
   }
 
   handleChange($event: any) {
@@ -182,26 +216,7 @@ export class CoursesComponent implements OnInit {
     course.isLiked = !course.isLiked; // Roll back the change
   }
 
-  private async getWishList() {
-    await this.userService.loadData().pipe(take(1));
-    this.userService.wishList.subscribe((wishlistCourses) => {
-      if (wishlistCourses !== null && Array.isArray(wishlistCourses)) {
-        this.wishListIds.push(...wishlistCourses.map((course) => course.id));
-      }
-    });
-  }
-
-  private async getPurchasedCourses() {
-    await this.userService.loadData().pipe(take(1)).toPromise();
-    this.userService.ownedCourses.subscribe((ownedCourses) => {
-      if (ownedCourses !== null && Array.isArray(ownedCourses)) {
-        // Logic for handling owned courses
-      }
-    });
-  }
-
   private async loadCourses() {
-    await this.userService.loadData().pipe(take(1));
     this.isLoaded = false;
 
     this.courseService
@@ -225,9 +240,23 @@ export class CoursesComponent implements OnInit {
 
         this.totalPages = data?.totalPages;
 
+        this.courses?.map((course) => {
+          course.isLiked = this.wishListIds.includes(course.id);
+          course.isPurchased = this.purchasedIds.includes(course.id);
+          course.isOwned = this.ownedCourseIds.includes(course.id);
+        });
+
         setTimeout(() => {
           this.isLoaded = true;
         }, 500);
+      });
+  }
+
+  private async getWishList() {
+    this.courseService
+      .getWishList(this.authService.getUserId())
+      .subscribe((data: any) => {
+        this.wishListIds.push(...data?.courses.map((course) => course.id));
       });
   }
 

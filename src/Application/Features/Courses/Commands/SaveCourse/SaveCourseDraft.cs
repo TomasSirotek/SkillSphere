@@ -58,12 +58,9 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
                 existingChapter.Position = requestChapter.Position;
                 existingChapter.IsFree = requestChapter.IsFree;
                 
-                // Remove from the list of chapters to remove
-                chaptersToRemove.Remove(existingChapter);
             }
             else
             {
-                // Add new chapter
                 existingCourse.Chapters.Add(new Chapter
                 {
                     // Set properties based on requestChapter
@@ -88,7 +85,6 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
     private async Task UpdateCategories(Course existingCourse, IList<PutCategoryDto> categoriesList,
         CancellationToken cancellationToken)
     {
-        // STEP 1: Find all categories for this course and delete them from the joining table (CourseCategories)
         var existingCourseCategories = await _context.CourseCategories
             .Where(cc => cc.CourseId == existingCourse.Id)
             .ToListAsync(cancellationToken);
@@ -100,18 +96,12 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
         {
             foreach (var categoryDto in categoriesList)
             {
+                // Check if the category exists
                 var category = await _context.Categories
                     .FindAsync(new object[] { categoryDto.Id ?? Guid.Empty }, cancellationToken);
 
                 if (category != null)
                 {
-                    // Check if the category already exists in the CourseCategories
-                    var existingCourseCategory = await _context.CourseCategories
-                        .FirstOrDefaultAsync(cc => cc.CourseId == existingCourse.Id && cc.CategoryId == category.Id,
-                            cancellationToken);
-
-                    if (existingCourseCategory == null)
-                    {
                         // If not, create a new CourseCategory entry
                         var newCourseCategory = new CourseCategory
                         {
@@ -119,7 +109,7 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
                         };
 
                         _context.CourseCategories.Add(newCourseCategory);
-                    }
+                    
                 }
             }
         }

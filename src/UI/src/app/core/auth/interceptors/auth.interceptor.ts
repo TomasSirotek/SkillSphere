@@ -16,6 +16,7 @@ import { jwtDecode } from "jwt-decode";
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -27,6 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = this.authService.getUserToken();
 
     if (token && this.authService.isSignedIn()) {
+         
       req = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`),
       });

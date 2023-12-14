@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -59,7 +59,7 @@ import { Course } from '../management/models/course';
     NgClass,
   ],
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit,OnDestroy {
  
   constructor(
     public themeService: ThemeService,
@@ -69,10 +69,10 @@ export class LayoutComponent implements OnInit {
     private drawerService: DrawerService,
     private routerRouter: Router
   ) {}
-
+  
   @ViewChild('cmdkCommand') cmdkCommand!: ElementRef<HTMLDivElement>;
 
-  @ViewChild(CdkConnectedOverlay, { static: false })
+  @ViewChild(CdkConnectedOverlay, { static: false }) 
   connectedOverlay: CdkOverlayOrigin;
 
   cmdKeyDown = false;
@@ -83,25 +83,29 @@ export class LayoutComponent implements OnInit {
   filteredProjectItems: any[];
   selectedProject: any;
 
+
+
   listener(e: KeyboardEvent) {
     if (e.key === 'k' && (e.metaKey || e.altKey)) {
       e.preventDefault();
-      if (this.searchService.showSearch) {
-        this.searchService.toggleSidebar();
-      } else {
-        this.searchService.toggleSidebar();
-      }
+    
+      
+      this.searchService.toggleSidebar();
+    this.cmdkCommand.nativeElement.focus();
+  
+
     }
   }
 
-  async ngOnInit() {
-    await this.loadAllCourses();
-    document.addEventListener('keydown', (ev) => this.listener(ev));
+   ngOnInit() {
+     this.loadAllCourses();
+     document.addEventListener('keydown', (ev) => this.listener(ev));
   }
 
-   OnDestroy() {
+  ngOnDestroy(): void {
     document.removeEventListener('keydown', (ev) => this.listener(ev));
   }
+
 
   inputValue = '';
   pages: Array<string> = ['home'];
@@ -152,14 +156,7 @@ export class LayoutComponent implements OnInit {
             this.rerouteToDashboard();
           },
           separatorOnTop: false,
-        },
-        {
-          label: 'Purchased',
-          itemSelected: () => {
-            this.rerouteToOverview();
-          },
-          separatorOnTop: false,
-        },
+        }
       ],
     },
   ];
@@ -194,10 +191,7 @@ export class LayoutComponent implements OnInit {
   }
 
   async loadAllCourses() {
-    await this.userService.loadData().pipe(take(1)).toPromise();
-    this.courseService.getAllCourses().subscribe((data: any) => {
-      this.filteredProjectItems = data.courses;
-    });
+    
   }
 
   get activePage() {
