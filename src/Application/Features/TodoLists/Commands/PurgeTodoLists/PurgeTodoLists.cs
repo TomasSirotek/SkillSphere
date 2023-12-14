@@ -1,10 +1,10 @@
-﻿using SkillSphere.Domain.Constants;
-using SkillSphere.Application.Common.Interfaces;
+﻿using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Application.Common.Security;
+using SkillSphere.Domain.Constants;
 
-namespace SkillSphere.Application.TodoLists.Commands.PurgeTodoLists;
+namespace SkillSphere.Application.Features.TodoLists.Commands.PurgeTodoLists;
 
-[Authorize(Roles = Roles.Administrator)]
+
 [Authorize(Policy = Policies.CanPurge)]
 public record PurgeTodoListsCommand : IRequest;
 

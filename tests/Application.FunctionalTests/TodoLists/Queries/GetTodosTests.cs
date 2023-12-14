@@ -3,7 +3,6 @@ using SkillSphere.Application.TodoLists.Queries.GetTodos;
 
 namespace SkillSphere.Application.FunctionalTests.TodoLists.Queries;
 
-using static Testing;
 
 public class GetTodosTests : BaseTestFixture
 {

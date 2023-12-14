@@ -12,6 +12,11 @@ export class Menu {
           route: '/courses',
         },
         {
+          icon:' heroHeart',
+          label: 'Wishlist',
+          route: '/wishlist',
+        },
+        {
           icon: 'heroSquares2x2',
           label: 'Dashboard',
           route: '/dashboard',

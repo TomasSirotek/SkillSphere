@@ -10,7 +10,6 @@ public static class DependencyInjection
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         
-        
         services.AddMvc().AddNewtonsoftJson();
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

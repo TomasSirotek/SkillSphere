@@ -5,19 +5,21 @@ import { AuthGuard } from 'src/app/core/auth/service/auth-guard';
 
 // looking from perspective comming first and seaing tho pages 
 const routes: Routes = [
-  { path: '', 
+  { 
+    path: '', 
     redirectTo: 'courses', 
-    pathMatch: 'full' 
+    pathMatch: 'full', 
   },
   {
     path: 'dashboard',
     component: LayoutComponent,
     loadChildren: () => import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
-  },
+ },
   {
     path: 'courses',
     component: LayoutComponent,
     loadChildren: () => import('../management/management.module').then((m) => m.ManagementModule),
+
   },
   { path: '**', redirectTo: 'error/404' },
 ];

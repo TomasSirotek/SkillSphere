@@ -6,7 +6,7 @@ import { SidebarMenuComponent } from './sidebar-menu/sidebar-menu.component';
 import { NgClass, NgIf } from '@angular/common';
 
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { heroGlobeAlt,heroInboxStack,heroChevronDoubleLeft,heroSun,heroMoon,heroArrowLeftOnRectangle, heroBuildingStorefront, heroArrowDownTray } from '@ng-icons/heroicons/outline';
+import { heroGlobeAlt,heroInboxStack,heroChevronDoubleLeft,heroSun,heroMoon,heroArrowLeftOnRectangle, heroBuildingStorefront, heroArrowDownTray, heroSquares2x2, heroHeart } from '@ng-icons/heroicons/outline';
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { CmdkModule, CmdkService } from '@ngneat/cmdk';
 
@@ -24,7 +24,7 @@ import { CmdkModule, CmdkService } from '@ngneat/cmdk';
         CmdkModule,
   
     ],
-    viewProviders: [provideIcons({heroGlobeAlt,heroBuildingStorefront, heroArrowLeftOnRectangle, heroInboxStack,heroChevronDoubleLeft,heroSun, heroMoon,heroArrowDownTray})]
+    viewProviders: [provideIcons({heroGlobeAlt,heroBuildingStorefront, heroArrowLeftOnRectangle, heroInboxStack,heroChevronDoubleLeft,heroSun, heroMoon,heroArrowDownTray,heroHeart,heroSquares2x2})]
 })
 export class SidebarComponent implements OnInit {
   public appJson: any = packageJson;

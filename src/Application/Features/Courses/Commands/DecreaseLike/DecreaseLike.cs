@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using SkillSphere.Application.Common.Interfaces;
 
 namespace SkillSphere.Application.Features.Courses.Commands.DecreaseLike;
 
+[Authorize]
 public record DecreaseLikeCountCommand(Guid CourseId) : IRequest;
 
 public class DecreaseLikeCountCommandHandler : IRequestHandler<DecreaseLikeCountCommand>

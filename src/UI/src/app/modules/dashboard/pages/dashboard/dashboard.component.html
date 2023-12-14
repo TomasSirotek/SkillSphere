@@ -6,6 +6,7 @@
 
   <app-boxes-header
     [showButton]="false"
+    [showFilter]="false"
     title="Purchase courses"
   ></app-boxes-header>
 
@@ -81,7 +82,7 @@
                   />
                 </div>
 
-                <div class="absolute -bottom-3 left-4">
+                <div class="absolute -bottom-3 left-6">
                   <div class="flex flex-wrap gap-2 items-center">
                     <span
                       *ngFor="let category of course?.categories"
@@ -102,14 +103,6 @@
 
                 <div class="flex flex-wrap gap-2">
                   <div>
-                    <img
-                      class="w-5 h-5 rounded-full"
-                      src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt="Rounded avatar"
-                    />
-                  </div>
-
-                  <div>
                     <span
                       class="block mb-1 text-sm font-bold text-black dark:text-white"
                       >{{ course?.authorName }}</span
@@ -117,13 +110,19 @@
                   </div>
                 </div>
 
-                <div class="flex flex-wrap justify-between">
-                  <div>
+                <div class="flex flex-wrap justify-between items-center ">
+                  <div class="flex justify-center items-center">
                     <ng-icon
-                      name="heroHeart"
-                      class="text-black dark:text-white mr-2"
-                    />
-                    <span class="text-black dark:text-white text-sm">{{
+                    *ngIf="course?.isLiked"
+                    name="heroHeartSolid"
+                    class="text-gray-400"
+                  ></ng-icon>
+                    <ng-icon
+                    *ngIf="!course?.isLiked"
+                    name="heroHeart"
+                    class="text-gray-600 dark:text-gray-400 "
+                  ></ng-icon>
+                    <span class="text-black dark:text-white text-sm ml-2">{{
                       course?.likes
                     }}</span>
                     <ng-icon
@@ -152,8 +151,9 @@
     </ng-template>
 
     <ng-template #noResults>
-      <div class="text-center text-gray-500 dark:text-gray-400 mt-8">
-        <p>No courses found.</p>
+      <div class="text-center text-gray-500 dark:text-gray-400 mt-8 ">
+        <p>Nothing has been purchased yet </p>
+        <a href="/courses" class="underline text-primary-500">Visit store </a>
       </div>
     </ng-template>
   </div>

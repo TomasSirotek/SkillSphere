@@ -126,21 +126,20 @@ export class BoxesTableComponent implements OnInit, OnChanges {
 
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.isLoading = true;
    // this.filterBySelectedValue();
+    const test = this.courseService.getUserCourses(this.authService.getUserId());
 
+
+    await this.getUserCreatedCourses();
+    
+  }
+  private async getUserCreatedCourses() {
     this.courseService.getUserCourses(this.authService.getUserId()).subscribe((data : any) => {
-     
-      this.rows = data.courses.map((course) => {
 
-        // coverImageRelativePath is null, use the default image
-        course.coverImageRelativePath =
-          course.coverImageRelativePath ||
-          'https://s.udemycdn.com/course/200_H/placeholder.jpg';
-        return course;
-      });
-
+      this.rows = data.courses;
+ 
       // emit the objet with values to the parent componet
       this.emitLikeCourseChange.emit(this.rows);
      
@@ -149,7 +148,6 @@ export class BoxesTableComponent implements OnInit, OnChanges {
       this.filterBySelectedValue();
     });
 
-    
   }
 
 

@@ -247,9 +247,9 @@
       data-testid="open-modal-button"
       class="w-full max-w-screen-sm button rounded-md bg-primary-500 px-4 py-2.5 text-md font-semibold text-white hover:bg-primary-600"
     >
-      {{
-        course?.isPurchased ? 'Watch now' : course?.price !== 0 ? course?.price + ' Purchase' : 'Free'
-      }}
+    {{
+      handleCorrectText(course?.price, course?.isOwned,course?.isPurchased)
+     }}
       <ng-icon
         *ngIf="!linkGenerated"
         name="{{ course?.isPurchased ? 'heroEye' : course?.price !== 0 ? 'heroShoppingBag' : 'heroLockOpen' }}"

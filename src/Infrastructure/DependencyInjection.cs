@@ -1,5 +1,7 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -45,7 +47,8 @@ public static class DependencyInjection
         services
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<ApplicationRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddApiEndpoints();
             
         // Set up Time
         services.AddSingleton(TimeProvider.System);
@@ -59,11 +62,13 @@ public static class DependencyInjection
 
         services.AddTransient<IJwtTokenGen, JwtGenerator>();
         
+        
         // Add Authentication schema for JWT 
 
         var jwtOptions = new JwtTokenConfig(); 
         services.AddSingleton(jwtOptions);
-        
+        services.AddAuthorizationBuilder();
+
         // Setting up API JWT Authentication
         services.AddAuthorization().AddAuthentication(x =>
             {
@@ -89,8 +94,10 @@ public static class DependencyInjection
         // => Adding policy for role Administrator
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
-        
 
+     
         return services;
     }
 }
+
+

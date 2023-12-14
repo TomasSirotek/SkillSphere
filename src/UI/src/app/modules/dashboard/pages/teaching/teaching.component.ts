@@ -33,6 +33,7 @@ export class TeachingComponent implements OnInit {
   formGroup: FormGroup;
 
   userCourses: Course[] = [];
+  showButton: boolean = false;
 
   // data 
   selectedValue: any;
@@ -46,7 +47,6 @@ export class TeachingComponent implements OnInit {
     { id: 1, name: 'All',value:  0},
     { id: 2, name: 'Published', value:0},
     { id: 3, name: 'Drafts',value: 0  },
-    { id: 4, name: 'Archived',value:0,},
 
     // ... add more items as needed
   ];
@@ -60,7 +60,6 @@ export class TeachingComponent implements OnInit {
    
   }
 
-  showButton: boolean = false;
 
   // Handle the emitted length change
   handleCoursesLengthChange(hasCourses: number): void {
@@ -70,6 +69,7 @@ export class TeachingComponent implements OnInit {
   // recieve the emitted value
   handleEmitLikeCourseChange($event: any) {
     this.userCourses = $event;
+
     this.setValues();
   }
 

@@ -54,11 +54,16 @@ public class IdentityService : IIdentityService
         return user != null && await _userManager.IsInRoleAsync(user, role);
     }
 
-    public async Task<bool> AuthorizeAsync(Guid userId, string policyName)
+    public async Task<bool> AuthorizeAsync(Guid userId, string policyName,Guid? requestedUserId)
     {
         var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
         if (user == null)
+        {
+            return false;
+        }
+        
+        if(requestedUserId != null && user.Id != requestedUserId)
         {
             return false;
         }

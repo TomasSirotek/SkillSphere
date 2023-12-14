@@ -35,12 +35,11 @@ export class CourseDescriptionComponent {
     this.courseDescriptionChange.emit(this.courseDescription);
   }
 
-  onInputChange(event: Event) {
-    const newDescription = (event.target as HTMLElement).innerHTML;
+  onInputChange(event: any) {
+    this.courseDescription = event.target.value;
 
-    this.courseDescription = newDescription;
 
-    this.courseDescriptionChange.emit(newDescription);
+    this.courseDescriptionChange.emit(this.courseDescription);
 
   }
 }

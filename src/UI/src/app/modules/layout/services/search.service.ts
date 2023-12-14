@@ -7,7 +7,7 @@ import { MenuItem, SubMenuItem } from 'src/app/core/models/menu.model';
 @Injectable({
   providedIn: 'root',
 })
-export class SearchService implements OnDestroy {
+export class SearchService  {
   private _showSearch = signal(false); // signal is a helper function to create a BehaviorSubject
   private _searchItems = signal<any[]>([]);
   private _subscription = new Subscription();

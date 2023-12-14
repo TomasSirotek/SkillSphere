@@ -16,14 +16,16 @@
  
 
     <div
-      id="modalCreate"
+      id="modalCMD"
       tabindex="-1"
+      #cmdkCommand
       aria-hidden="true"
-      class="bg-red-500 hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      class=" hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
     >
       <ng-template
         cdkConnectedOverlay
-        [cdkConnectedOverlayOpen]="this.searchService.showSearch"
+        [cdkConnectedOverlayOrigin]="cmdkCommand"
+        [cdkConnectedOverlayOpen]="this.searchService?.showSearch"
       >
         <!-- Your overlay content here -->
         <div
@@ -48,7 +50,7 @@
                 cmdkInput
                 autofocus
                 class="focus:outline-none focus:ring-0"
-                placeholder="What do you need?"
+                placeholder="What are you searching for ?"
                 (change)="setInputValue($event)"
               />
               <cmdk-list>

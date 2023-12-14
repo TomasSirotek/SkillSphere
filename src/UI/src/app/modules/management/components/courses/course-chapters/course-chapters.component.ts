@@ -128,7 +128,7 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
           description: chapter.description,
           isFree: chapter.isFree,
           videoURL: chapter.videoURL,
-          // position: chapter.position, // Keep the original position from the database
+         position: chapter.position, // Keep the original position from the database
         },
       ],
       position: chapter.position,
@@ -150,6 +150,7 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
       isFree: draggableItem.children[0]?.isFree,
       videoURL: draggableItem.children[0]?.videoURL,
     }));
+
   }
 
 
@@ -216,10 +217,33 @@ export class CourseChaptersComponent implements OnInit, OnChanges {
     this.courseChaptersChange.emit(updatedChapters);
   }
 
-  updateValue(event: any): void {
+  updateValue(event: any,child:any): void {
+    // if its isFree true set to false and vice versa 
+   
+    // find the chapter in dragable list and set its value to true if its set to false 
+    if (event.target.type === 'checkbox') {
+       child.isFree = event.target.checked;
+    }
+
+    // find child in dragable list and set its value to true if its set to false
+  
     this.courseChaptersChange.emit(
       this.mapDraggableToChapters(this.draggableList)
     );
+
+
+   
+  }
+
+  updateVsibility(event: any): void {
+    // if its isFree true set to false and vice versa 
+    
+  
+    this.courseChaptersChange.emit(
+      this.mapDraggableToChapters(this.draggableList)
+    );
+
+   
   }
 
 }

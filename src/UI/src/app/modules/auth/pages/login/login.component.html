@@ -12,10 +12,9 @@
       <div class="form__group">
         <div class="relative">
           <input
-            type="text"
             id="email"
             [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }"
-            class="peer block"
+            class="peer bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded rounded-md focus:ring-primary-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 "
             placeholder=" "
             formControlName="email" />
           <label
@@ -32,41 +31,27 @@
   
       <div class="form__group">
         <div class="relative">
+        
+          
           <input
-            [type]="passwordTextType ? 'text' : 'password'"
             id="password"
             [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }"
-            class="peer block"
+            class="peer bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded rounded-md focus:ring-primary-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 "
             placeholder=" "
             formControlName="password" />
           <label
             for="password"
-            class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 peer-focus:text-primary-600 dark:bg-night-700 dark:text-night-200">
+            class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 peer-focus:text-primary-500 dark:bg-night-700 dark:text-night-200">
             Password
           </label>
-          <span
-            class="absolute top-2.5 right-5 cursor-pointer text-gray-400 dark:text-night-300"
-            (click)="togglePasswordTextType()">
-          </span>
         </div>
+       
         <div *ngIf="submitted && f['password'].errors" class="is__invalid-error">
           <div *ngIf="f['password'].errors['required']">Required field</div>
         </div>
       </div>
     </div>
   
-    <div class="flex items-center justify-between space-x-3">
-      <!-- <div class="flex items-center">
-        <input id="remember-me" name="remember-me" type="checkbox" />
-        <label for="remember-me" class="ml-2 block text-sm text-gray-400 dark:text-night-200"> Remember me </label>
-      </div>
-   -->
-      <!-- <div class="text-sm">
-        <a routerLink="/auth/forgot-password" class="font-medium text-primary-500 hover:text-primary-400">
-          Forgot your password?
-        </a>
-      </div> -->
-    </div>
   
     <!-- Submit Button -->
     <button

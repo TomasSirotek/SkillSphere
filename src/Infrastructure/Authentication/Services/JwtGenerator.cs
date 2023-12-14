@@ -21,11 +21,13 @@ public class JwtGenerator : IJwtTokenGen
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            Debug.Assert(_authSettings.Secret != null, "_authSettings.Secret != null");
+            Guard.Against.NullOrEmpty(_authSettings.Secret, nameof(_authSettings.Secret),message:"Secret is null or empty");
+            
             var key = Encoding.UTF8.GetBytes(_authSettings.Secret);
 
-            Debug.Assert(user.Email != null, "user.Email != null");
-            Debug.Assert(user.UserName != null, "user.UserName != null");
+            Guard.Against.NullOrEmpty(user.Email, nameof(user.Email),message:"Email is null or empty");
+            Guard.Against.NullOrEmpty(user.UserName, nameof(user.UserName),message:"UserName is null or empty");
+
             
             var claimList = new List<Claim>
             {

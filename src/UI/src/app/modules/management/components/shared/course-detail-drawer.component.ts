@@ -28,8 +28,11 @@ import { heroHeartSolid } from '@ng-icons/heroicons/solid';
 import { FormsModule } from '@angular/forms';
 import { DrawerService } from '../../services/drawer.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
-import { PaymentLinkRequest, PaymentService } from 'src/app/shared/service/payment.service';
+import { Route, Router, RouterLink } from '@angular/router';
+import {
+  PaymentLinkRequest,
+  PaymentService,
+} from 'src/app/shared/service/payment.service';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
 import { Modal, ModalInterface, ModalOptions } from 'flowbite';
 import { ModalPreviewComponent } from 'src/app/shared/components/modal/modal-preview.component';
@@ -37,7 +40,13 @@ import { ModalPreviewComponent } from 'src/app/shared/components/modal/modal-pre
 @Component({
   selector: 'app-detail-drawer',
   standalone: true,
-  imports: [CommonModule, NgIcon, FormsModule,RouterLink,ModalPreviewComponent],
+  imports: [
+    CommonModule,
+    NgIcon,
+    FormsModule,
+    RouterLink,
+    ModalPreviewComponent,
+  ],
   templateUrl: './course-detail-drawer.component.html',
   viewProviders: [
     provideIcons({
@@ -56,20 +65,19 @@ import { ModalPreviewComponent } from 'src/app/shared/components/modal/modal-pre
   ],
 })
 export class CourseDetailDrawer implements OnInit {
-handleCancelPreviewModal() {
-this.modal.hide();
-}
-  
+  handleCancelPreviewModal() {
+    this.modal.hide();
+  }
+
   @ViewChild('drawerElement') drawerElement: ElementRef;
   @Output() emitLikeCourseChange = new EventEmitter<string>();
 
   isDrawerOpen = false;
   showFullDescription = false;
   course: Course = null;
-  generatedLink: string | null = null
+  generatedLink: string | null = null;
   modal: ModalInterface;
 
-  
   constructor(
     private sanitizer: DomSanitizer,
     private drawerService: DrawerService,
@@ -77,123 +85,144 @@ this.modal.hide();
     private senitaizer: DomSanitizer,
     private paymentService: PaymentService,
     private authService: AuthService,
+    private router: Router
   ) {
     this.drawerService.getOpenModalStatus().subscribe((isOpen) => {
       this.isDrawerOpen = isOpen;
     });
     this.drawerService.getModalData().subscribe((course: Course) => {
-       this.processCourseData(course);
+      this.processCourseData(course);
     });
   }
 
-handleLikeCourse(courseId: string) {
-  this.emitLikeCourseChange.emit(courseId);
-  this.course.isLiked = !this.course.isLiked;
-}
-
-// PURCHASE
-loading = false;
-linkGenerated = false;
-
-
-generateLink() {
-  if(!this.course.isPurchased){
-    this.loading = true;
-
-    const userId = this.authService.getUserId();
-
-    const request: PaymentLinkRequest = {
-      courseToPurchase: {
-        id: this.course.id,
-        title: this.course.title,
-        description: this.course.description,
-        price: this.course.price,
-        imageUrl: this.course.coverImageRelativePath,
-      },
-      quantity: 1,
-      metadata: { userId: userId, courseId: this.course.id },
-      successRedirectUrl:  'http://localhost:4200/dashboard',
-      cancelRedirectUrl:  'http://localhost:4200/courses',
-    };
-    
-
-    this.paymentService.generatePaymentLink(request).subscribe(response => {
-      this.generatedLink = response.checkoutUrl;
-      this.linkGenerated = true;
-      this.loading = false;
-    });
-    
-  }else {
-    // open the course preview
-    alert("open the course preview");
-  }
- 
-}
-
-setupModal() {
-  const $modalElement: HTMLElement = document.querySelector('#modalCreatePreview');
-
-  const modalOptions: ModalOptions = {
-    placement: 'center',
-    backdrop: 'dynamic',
-    backdropClasses:
-      'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',
-    closable: true,
-    onHide: () => {},
-    onShow: () => {
-      // set modal data
-    },
-    onToggle: () => {},
-  };
-
-  this.modal = new Modal($modalElement, modalOptions);
-}
-
-openModal() {
-  this.setupModal();
-  this.modal.show();
-}
-
-
-handleCancleModal() {
-  this.modal.hide();
+  handleLikeCourse(courseId: string) {
+    this.emitLikeCourseChange.emit(courseId);
+    this.course.isLiked = !this.course.isLiked;
   }
 
+  // PURCHASE
+  loading = false;
+  linkGenerated = false;
 
-// END
-
-processCourseData(course: Course): void {
-
-    if (course) {
-        // Map chapters to a new array with isExpanded property
-        const chaptersWithExpansion: Chapter[] = course.chapters.map(chapter => ({
-            ...chapter,
-            isExpanded: false
-        }) as unknown as Chapter);
-
-        // Sort chapters based on their positions in the database
-        const sortedChapters: Chapter[] = chaptersWithExpansion.sort((a, b) => a.position - b.position);
-
-        // Update the course object with the sorted and expanded chapters
-        this.course = { ...course, chapters: sortedChapters };
-        
+  handleCorrectText(
+    coursePrice: number,
+    isOwned: boolean,
+    isPurchased: boolean
+  ) {
+    if (coursePrice === 0) {
+      return 'Free';
+    } else if (isOwned) {
+      return 'Created by you';
+    } else if (isPurchased) {
+      return 'Watch now !';
+    } else {
+      return coursePrice;
     }
-}
+  }
 
+  generateLink() {
+    if (this.course.isOwned) {
+      // navigate to the course page ID
+      this.router.navigate([`/dashboard/my-courses/${this.course.id}`]);
+    }
+    if (!this.course.isPurchased) {
+      this.loading = true;
+
+      const userId = this.authService.getUserId();
+
+      const request: PaymentLinkRequest = {
+        courseToPurchase: {
+          id: this.course.id,
+          title: this.course.title,
+          description: this.course.description,
+          price: this.course.price,
+          imageUrl: this.course.coverImageRelativePath,
+        },
+        quantity: 1,
+        metadata: { userId: userId, courseId: this.course.id },
+        successRedirectUrl: 'http://localhost:4200/dashboard',
+        cancelRedirectUrl: 'http://localhost:4200/courses',
+      };
+
+      this.paymentService.generatePaymentLink(request).subscribe((response) => {
+        this.generatedLink = response.checkoutUrl;
+        this.linkGenerated = true;
+        this.loading = false;
+      });
+    } else {
+      // open the course preview
+      alert('open the course preview');
+    }
+  }
+
+  setupModal() {
+    const $modalElement: HTMLElement = document.querySelector(
+      '#modalCreatePreview'
+    );
+
+    const modalOptions: ModalOptions = {
+      placement: 'center',
+      backdrop: 'dynamic',
+      backdropClasses:
+        'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',
+      closable: true,
+      onHide: () => {},
+      onShow: () => {
+        // set modal data
+      },
+      onToggle: () => {},
+    };
+
+    this.modal = new Modal($modalElement, modalOptions);
+  }
+
+  openModal() {
+    this.setupModal();
+    this.modal.show();
+  }
+
+  handleCancleModal() {
+    this.modal.hide();
+  }
+
+  // END
+
+  processCourseData(course: Course): void {
+    if (course) {
+      // Map chapters to a new array with isExpanded property
+      const chaptersWithExpansion: Chapter[] = course.chapters.map(
+        (chapter) =>
+          ({
+            ...chapter,
+            isExpanded: false,
+          } as unknown as Chapter)
+      );
+
+      // Sort chapters based on their positions in the database
+      const sortedChapters: Chapter[] = chaptersWithExpansion.sort(
+        (a, b) => a.position - b.position
+      );
+
+      // Update the course object with the sorted and expanded chapters
+      this.course = { ...course, chapters: sortedChapters };
+      this.course;
+    }
+  }
 
   toggleAccordion(chapterId: string): void {
     // Find the index of the chapter in the array
-    const index = this.course.chapters.findIndex(chapter => chapter.id === chapterId);
+    const index = this.course.chapters.findIndex(
+      (chapter) => chapter.id === chapterId
+    );
 
     // findd if the chapter is free or not
     const isFree = this.course.chapters[index].isFree;
     // Toggle the isExpanded property
     if (index !== -1 && isFree) {
-      this.course.chapters[index]['isExpanded'] = !this.course.chapters[index]['isExpanded'];
+      this.course.chapters[index]['isExpanded'] =
+        !this.course.chapters[index]['isExpanded'];
     }
   }
-
-
 
   toggleDescription() {
     this.showFullDescription = !this.showFullDescription;
@@ -219,7 +248,6 @@ processCourseData(course: Course): void {
     this.linkGenerated = false;
     this.isDrawerOpen = false;
   }
-
 
   ngOnInit(): void {}
 }

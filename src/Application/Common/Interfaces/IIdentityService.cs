@@ -8,7 +8,7 @@ public interface IIdentityService
 
     Task<bool> IsInRoleAsync(Guid userId, string role);
 
-    Task<bool> AuthorizeAsync(Guid userId, string policyName);
+    Task<bool> AuthorizeAsync(Guid userId, string policyName,Guid? requestedUserId);
 
     Task<Result> CreateUserAsync(string userName, string password);
 

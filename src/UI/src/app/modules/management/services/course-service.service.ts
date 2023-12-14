@@ -15,8 +15,7 @@ import { environment } from 'src/environments/environment';
 
 
 export class CourseService {
-
-
+  
 
 
   public getPaginatedCourses(pageNumber: number, pageSize: number, sortBy: string, sortDir: string) {
@@ -31,30 +30,25 @@ export class CourseService {
     return this._http.get<Course[]>(url, { params });
 }
 
- 
-  public coursesState: Observable<Course[]>;
-  private _coursesState = new BehaviorSubject<Course[]>([]);
+   
 
   constructor(private _http: HttpClient,private toastr: ToastrService) {
-    this.coursesState = this._coursesState.asObservable();
-    this.loadCourses();
   }
 
-  private loadCourses() {
-    // Assume you have an API endpoint to fetch courses
-    this._http.get<Course[]>('https://localhost:5001/api/courses').subscribe((courses) => {
-      this._coursesState.next(courses);
-    });
+
+  public getOwnedCourses(userId: string) {
+    return this._http.get<Course[]>(`${environment.baseUrl}/courses/${userId}/owned`);
   }
 
-  // Example function to update the courses
-  public updateCourses(updatedCourses: Course[]) {
-    this._coursesState.next(updatedCourses);
+  public getCourseByUserId(courseId: string) {
+    return this._http.get<Course[]>(`${environment.baseUrl}/courses/${courseId}`);
   }
-  // get all courses
-  public getAllCourses(): Observable<Course[]> {
-    return this.coursesState;
+
+
+  public getWishList(userId: string) {
+    return this._http.get<Course[]>(`${environment.baseUrl}/courses/${userId}/wishlist`);
   }
+
 
   public createCourse(courseTitle: string,userId: string): Observable<string> {
     return this._http.post<any>('https://localhost:5001/api/courses', { title: courseTitle,userId: userId }).pipe(
@@ -157,15 +151,13 @@ export class CourseService {
     return this._http.get<Categories[]>('https://localhost:5001/api/categories');
   }
 
-  public getUserCourses(userId: string): Observable<Course[]> {
-
-    const url = `https://localhost:5001/api/courses/${userId}`;
+  // return 
   
-    return this._http.get<Course[]>(url).pipe(
-      map((courses) => {
-        return courses;
-      })
-    );
+
+
+  public getUserCourses(userId: string) {
+  
+   return this._http.get<Categories[]>(`https://localhost:5001/api/courses/${userId}/created`);
   }
 
 

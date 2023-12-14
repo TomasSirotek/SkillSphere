@@ -1,8 +1,8 @@
 ﻿using SkillSphere.Domain.Entities;
 using SkillSphere.Application.Common.Exceptions;
 using SkillSphere.Application.Common.Security;
+using SkillSphere.Application.Features.TodoLists.Commands.PurgeTodoLists;
 using SkillSphere.Application.TodoLists.Commands.CreateTodoList;
-using SkillSphere.Application.TodoLists.Commands.PurgeTodoLists;
 
 namespace SkillSphere.Application.FunctionalTests.TodoLists.Commands;
 
