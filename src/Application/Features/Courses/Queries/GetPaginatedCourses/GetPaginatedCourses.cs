@@ -1,22 +1,20 @@
 using System.Linq.Expressions;
-using Microsoft.AspNetCore.Authorization;
 using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Application.Common.Mappings;
 using SkillSphere.Application.Common.Models;
+using SkillSphere.Application.Common.Security;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
-using SkillSphere.Application.TodoItems.Queries.GetTodoItemsWithPagination;
-using SkillSphere.Domain.Constants;
 using SkillSphere.Domain.Entities;
 
 namespace SkillSphere.Application.Features.Courses.Queries.GetPaginatedCourses;
 
 [Authorize]
-public record GetPaginatedCoursesQuery : IRequest<PaginatedList<QueryDto>>
+public class GetPaginatedCoursesQuery : IRequest<PaginatedList<QueryDto>>
 {
     public int PageNumber { get; init; } = 1;
     public int PageSize { get; init; } = 10;
 
-    public string SortBy { get; init; } = "id";
+    public string SortBy { get; init; } = "title";
     public string SortOrder { get; init; } = "asc";
 }
 
@@ -35,10 +33,13 @@ public class GetPaginatedCoursesQueryHandler : IRequestHandler<GetPaginatedCours
 
     public async Task<PaginatedList<QueryDto>> Handle(GetPaginatedCoursesQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.Courses.AsQueryable();
 
-        // Add filter for published courses
-        query = query.Where(x => x.IsPublished);
+
+
+        var query = _context.Courses
+            .Where(x => x.IsPublished);
+            
+
 
         // Apply sorting
         if (!string.IsNullOrEmpty(request.SortBy))

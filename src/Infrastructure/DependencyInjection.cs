@@ -20,6 +20,8 @@ using SkillSphere.Infrastructure.Data;
 using SkillSphere.Infrastructure.PaymentGateway;
 using Roles = SkillSphere.Domain.Constants.Roles;
 using Microsoft.AspNetCore.Mvc;
+using SkillSphere.Infrastructure.Data.Interceptors;
+
 namespace SkillSphere.Infrastructure;
 
 public static class DependencyInjection
@@ -30,7 +32,7 @@ public static class DependencyInjection
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
-   
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
@@ -61,7 +63,6 @@ public static class DependencyInjection
         services.AddTransient<IIdentityService, IdentityService>();
 
         services.AddTransient<IJwtTokenGen, JwtGenerator>();
-        
         
         // Add Authentication schema for JWT 
 

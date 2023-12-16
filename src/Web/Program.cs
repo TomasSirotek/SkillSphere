@@ -3,7 +3,6 @@ using SkillSphere.Infrastructure;
 using SkillSphere.Infrastructure.Data;
 using SkillSphere.Web;
 using SkillSphere.Web.Infrastructure;
-using SkillSphere.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

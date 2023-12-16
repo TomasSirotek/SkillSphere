@@ -1,13 +1,17 @@
-﻿using SkillSphere.Infrastructure.Data;
+﻿using System.Net.Http.Headers;
+using SkillSphere.Infrastructure.Data;
 using SkillSphere.Infrastructure.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Domain.Constants;
 using SkillSphere.Domain.Entities;
 using SkillSphere.Domain.Identity;
 using skillSphere.Infrastructure.Data;
+using SkillSphere.Web.Services;
 using Roles = SkillSphere.Infrastructure.Identity.Roles;
 
 namespace SkillSphere.Application.FunctionalTests;
@@ -18,7 +22,7 @@ public partial class Testing
     private static ITestDatabase _database;
     private static CustomWebApplicationFactory _factory = null!;
     private static IServiceScopeFactory _scopeFactory = null!;
-    private static Guid _userId;
+    private static Guid _userId = Guid.Empty;
 
     [OneTimeSetUp]
     public async Task RunBeforeAnyTests()
@@ -35,9 +39,10 @@ public partial class Testing
         using var scope = _scopeFactory.CreateScope();
 
         var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
-
+        
         return await mediator.Send(request);
     }
+
 
     public static async Task SendAsync(IBaseRequest request)
     {
@@ -60,7 +65,7 @@ public partial class Testing
 
     public static async Task<Guid> RunAsAdministratorAsync()
     {
-        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
+        return await RunAsUserAsync("administrator@local", "Admin1!", new[] { Roles.Administrator });
     }
 
     public static async Task<Guid> RunAsUserAsync(string userName, string password, string[] roles)
@@ -75,11 +80,14 @@ public partial class Testing
 
         if (roles.Any())
         {
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
             foreach (var role in roles)
             {
-                await roleManager.CreateAsync(new IdentityRole(role));
+                var newRole = new ApplicationRole();
+                newRole.Name = role;
+
+                await roleManager.CreateAsync(newRole);
             }
 
             await userManager.AddToRolesAsync(user, roles);
@@ -103,7 +111,7 @@ public partial class Testing
         {
             await _database.ResetAsync();
         }
-        catch (Exception) 
+        catch (Exception)
         {
         }
 
@@ -131,6 +139,7 @@ public partial class Testing
 
         await context.SaveChangesAsync();
     }
+ 
 
     public static async Task<int> CountAsync<TEntity>() where TEntity : class
     {

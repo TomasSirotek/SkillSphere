@@ -12,6 +12,8 @@ public class JwtGenerator : IJwtTokenGen
     {
         private readonly JwtTokenConfig _authSettings;
 
+        private const string SignatureAlgorithm = SecurityAlgorithms.HmacSha512;
+        
         public JwtGenerator(JwtTokenConfig authSettings)
         {
             _authSettings = authSettings;
@@ -35,16 +37,17 @@ public class JwtGenerator : IJwtTokenGen
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, user.UserName)
             };
-
-            // claimList.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-
+            
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Audience = null,
                 Issuer = null,
                 Subject = new ClaimsIdentity(claimList),
                 Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = 
+                    new SigningCredentials(
+                    new SymmetricSecurityKey(key), 
+                    SignatureAlgorithm)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

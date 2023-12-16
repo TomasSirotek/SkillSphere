@@ -2,13 +2,10 @@ using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Application.Common.Security;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
 
-namespace SkillSphere.Application.Features.Courses.Queries;
+namespace SkillSphere.Application.Features.Courses.Queries.GetUserWishList;
 
 [Authorize]
-public class GetUserWishListQuery : IRequest<GetCourseVm>
-{
-    public Guid UserId { get; init; }
-}
+public record GetUserWishListQuery(Guid UserId) : IRequest<GetCourseVm>;
 
 
 public class GetUserWishListQueryHandler : IRequestHandler<GetUserWishListQuery, GetCourseVm>

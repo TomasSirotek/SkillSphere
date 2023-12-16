@@ -4,10 +4,6 @@ namespace SkillSphere.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    DbSet<TodoList> TodoLists { get; }
-
-    DbSet<TodoItem> TodoItems { get; }
-    
     DbSet<Course> Courses { get; }
     
     DbSet<Category> Categories { get; }
