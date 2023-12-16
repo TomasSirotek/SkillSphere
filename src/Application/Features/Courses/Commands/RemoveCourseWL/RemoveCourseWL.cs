@@ -1,6 +1,5 @@
 using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Application.Common.Security;
-using SkillSphere.Application.TodoLists.Commands.DeleteTodoList;
 
 namespace SkillSphere.Application.Features.Courses.Commands.RemoveCourseWL;
 

@@ -20,11 +20,10 @@ public class DecreaseLikeCountCommandHandler : IRequestHandler<DecreaseLikeCount
         var course = await _context.Courses.FindAsync(request.CourseId);
 
         Guard.Against.NotFound(request.CourseId, course);
-
-        if (course.Likes > 0)
-        {
-            course.Likes--; 
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+    
+        if(course.Likes == 0) throw new Exception("Likes cannot be less than 0");
+        
+        course.Likes--; 
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

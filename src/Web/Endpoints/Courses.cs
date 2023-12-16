@@ -7,12 +7,14 @@ using SkillSphere.Application.Features.Courses.Commands.DecreaseLike;
 using SkillSphere.Application.Features.Courses.Commands.IncreaseLikes;
 using SkillSphere.Application.Features.Courses.Commands.PublishCourse;
 using SkillSphere.Application.Features.Courses.Commands.RemoveCourseWL;
+using SkillSphere.Application.Features.Courses.Commands.SaveCourse;
 using SkillSphere.Application.Features.Courses.Queries;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
 using SkillSphere.Application.Features.Courses.Queries.GetCourseById;
 using SkillSphere.Application.Features.Courses.Queries.GetCoursesForUser;
 using SkillSphere.Application.Features.Courses.Queries.GetPaginatedCourses;
 using SkillSphere.Application.Features.Courses.Queries.GetUserCourse;
+using SkillSphere.Application.Features.Courses.Queries.GetUserWishList;
 using SkillSphere.Domain.Constants;
 using SkillSphere.Web.Infrastructure;
 
@@ -50,11 +52,11 @@ public class Courses : EndpointGroupBase
     }
     public async Task<GetCourseVm> GetCoursesForUser(ISender sender,Guid userId)
     {
-        return await sender.Send(new GetUserOwnedCoursesQuery { UserId = userId });
+        return await sender.Send(new GetUserOwnedCoursesQuery( userId ));
     }
     public async Task<GetCourseVm> GetUserWishList(ISender sender,Guid userId)
     {
-        return await sender.Send(new GetUserWishListQuery { UserId = userId });
+        return await sender.Send(new GetUserWishListQuery (userId));
     }
     
     public async Task<GetCourseVm> GetCourses(ISender sender)
@@ -73,7 +75,7 @@ public class Courses : EndpointGroupBase
     {
         return await sender.Send(new GetCourseByUsedIdQuery(userId));
     }
-    public async Task<IResult> SaveCourseAsDraft(ISender sender,string courseId,SaveCourseDraftCommand command)
+    public async Task<IResult> SaveCourseAsDraft(ISender sender,Guid courseId,SaveCourseDraftCommand command)
     {
         if (courseId != command.Id) return Results.BadRequest();
         await sender.Send(command);

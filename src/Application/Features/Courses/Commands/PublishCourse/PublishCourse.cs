@@ -23,8 +23,15 @@ public class PublishCourseCommandHandler : IRequestHandler<PublishCourseCommand,
         {
             return Results.NotFound();
         }
+        if (string.IsNullOrWhiteSpace(course.Title) ||
+            string.IsNullOrWhiteSpace(course.Description) ||
+            string.IsNullOrWhiteSpace(course.CoverImageRelativePath) ||
+             !course.Categories.Any() ||
+            !course.Chapters.Any())
+        {
+            return Results.BadRequest("Course is missing required fields. Cannot publish");
+        }
 
-        // Update the IsPublished property
         course.IsPublished = request.IsPublished;
         
         await _context.SaveChangesAsync(cancellationToken);

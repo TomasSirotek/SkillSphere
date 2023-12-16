@@ -1,9 +1,9 @@
 using SkillSphere.Application.Common.Interfaces;
-using SkillSphere.Application.Features.Courses.Queries;
-using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
+using SkillSphere.Application.Common.Security;
 
 namespace SkillSphere.Application.Features.Categories.Query.GetCategories;
 
+[Authorize]
 public record GetCategoriesQuery : IRequest<GetCategoryVm>;
 
 public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, GetCategoryVm>

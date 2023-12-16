@@ -43,10 +43,5 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Web\Web.csproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Features\Categories\Commands\" />
-      <Folder Include="Features\Categories\Queries\" />
-    </ItemGroup>
 
 </Project>

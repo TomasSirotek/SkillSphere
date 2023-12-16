@@ -1,13 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using SkillSphere.Domain.Constants;
-using SkillSphere.Domain.Entities;
-using SkillSphere.Infrastructure.Identity;
+﻿using SkillSphere.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SkillSphere.Domain.Identity;
 using skillSphere.Infrastructure.Data;
 using Roles = SkillSphere.Domain.Constants.Roles;
 
@@ -71,11 +67,9 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // Default roles
+        // Default roles
         var administratorRole = new ApplicationRole();
         administratorRole.Name = Roles.Administrator;
-
-        var roles = _roleManager.Roles.All(r => r.Name != administratorRole.Name);
-        
         
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
@@ -83,7 +77,7 @@ public class ApplicationDbContextInitialiser
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "administrator", Email = "administrator@localhost.com" };
+        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
@@ -93,26 +87,22 @@ public class ApplicationDbContextInitialiser
                 await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
-        
-        // SEED DATA
+
+            // SEED DATA
         if (!_context.Courses.Any())
         {
             var course1 = new Course
             {
-                Title = "Course 3",
-                Description = "Course 1 Description",
-                CoverImageRelativePath = "https://images.pexels.com/photos/693859/pexels-photo-693859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                Price = 9.99f,
+                Title = "Extreme web development",
+                Description = "This is a course about web development",
+                CoverImageRelativePath = "https://ipfs.io/ipfs/QmW1MBApm4XvwgoSKf45ZtsqJU5cDYdcsW2GBSEUqXWE3T",
+                Price = 19.99f,
                 Likes = 0,
                 Categories = new List<CourseCategory>
                 {
                     new CourseCategory
                     {
                         Category = new Category { Name = "Web development" }
-                    },
-                    new CourseCategory
-                    {
-                        Category = new Category { Name = "Drawing" }
                     },
                     new CourseCategory
                     {
@@ -131,24 +121,6 @@ public class ApplicationDbContextInitialiser
             };
 
             _context.Courses.Add(course1);
-            await _context.SaveChangesAsync();
-        }
-
-
-        if (!_context.TodoLists.Any())
-        {
-            _context.TodoLists.Add(new TodoList
-            {
-                Title = "Todo List",
-                Items =
-                {
-                    new TodoItem { Title = "Make a todo list 📃" },
-                    new TodoItem { Title = "Check off the first item ✅" },
-                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
-                    new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
-                }
-            });
-
             await _context.SaveChangesAsync();
         }
     }

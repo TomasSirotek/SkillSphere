@@ -10,14 +10,7 @@ namespace skillSphere.Infrastructure.Data;
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {
-        
-    }
-
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
-
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
-    
+    {}
     public DbSet<Course> Courses => Set<Course>();
     
     public DbSet<Category> Categories => Set<Category>();

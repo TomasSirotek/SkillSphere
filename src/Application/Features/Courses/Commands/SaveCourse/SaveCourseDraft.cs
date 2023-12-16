@@ -1,4 +1,5 @@
 using SkillSphere.Application.Common.Interfaces;
+using SkillSphere.Application.Features.Courses.Commands.SaveCourse;
 using SkillSphere.Domain.Entities;
 
 namespace SkillSphere.Application.Features.Courses.Commands;
@@ -15,22 +16,19 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
 
     public async Task Handle(SaveCourseDraftCommand request, CancellationToken cancellationToken)
     {
-        // string to guid 
-        var guidString = Guid.Parse(request.Id ?? String.Empty);
+       
 
         var existingCourse = await _context.Courses
             .Include(c => c.Chapters) 
-            .FirstOrDefaultAsync(c => c.Id == guidString, cancellationToken);
+            .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
         
-        Guard.Against.NotFound(guidString, existingCourse);
+        Guard.Against.NotFound(request.Id, existingCourse);
         Guard.Against.Null(existingCourse.IsPublished);
 
-        // update entity depending on the values recieved 
         existingCourse.Title = request.Title;
         existingCourse.Description = request.Description;
         existingCourse.CoverImageRelativePath = request.CoverImageRelativePath;
-        existingCourse.IsPublished = request.IsPublished;
         existingCourse.Price = request.Price;
 
         await UpdateCategories(existingCourse, request.Categories, cancellationToken);
@@ -46,8 +44,8 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
         foreach (var requestChapter in requestChapters)
         {
             
-            var guidString = Guid.Parse(requestChapter.Id ?? String.Empty);
-            var existingChapter = existingCourse.Chapters.FirstOrDefault(c => c.Id == guidString);
+      
+            var existingChapter = existingCourse.Chapters.FirstOrDefault(c => c.Id == requestChapter.Id);
 
             if (existingChapter != null)
             {
@@ -91,18 +89,15 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
 
         _context.CourseCategories.RemoveRange(existingCourseCategories);
 
-        // STEP 2: Check if the new categories exist, and if yes, assign them to the correct course category
         if (categoriesList.Any())
         {
             foreach (var categoryDto in categoriesList)
             {
-                // Check if the category exists
                 var category = await _context.Categories
                     .FindAsync(new object[] { categoryDto.Id ?? Guid.Empty }, cancellationToken);
 
                 if (category != null)
                 {
-                        // If not, create a new CourseCategory entry
                         var newCourseCategory = new CourseCategory
                         {
                             CourseId = existingCourse.Id, CategoryId = category.Id

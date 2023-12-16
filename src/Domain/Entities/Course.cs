@@ -5,7 +5,6 @@ public class Course : BaseAuditableEntity
     public string? Title { get; set; }
     public string? Description { get; set; }
     public string? CoverImageRelativePath { get; set; }
-
     public bool IsPublished { get; set; } = false;
     public float Price { get; set; }
 
