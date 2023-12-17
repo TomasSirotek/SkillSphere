@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SkillSphere.Application.Auth.Commands;
 using SkillSphere.Application.Common.Models;
 using SkillSphere.Application.Features.Payments.Command;
+using SkillSphere.Application.Features.Payments.Command.PaymentCommand;
 using SkillSphere.Application.Features.Payments.Command.WebhookCommand;
 using SkillSphere.Web.Infrastructure;
 using Stripe;

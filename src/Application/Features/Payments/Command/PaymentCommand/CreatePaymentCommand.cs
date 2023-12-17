@@ -1,7 +1,6 @@
 using SkillSphere.Application.Common.Models;
-using SkillSphere.Domain.Entities;
 
-namespace SkillSphere.Application.Features.Payments.Command;
+namespace SkillSphere.Application.Features.Payments.Command.PaymentCommand;
 
 public class CreatePaymentCommand : IRequest<PaymentResult>
 {
