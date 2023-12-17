@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    baseUrl: 'http://localhost:5000',
+    baseUrl: 'https://as-skillsphere-nqxcv45y4vioy-prd.azurewebsites.net/api',
   };

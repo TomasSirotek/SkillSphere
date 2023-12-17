@@ -1,8 +1,7 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild,Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Box } from '../../../models/box';
 import { FormsModule, NgModel } from '@angular/forms';
-import { State } from 'src/app/shared/state';
 
 import {
   NgxDatatableModule,
@@ -10,10 +9,12 @@ import {
   DatatableComponent,
   SelectionType,
 } from '@swimlane/ngx-datatable';
-import { BoxServiceService } from '../../../services/box-service.service';
+import { CourseService } from '../../../services/course-service.service';
 import { Router } from '@angular/router';
 import { BoxesTableItemComponent } from '../boxes-table-item/boxes-table-item.component';
 import { BoxesModalComponent } from '../boxes-modal/boxes-modal.component';
+import { Course } from '../../../models/course';
+import { AuthService } from 'src/app/core/auth/service/auth.service';
 
 @Component({
   selector: 'app-boxes-table',
@@ -31,19 +32,30 @@ import { BoxesModalComponent } from '../boxes-modal/boxes-modal.component';
   styleUrls: ['./boxes-table.component.scss'],
 })
 
-export class BoxesTableComponent {
+export class BoxesTableComponent implements OnInit, OnChanges {
+
+
+  @Input() selectedValue: any;
+  @Output() selectedValueChange: any[] = [];
+  
+  // emit 
+  @Output() emitLikeCourseChange = new EventEmitter<any>();
+
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('editTmpl', { static: true }) editTmpl: TemplateRef<any>;
   @ViewChild('hdrTpl', { static: true }) hdrTpl: TemplateRef<any>;
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
 
-  rows: Box[] = [];
-  temp = [];
+
+  @Input() rows: Course[] = [];
   loadingIndicator = true;
   selected = [];
+ 
   currentPage = 1; // Current page number
-  itemsPerPage = 11; // Items per page
+  itemsPerPage = 10; // Items per page
+
+
   apiConnected: boolean = false;
   definedColors = ['Red', 'Orange', 'White', 'Black'];
   selectedColor: string | null = null;
@@ -54,16 +66,14 @@ export class BoxesTableComponent {
     { name: 'color' },
   ];
 
-  searchTerm: string = '';
   isLoading: boolean = false;
-  filteredRows: any[] = [];
+  filteredRows: Course[] = [];
 
   constructor(
-    private boxService: BoxServiceService,
-    private state: State,
-    private router: Router
+    private router: Router,
+    private courseService: CourseService,
+    private authService: AuthService
   ) {
-    this.fetchBoxes(boxService, state);
   }
 
   get startIndex(): number {
@@ -71,60 +81,78 @@ export class BoxesTableComponent {
   }
 
   get endIndex(): number {
-    const lastIndex = this.startIndex + this.itemsPerPage - 1;
-    return lastIndex < this.rows.length ? lastIndex : this.rows.length - 1;
+    const lastIndex = this.startIndex + this.itemsPerPage;
+    return lastIndex < this.rows.length ? lastIndex : this.rows.length;
   }
 
-  get pagedRows(): Box[] {
+  get pagedRows(): Course[] {
     return this.rows.slice(this.startIndex, this.endIndex + 1);
   }
-  fetchBoxes(boxService: BoxServiceService, state: State) {
-    this.isLoading = true;
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedValue']) {
+      this.filterBySelectedValue();
+    }
+  }
   
+  filterBySelectedValue() {
+    const selectedValue = this.selectedValue;
+
+    switch (selectedValue) {
+      case 'All':
+        this.filteredRows = this.rows;
+        break;
+      case 'Published':
+        this.filteredRows = this.rows.filter((row) => row.isPublished === true);
+        break;
+      case 'Drafts':
+        this.filteredRows = this.rows.filter((row) => row.isPublished === false);
+        break;
+      case 'Archived':
+        this.filteredRows = this.rows.filter((row) => row.isPublished === false);
+        break;
+      default:
+        this.filteredRows = this.rows;
+        break;
+    }
+
+  
+  }
+
+  initLoading(value : boolean) {
+    this.isLoading = value;
+  }
+
+
+
+  async ngOnInit() {
+    this.isLoading = true;
+   // this.filterBySelectedValue();
+    const test = this.courseService.getUserCourses(this.authService.getUserId());
+
+
+    await this.getUserCreatedCourses();
     
   }
+  private async getUserCreatedCourses() {
+    this.courseService.getUserCourses(this.authService.getUserId()).subscribe((data : any) => {
+
+      this.rows = data.courses;
+ 
+      // emit the objet with values to the parent componet
+      this.emitLikeCourseChange.emit(this.rows);
+     
+      this.apiConnected = true;
+      this.isLoading = false;
+      this.filterBySelectedValue();
+    });
+
+  }
+
+
+
   
-
-  handleData(data: any) {
-  
-  }
-
-  ngOnInit(): void {}
-
-  editBox(boxId: number) {
-    this.router.navigate(['/management/boxes', boxId]);
-  }
-
-
-  filterInventory() {
-    // Apply color filtering if a color is selected
-    if (this.selectedColor) {
-      this.filteredRows = this.rows.filter(
-        (inventory) => inventory.color === this.selectedColor
-      );
-    } else {
-      // Apply filtering based on search term if no color is selected
-      const lowerCaseSearchTerm = this.searchTerm.trim().toLowerCase();
-      this.filteredRows = this.rows.filter(
-        (inventory) =>
-          !this.searchTerm.trim() ||
-          inventory.title.toLowerCase().includes(lowerCaseSearchTerm)
-      );
-    }
-
-    // Reset the current page to 1 after filtering
-    this.currentPage = 1;
-  }
-
-  selectColor(color: string) {
-    if (this.selectedColor === color) {
-      // Deselect the color if it's already selected
-      this.selectedColor = null;
-    } else {
-      this.selectedColor = color;
-    }
-
-    // Call the filtering method here
-    this.filterInventory();
-  }
+ 
+    
 }

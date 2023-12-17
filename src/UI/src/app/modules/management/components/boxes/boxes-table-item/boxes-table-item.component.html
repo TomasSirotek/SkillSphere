@@ -1,47 +1,46 @@
-<td class="py-2 pr-2">
+<td class="px-2 ">
     <div class="flex items-center">
-      <img [src]="inventory.image" class="mr-2 h-10 w-10 flex-none rounded-sm" alt="" />
       <div class="flex flex-col justify-items-start">
-        <a data-id="box-title" href="#" class="mb-1 text-sm font-semibold text-gray-900 dark:text-night-100 dark:hover:text-primary-500">{{
-            inventory.title
+        <a (click)="editBox(course.id)" data-id="box-title" class="cursor-pointer  text-sm font-semibold text-gray-900 dark:text-night-100 dark:hover:text-primary-500">{{
+            course.title
         }}</a>
-        <span class="text-xs font-semibold text-gray-400 dark:text-night-300">{{ inventory.type }}</span>
       </div>
     </div>
-  </td>
+</td>
+<td class="py-2 pl-2 text-left">
+  <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{ course.price === 0 ? "FREE" : course.price + " " + "DKK" }} </span>
+</td>
   <td class="py-2 pl-2 text-left min-w-[100px]">
     <span
       [ngClass]="{
-        'bg-orange-100 text-black ': inventory.status === 'Sold',
-        'bg-green-100 text-black ': inventory.status === 'New',
-        'bg-blue-100 text-black ': inventory.status === 'Not Sold',
-        'bg-purple-100 text-black ': inventory.status === 'Old',
-        'bg-red-100 text-blackk' : inventory.status === 'Damaged',
+        'bg-primary-400 text-primary-800 ': course?.isPublished,
+        'bg-orange-400 text-orange-800 ': !course?.isPublished,
         
       }"
-      class="text-xs font-medium mr-2 px-2.5 py-0.5 dark:text-black rounded  text-sm font-semibold text-gray-400 "
+      class="text-xs font-medium mr-2 px-2.5 py-0.5 dark:text-black rounded  text-sm font-semibold  "
     >
-      {{ inventory.status }}
+      {{ course.isPublished ? 'Published ✓' : 'Draft' }}
     </span>
   </td>
   
   <td class="py-2 pl-2 text-left">
-    <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{ inventory.color }}</span>
+    <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{ course.description | slice : 0 : 50  }}</span>
   </td>
   <td class="py-2 pl-2 text-left">
-    <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{ inventory.price | currency }}</span>
+    <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{ course.authorName }}</span>
+
   </td>
   <td class="py-2 pl-2 text-left">
-    <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{ inventory.description }}</span>
+    <span class="text-sm font-semibold text-gray-400 dark:text-night-200"></span>
   </td>
 
 
   <td class="py-2 pl-2 text-right">
     <div class="flex justify-end gap-2">
-        <button type="button" data-testid="edit-btn-test" (click)="editBox(inventory.id)"
-        class="border flex-none rounded-md bg-white px-4 py-2.5 text-xs font-semibold text-gray-500 hover:text-primary-500 dark:bg-night-600 dark:text-night-200 dark:hover:bg-night-500">
-       Edit item
-      </button>
+        <button type="button" data-testid="edit-btn-test" (click)="editBox(course.id)"
+        class="  flex-none rounded-md bg-white px-4 py-2.5 text-xl font-semibold text-gray-500 hover:text-primary-500 dark:bg-night-600 dark:text-night-200 ">
+      ...
+        </button>
     </div>
   </td>
   

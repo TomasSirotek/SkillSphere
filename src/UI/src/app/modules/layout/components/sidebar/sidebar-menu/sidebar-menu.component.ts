@@ -4,7 +4,7 @@ import { MenuService } from '../../../services/menu.service';
 import { SidebarSubmenuComponent } from '../sidebar-submenu/sidebar-submenu.component';
 import { NgFor, NgClass, NgTemplateOutlet, NgIf } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import {heroBuildingStorefront,heroChevronDoubleRight,heroPhoto,heroFolderOpen} from '@ng-icons/heroicons/outline';
+import {heroBuildingStorefront,heroChevronDoubleRight,heroPhoto,heroFolderOpen, heroChevronDown, heroRectangleGroup, heroSquares2x2} from '@ng-icons/heroicons/outline';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -23,7 +23,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         RouterLinkActive,
         RouterLink
     ],
-    viewProviders: [provideIcons({ heroBuildingStorefront,heroChevronDoubleRight,heroPhoto,heroFolderOpen})]
+    viewProviders: [provideIcons({ heroBuildingStorefront,heroChevronDoubleRight,heroPhoto,heroFolderOpen,heroChevronDown,heroRectangleGroup,heroSquares2x2})]
 })
 export class SidebarMenuComponent implements OnInit {
   constructor(public menuService: MenuService) {}

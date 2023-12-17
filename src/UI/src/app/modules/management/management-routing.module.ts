@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoxesComponent } from './pages/boxes/boxes.component';
+import { CoursesComponent } from './pages/user-courses/courses.component';
 import { ManagementComponent } from './management.component';
-import { BoxDetailComponent } from './pages/box-detail/box-detail.component';
+import { AuthGuard } from 'src/app/core/auth/service/auth-guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: ManagementComponent,
-    children: [
-        { path: 'boxes', component: BoxesComponent },
-        { path: 'boxes/:id', component: BoxDetailComponent },
-    ],
+    component: CoursesComponent,
   },
+  
 ];
 
 @NgModule({

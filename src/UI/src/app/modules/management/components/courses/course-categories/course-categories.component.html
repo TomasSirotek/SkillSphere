@@ -1,0 +1,21 @@
+<div class="mt-4 border  rounded-md dark:bg-night-700 dark:border-gray-700 ">
+  <div class="font-medium flex items-center justify-between border-b p-4 dark:border-gray-700">
+    <span class="px-1 text-xl font-semibold text-gray-800 dark:text-gray-300 ">Categories</span>
+  </div>
+  <div class="space-y-4">
+    <div class="p-4">
+      <ng-select
+        [items]="categories$ | async"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        [hideSelected]="true"
+        bindLabel="name"
+        class="custom"
+        placeholder="Select categories"
+        [(ngModel)]="courseCategories"
+        (ngModelChange)="onCategoriesChange()"
+      >
+      </ng-select>
+     
+  </div>
+</div>

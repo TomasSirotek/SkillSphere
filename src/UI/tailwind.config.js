@@ -4,7 +4,8 @@ module.exports = {
   prefix: '',
   mode: 'jit',
   important: false,
-  content: ['./src/**/*.{html,ts}', "./node_modules/flowbite/**/*.js"],
+  content: ['./src/**/*.{html,ts}', 
+  "./node_modules/flowbite/**/*.js"],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
@@ -65,7 +66,7 @@ module.exports = {
         custom: '0px 0px 50px 0px rgb(82 63 105 / 15%)',
       },
       colors: {
-        primary: colors.blue,
+        primary: colors.green,
         night: {
           50: '#ffffff',   /* Lightest shade (white) */
           100: '#ffffff',  /* Lighter shade */
@@ -102,9 +103,6 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
-    require('flowbite/plugin'),
-    require('flowbite/plugin')({
-      charts: true,
-  }),
+    require('flowbite/plugin')
   ],
 }

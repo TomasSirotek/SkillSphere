@@ -1,0 +1,182 @@
+<!-- Your sidebar page -->
+<div
+  class="mx-auto px-4 py-4 sm:px-8 bg-white dark:bg-night-700 h-screen container"
+>
+  <!-- Header -->
+  <app-boxes-header
+    [isDetail]="true"
+    [showFilter]="true"
+    title="Courses shop"
+    [totalPages]= "totalPages"
+    (searchTermEmitter)="handleSearchTerm($event)"
+    (pageEmitter)="handleCurrentPageTerm($event)"
+    (pageSizeEmmiter)="handlePageSizeTerm($event)"
+    (orderByEmitter)="handleOrderByTerm($event)"
+  ></app-boxes-header>
+  <!-- end Header -->
+
+
+  <!-- Card Blog -->
+  <div class="py-4 mx-auto">
+
+    <div *ngIf="!isLoaded; else skeletonContent">
+      <!-- Skeleton Loader -->
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <ng-container *ngFor="let _ of [0, 1, 2, 3, 4, 5, 6, 7]">
+          <div class="rounded-md shadow overflow-hidden">
+            <ngx-skeleton-loader
+              count="1"
+              [theme]="{ 'height.px': 330, 'background-color': 'grey ', 'width.px': '400','opacity': 0.1 }"
+            ></ngx-skeleton-loader>
+          </div>
+        </ng-container>
+      </div>
+    </div>    
+  
+    <ng-template #skeletonContent>
+
+
+
+      <!-- Actual Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto  " *ngIf="courses && courses.length > 0; else noResults">
+        <!-- Course cards -->
+        <ng-container *ngFor="let course of courses; let i = index">
+          <div class="group shadow-sm dark:border-gray-700 transform transition duration-300 hover:scale-95 ">
+            <div
+            [attr.data-index]="i"
+
+            class="bg-white border h-full border-gray-200 rounded-md shadow dark:bg-gray-900 dark:border-gray-700 overflow-hidden "
+          >
+            <div class="relative">
+              <div class="absolute top-2 left-2 text-black dark:text-white">
+                <button
+                  class="flex-none button rounded-md px-4 text-xs font-semibold text-white hover:cursor-pointer"
+                >
+                  <ng-icon
+                    *ngIf="course?.isPurchased"
+                    name="heroCheckBadge"
+                    class="text-3xl text-green-400"
+                  ></ng-icon>
+                
+                </button>
+              </div>
+  
+              <div class="absolute top-2 right-2 text-black dark:text-white">
+                <button
+                  data-testid="open-modal-button"
+                  (click)="handleLikeCourse(course?.id)"
+                  class="flex-none button rounded-md px-4 text-xs font-semibold text-white hover:cursor-pointer"
+                >
+                  <ng-icon
+                    *ngIf="!course?.isLiked"
+                    name="heroHeart"
+                    class="text-3xl"
+                  ></ng-icon>
+                  <ng-icon
+                  *ngIf="course?.isLiked"
+                    name="heroHeartSolid"
+                    class="text-3xl text-red-500"
+                  ></ng-icon>
+                </button>
+              </div>
+  
+              <div class="h-48 overflow-hidden">
+                <img
+                  [src]="course.coverImageRelativePath"
+                  [alt]="course.title"
+                  loading="lazy"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+  
+              <div class="absolute -bottom-3 left-4">
+                <div class="flex flex-wrap gap-2 items-center">
+                  <span
+                    *ngFor="let category of course?.categories"
+                    class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+                  >
+                    {{ category.name }}
+                  </span>
+                </div>
+              </div>
+            </div>
+  
+            <div
+              class="p-4 md:p-6 space-y-2 hover:cursor-pointer"
+              (click)="openDrawer(course)"
+            >
+              <h3
+                class="text-md font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white"
+              >
+                {{ course.title }}
+              </h3>
+  
+              <div class="flex flex-wrap gap-2">
+                
+  
+                <div>
+                  <span
+                    class="block mb-1 text-sm font-bold text-black dark:text-white"
+                    >{{ course?.authorName}}</span
+                  >
+                </div>
+              </div>
+  
+              <div class="flex flex-wrap justify-between">
+                <div class="flex items-center justify-center">
+                  <ng-icon
+                  *ngIf="course?.isLiked"
+                  name="heroHeartSolid"
+                  class="text-gray-400"
+                ></ng-icon>
+                  <ng-icon
+                  *ngIf="!course?.isLiked"
+                  name="heroHeart"
+                  class="text-gray-600 dark:text-gray-400 "
+                ></ng-icon>
+                  <span class="text-black dark:text-white text-sm ml-2">{{course?.likes}}</span>
+                  <ng-icon
+                    name="heroBookOpen"
+                    class="text-black dark:text-white ml-4 mr-2"
+                  />
+                  <span class="text-black dark:text-white text-sm">{{ course?.chapters?.length}}</span>
+  
+                </div>
+  
+                <div>
+  
+                  <span
+                    [class]="
+                      course?.price === 0 || course?.isOwned ? 'text-green-500' : 'text-yellow-400'
+                    "
+                    class="font-bold"
+                  >
+                    {{
+                     handleCorrectText(course?.price, course?.isOwned,course?.isPurchased)
+                    }}
+                  </span>
+                </div>
+              </div>
+            </div>
+  
+        
+          </div>
+          </div>
+        </ng-container>
+       
+      </div>
+
+
+
+    </ng-template>
+    <ng-template #noResults>
+      <div class="text-center text-gray-500 dark:text-gray-400 mt-10">
+        <p>No courses found.</p>
+      </div>
+    </ng-template>
+  
+  </div>
+  
+ 
+
+<app-detail-drawer (emitLikeCourseChange)="handleLikeCourse($event)" />

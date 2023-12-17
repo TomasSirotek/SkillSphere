@@ -1,13 +1,12 @@
-﻿using System.Runtime.InteropServices;
-using SkillSphere.Domain.Constants;
-using SkillSphere.Domain.Entities;
-using SkillSphere.Infrastructure.Identity;
+﻿using SkillSphere.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using skillSphere.Infrastructure.Data;
+using SkillSphere.Infrastructure.Identity;
+using Roles = SkillSphere.Domain.Constants.Roles;
 
 namespace SkillSphere.Infrastructure.Data;
 
@@ -17,10 +16,10 @@ public static class InitialiserExtensions
     {
         using var scope = app.Services.CreateScope();
 
-        var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
-
+        var initialiser =  scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+        
         await initialiser.InitialiseAsync();
-
+        
         await initialiser.SeedAsync();
     }
 }
@@ -30,9 +29,9 @@ public class ApplicationDbContextInitialiser
     private readonly ILogger<ApplicationDbContextInitialiser> _logger;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<ApplicationRole> _roleManager;
 
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
     {
         _logger = logger;
         _context = context;
@@ -69,41 +68,58 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // Default roles
-        var administratorRole = new IdentityRole(Roles.Administrator);
-
+        var administratorRole = new ApplicationRole();
+        administratorRole.Name = Roles.Administrator;
+        
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
             await _roleManager.CreateAsync(administratorRole);
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator = new ApplicationUser { UserName = "Peter", Email = "administrator@localhost.com" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
+             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
                 await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
 
-        // Default data
-        // Seed, if necessary
-        if (!_context.TodoLists.Any())
+        // SEED DATA
+        if (!_context.Courses.Any())
         {
-            _context.TodoLists.Add(new TodoList
+            var course1 = new Course
             {
-                Title = "Todo List",
-                Items =
+                Title = "Extreme web development",
+                Description = "Unlock the world of web development with our comprehensive Introduction to Web Development course. Whether you're a beginner taking your first steps into the digital realm or an experienced programmer looking to expand your skill set, this course is designed to provide a solid foundation in the dynamic field of web development.",
+                CoverImageRelativePath = "https://ipfs.io/ipfs/QmW1MBApm4XvwgoSKf45ZtsqJU5cDYdcsW2GBSEUqXWE3T",
+                Price = 19.99f,
+                Likes = 0,
+                Categories = new List<CourseCategory>
                 {
-                    new TodoItem { Title = "Make a todo list 📃" },
-                    new TodoItem { Title = "Check off the first item ✅" },
-                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
-                    new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
-                }
-            });
+                    new CourseCategory
+                    {
+                        Category = new Category { Name = "Web development" }
+                    },
+                    new CourseCategory
+                    {
+                        Category = new Category { Name = "Machine Learning" }
+                    },
+                   
+                },
+                Chapters =
+                {
+                    new Chapter { Title = "Chapter 1", Description = "Chapter 1 Description",Position = 0,IsFree = true,},
+                    new Chapter { Title = "Chapter 2", Description = "Chapter 2 Description",Position = 1,IsFree = false,},
+                    new Chapter { Title = "Chapter 3", Description = "Chapter 3 Description",Position = 2,IsFree = false,},
+                    new Chapter { Title = "Chapter 4", Description = "Chapter 4 Description",Position = 3,IsFree = false,},
+                },
+            };
 
+            _context.Courses.Add(course1);
             await _context.SaveChangesAsync();
         }
     }

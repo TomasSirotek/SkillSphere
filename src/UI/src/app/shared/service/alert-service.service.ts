@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 export class AlertServiceService {
   private alertSubject = new Subject<Alert>();
 
+
   showSuccess(message: string) {
     this.alertSubject.next({ type: 'success', message });
   }

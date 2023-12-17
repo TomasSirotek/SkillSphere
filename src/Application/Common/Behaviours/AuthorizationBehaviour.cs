@@ -20,14 +20,22 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
+        
         var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
 
         if (authorizeAttributes.Any())
         {
             // Must be authenticated user
-            if (_user.Id == null)
+            if (_user.Id == null || _user.Id == Guid.Empty)
             {
                 throw new UnauthorizedAccessException();
+            }
+            
+            // if request has userId property, check if it matches the user id
+            var userId = request.GetType().GetProperty("UserId")?.GetValue(request) as Guid?;
+            if (userId != null && userId != _user.Id)
+            {
+                throw new ForbiddenAccessException();
             }
 
             // Role-based authorization
@@ -41,7 +49,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
                 {
                     foreach (var role in roles)
                     {
-                        var isInRole = await _identityService.IsInRoleAsync(_user.Id, role.Trim());
+                        var isInRole = await _identityService.IsInRoleAsync(_user.Id ?? Guid.Empty, role.Trim());
                         if (isInRole)
                         {
                             authorized = true;
@@ -59,11 +67,12 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
 
             // Policy-based authorization
             var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy));
+            
             if (authorizeAttributesWithPolicies.Any())
             {
                 foreach (var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
                 {
-                    var authorized = await _identityService.AuthorizeAsync(_user.Id, policy);
+                    var authorized = await _identityService.AuthorizeAsync(_user.Id ?? Guid.Empty, policy,request.GetType().GetProperty("UserId")?.GetValue(request) as Guid?);
 
                     if (!authorized)
                     {

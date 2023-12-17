@@ -1,0 +1,58 @@
+<!-- Header -->
+<div class="mx-auto px-4 py-4 sm:px-8 bg-white dark:bg-night-700 h-screen container ">
+  <app-boxes-header
+    [showButton]="true"
+    title="Courses"
+    subTitle="Manage your courses"
+  ></app-boxes-header>
+
+  <div
+    class="text-sm font-medium text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
+  >
+    <ul class="flex flex-wrap -mb-px ">
+      <li class="me-2">
+        <a
+          class="inline-block py-3 px-1 text-primary-500 border-b-2 border-primary-500 rounded-t-lg dark:text-primary-500 dark:border-primary-500"
+          >All courses</a
+        >
+      </li>
+    </ul>
+  </div>
+
+
+
+
+  <div class="space-y-4 py-4 ">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+      
+      <button 
+        *ngFor="let item of items; let i = index"
+        class="p-4  rounded-md border dark:border-gray-700  dark:text-gray-400"
+        [class.text-green-700]="i === selectedIdx"
+        [class.border-green-300]="i === selectedIdx"
+        [class.bg-green-50]="i === selectedIdx"
+        [class.dark:bg-gray-900]="i === selectedIdx"
+        [class.dark:border-green-800]="i === selectedIdx"
+        [class.dark:border]="i === selectedIdx"
+        [class.dark:border-green-800]="i === selectedIdx"
+        [class.dark:text-green-400]="i === selectedIdx"
+        (click)="selectItem(i,item)"
+      >
+      <div class="flex items-center justify-between">
+        <span class="sr-only">{{ item.name }}</span>
+          <h3 class="font-medium">{{ item.name }}</h3>
+        <span>{{item.value}}</span>
+      </div>
+
+      
+      </button>
+  
+    </div>
+  </div>
+  
+
+    
+  <app-boxes-table  [selectedValue]="selectedValue" (emitLikeCourseChange)="handleEmitLikeCourseChange($event)" />
+
+
+</div>

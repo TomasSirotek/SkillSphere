@@ -8,6 +8,7 @@ import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { environment } from './environments/environment';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 if (environment.production) {
@@ -19,7 +20,7 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-    providers: [importProvidersFrom(BrowserModule, AppRoutingModule),
+    providers: [importProvidersFrom(BrowserModule, AppRoutingModule,HttpClient,HttpClientModule),
         provideDialogConfig(
         {
             enableClose: false,

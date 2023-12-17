@@ -1,0 +1,19 @@
+<div class="mt-4 border rounded-md dark:bg-night-700 dark:border-gray-700">
+  <div class="font-medium flex items-center justify-between border-b p-4 dark:border-gray-700">
+    <span class="px-1 text-xl font-semibold text-gray-800 dark:text-gray-300"
+      >Course Description</span
+    >
+  </div>
+  <div class="space-y-4">
+    <div class="p-4 dark:bg-night-700 dark:border-gray-700">
+      <textarea
+        [ngModel]="courseDescription"
+        (input)="onInputChange($event)"
+        id="message"
+        rows="11"
+        class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-blue-500 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        placeholder="Write your thoughts here..."
+      ></textarea>
+    </div>
+  </div>
+</div>

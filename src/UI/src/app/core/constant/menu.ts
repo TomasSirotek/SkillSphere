@@ -3,25 +3,24 @@ import { MenuItem } from '../models/menu.model';
 export class Menu {
   public static pages: MenuItem[] = [
     {
-      group: 'Pages',
+      group: '',
       separator: false,
       items: [
         {
-          icon: 'heroBuildingStorefront',
+          icon:' heroBuildingStorefront',
+          label: 'Store',
+          route: '/courses',
+        },
+        {
+          icon: 'heroSquares2x2',
           label: 'Dashboard',
           route: '/dashboard',
           children: [
             { label: 'Overview', route: '/dashboard' },
+            { label: 'My courses', route: '/dashboard/my-courses' },
           ],
         },
-        {
-          icon:'heroFolderOpen',
-          label: 'Management',
-          route: '/management',
-          children: [
-            { label: 'Boxes Management', route: '/management/boxes' },
-          ],
-        },
+        
       ],
     },
   ];
