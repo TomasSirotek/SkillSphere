@@ -18,6 +18,14 @@ param sqlAdministratorUsername string
 @description('The administrator login password for the SQL server.')
 param sqlAdministratorPassword string
 
+@secure()
+@description('The strip API key.')
+param stripeApiKey string
+
+@secure()
+@description('The strip WebHook key.')
+param stripeWebhookSecret string
+
 @description('The name of the project.')
 param projectName string
 
@@ -98,6 +106,26 @@ resource keyVault_ConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2019
     sqlDatabase
   ]
 }
+
+
+resource keyVault_StripeAPIKey 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+  parent: keyVault
+  name: 'Stripe--ApiKey'
+  properties: {
+    value: stripeApiKey
+  }
+ 
+}
+
+resource keyVault_StripeWHKey 'Microsoft.KeyVault/vaults/secrets@2019-09-01' = {
+  parent: keyVault
+  name: 'Stripe--WHKey'
+  properties: {
+    value: stripeWebhookSecret
+  }
+ 
+}
+
 
 resource keyVault_DiagnosticSettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
   scope: keyVault

@@ -1,5 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -26,11 +28,30 @@ namespace SkillSphere.Infrastructure;
 
 public static class DependencyInjection
 {
+    
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
+        
+        var url = configuration["AzureKeyVaultUrl"];
+        
+        var secretClient = new SecretClient(new Uri(url!), new DefaultAzureCredential());
+        
+        var stripeApiKey = secretClient.GetSecret("Stripe--ApiKey").Value;
+        var stripeWhKey = secretClient.GetSecret("Stripe--WHKey").Value;
+
+        Guard.Against.Null(stripeApiKey, message: "Connection string 'ApiKey' not found.");
+        Guard.Against.Null(stripeWhKey, message: "Connection string 'WHKey' not found.");
+
+        var stripeConfig = new StripeConfig
+        {
+            ApiKey = stripeApiKey.Value,
+            WhKey = stripeWhKey.Value
+        };
+
+        services.AddSingleton(stripeConfig);
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
 
