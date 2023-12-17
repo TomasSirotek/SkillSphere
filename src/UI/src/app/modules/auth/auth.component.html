@@ -1,19 +1,19 @@
 <div class="flex h-screen w-screen">
     <div class="auth-bg hidden flex-1 items-center justify-center bg-primary-500 bg-cover lg:flex">
-      <div class="max-w-xl space-y-4 p-8 text-center text-white">
-        <img src="../assets/images/ed.svg" alt="dashboard widget" />
-        <h1 class="text-4xl font-bold">"Fast, Efficient and Productive"</h1>
+      <div class="max-w-xl space-y-4 p-16 text-center text-white">
+        <img src="../assets/images/ed.svg" alt="dashboard widget" class="" />
+        <h1 class="text-3xl font-bold">"Fast, Efficient and Productive"</h1>
       </div>
     </div>
     <div class="flex flex-1 items-center justify-center bg-white dark:bg-night-700">
       <div class="max-w-md overflow-y-auto px-4 sm:w-[500px]">
         <!-- logo -->
-        <div class="flex items-center justify-center">
-          <a class="rounded text-2xl p-2">
-            🌐
+          <a class="flex items-center  justify-center rounded focus:outline-none focus:ring-1 dark:text-night-400">
+            <b class="text-2xl font-bold dark:text-night-50">
+              <!-- {{ appJson.displayName }} -->
+              <span class="text-primary-500">Skill</span>Sphere
+            </b>
           </a>
-          <b class="text-md pl-3 font-bold text-gray-700 dark:text-white">SkillSphere</b>
-        </div>
         <!-- Route -->
         <router-outlet></router-outlet>
       </div>

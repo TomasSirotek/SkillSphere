@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class ThemeService {
-  public default = 'light';
+  public default = 'dark';
   public themeChanged = signal(this.theme);
 
   constructor() {}

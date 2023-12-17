@@ -9,9 +9,11 @@
 
 
 
-.input:focus {
-	outline: none !important;
-}
+// needed for cmd k 
+
+// .input:focus {
+// 	outline: none !important;
+// }
 
 .dark .ng-select.custom .ng-select-container {
     background-color:  #070e16 !important;
@@ -56,8 +58,6 @@
 }
 
 :root {
-  --font-sans: 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
-    Droid Sans, Helvetica Neue, sans-serif;
   --app-bg: var(--gray1);
   --cmdk-shadow: 0 16px 70px rgb(0 0 0 / 20%);
   --cmdk-list-height: 300px;
@@ -106,7 +106,6 @@
 }
 
 .dark {
-  --app-bg: var(--gray1);
 
   --lowContrast: #000000;
   --highContrast: #ffffff;
@@ -170,7 +169,7 @@
 		@apply w-full rounded-md border border-gray-300 px-3 py-3 text-xs placeholder-gray-400 focus:z-10  focus:border-primary-500 focus:outline-none focus:ring-primary-500 dark:border-night-500 dark:bg-night-700 dark:text-night-400 dark:placeholder-night-200;
 	}
 
-	[type='checkbox'],
+
 	[type='radio'] {
 		@apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 dark:border-night-600 dark:bg-night-700 dark:ring-offset-night-800 dark:focus:ring-green-600;
 	}
