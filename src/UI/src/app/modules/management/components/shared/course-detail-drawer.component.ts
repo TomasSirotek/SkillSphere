@@ -36,6 +36,7 @@ import {
 import { AuthService } from 'src/app/core/auth/service/auth.service';
 import { Modal, ModalInterface, ModalOptions } from 'flowbite';
 import { ModalPreviewComponent } from 'src/app/shared/components/modal/modal-preview.component';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-detail-drawer',
@@ -140,7 +141,7 @@ export class CourseDetailDrawer implements OnInit {
         },
         quantity: 1,
         metadata: { userId: userId, courseId: this.course.id },
-        successRedirectUrl: 'http://localhost:4200/dashboard',
+        successRedirectUrl: `${environment.baseUrl}/dashboard`,
         cancelRedirectUrl: 'http://localhost:4200/courses',
       };
 

@@ -6,6 +6,7 @@ import { State } from 'src/app/shared/state';
 import { AlertServiceService } from 'src/app/shared/service/alert-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Categories, Course } from '../models/course';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class CategoryService {
 
   private loadCategories() {
     // Assume you have an API endpoint to fetch courses
-    this._http.get<Categories[]>('https://localhost:5001/api/categories').subscribe((categories) => {
+    this._http.get<Categories[]>(`${environment.baseUrl}categories`).subscribe((categories) => {
       this._categoriesState.next(categories);
     });
   }

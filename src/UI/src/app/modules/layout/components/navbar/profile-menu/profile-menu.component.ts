@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./profile-menu.component.scss'],
 })
 export class ProfileMenuComponent implements OnInit {
+
   public isMenuOpen = false;
   private signInStateSubscription: Subscription;
   public authResponse: AuthResponse;
@@ -41,4 +42,6 @@ export class ProfileMenuComponent implements OnInit {
   public logout(): void {
     this.authService.signOut();
   }
+
+  
 }

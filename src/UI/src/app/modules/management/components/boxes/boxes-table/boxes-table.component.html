@@ -45,7 +45,7 @@
                       <div role="status" >
                         <svg
                           aria-hidden="true"
-                          class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                          class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-primary-600"
                           viewBox="0 0 100 101"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -109,14 +109,14 @@
     <!-- Pagination Buttons -->
     <div class="mt-4 flex justify-between">
       <div>
-        <span class="text-sm">Viewing <strong>1</strong>–<strong>20</strong> of <strong>109</strong> results</span>
+        <span class="text-sm">Viewing <strong>{{currentPage}}</strong>–<strong>{{rows.length}}</strong> of <strong>{{rows.length}}</strong> results</span>
       </div>
 
       <div class="">
         <button
         [disabled]="currentPage === 1"
         (click)="currentPage = currentPage - 1"
-        class="px-2 py-1 text-sm font-medium text-gray-900 bg-gray-200 border border-gray-300 rounded-md hover:bg-gray-300 disabled:text-gray-400 disabled:opacity-50"
+        class="px-2 py-1 text-sm font-medium text-gray-900 bg-night-700 border border-gray-700 rounded-md  disabled:text-gray-400 disabled:opacity-10"
       >
         Previous Page
       </button>
@@ -125,7 +125,7 @@
         (click)="currentPage = currentPage + 1"
         type="button"
         data-testid="next-page-button"
-        class="ml-2 px-2 py-1 text-sm font-medium text-gray-900 bg-gray-200 border border-gray-300 rounded-md dark:text-gray-400 hover:bg-gray-300 disabled:opacity-50"
+        class="ml-2 px-2 py-1 text-sm font-medium text-gray-900 bg-gray-200 border border-gray-700 rounded-md dark:text-gray-300  disabled:opacity-50"
       >
         Next Page
       </button>

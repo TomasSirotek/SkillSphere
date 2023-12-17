@@ -1,7 +1,6 @@
 using SkillSphere.Application.Common.Interfaces;
 using SkillSphere.Application.Common.Security;
 using SkillSphere.Application.Features.Courses.Queries.GetAllCourses;
-using SkillSphere.Domain.Entities;
 
 namespace SkillSphere.Application.Features.Courses.Queries.GetCourseById;
 
@@ -24,21 +23,8 @@ public class GetCoursesQueryHandler : IRequestHandler<GetCourseByIdQuery, QueryD
 
     public async Task<QueryDto> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)
     {
-       // get ccourse by id and return it
-       // var test =  await  _context.Courses
-       //     .AsNoTracking()
-       //     .Include(c => c.Categories)
-       //     .Include(c => c.Chapters)
-       //     .Where(c => c.Id == request.CourseId)
-       //     .ProjectTo<QueryDto>(_mapper.ConfigurationProvider)
-       //     .FirstOrDefaultAsync(cancellationToken);
-       //
-       //  Guard.Against.Null(test, nameof(test));
-       //  
-       //  return test;
-       
 
-       var course = await _context.Courses
+        var course = await _context.Courses
            .Include(c => c.Chapters)
            .Where(c => c.Id == request.CourseId)
            .ProjectTo<QueryDto>(_mapper.ConfigurationProvider)
@@ -48,14 +34,10 @@ public class GetCoursesQueryHandler : IRequestHandler<GetCourseByIdQuery, QueryD
        
        var userOwnsCourse = await _context.OwnedCourses
                .AnyAsync(oc => oc.CourseId == course.Id && oc.UserId == _user.Id, cancellationToken);
-           // Check if the user has purchased the course
 
-           var userCreatedCourse = await _context.UsersCourses
-               .AnyAsync(oc => oc.CourseId == course.Id && oc.UserId == _user.Id, cancellationToken);
 
-            
            // If the user has purchased the course, update chapter visibility
-           if (userOwnsCourse || userCreatedCourse)
+           if (userOwnsCourse )
            {
                foreach (var chapter in course.Chapters)
                {

@@ -11,14 +11,19 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    data: { breadcrumb: 'Dashboard' },
   },
   {
     path: 'my-courses',
     component: TeachingComponent,
+    data: { breadcrumb: 'My Courses' },
+
   },
   {
     path: 'my-courses/:id',
     component: CoursesDetailComponent,
+    data: { breadcrumb: 'Course Detail' },
+
   },
 ];
 

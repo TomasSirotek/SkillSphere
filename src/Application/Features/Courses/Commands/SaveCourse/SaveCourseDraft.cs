@@ -39,47 +39,23 @@ public class SaveCourseDraftCommandHandler : IRequestHandler<SaveCourseDraftComm
 
     private async Task UpdateChapters(Course existingCourse, IList<PutChapterDto> requestChapters, CancellationToken cancellationToken)
     {
-        var chaptersToRemove = existingCourse.Chapters.ToList();
+        existingCourse.Chapters.Clear();
 
         foreach (var requestChapter in requestChapters)
         {
-            
-      
-            var existingChapter = existingCourse.Chapters.FirstOrDefault(c => c.Id == requestChapter.Id);
-
-            if (existingChapter != null)
+            existingCourse.Chapters.Add(new Chapter
             {
-                // Update existing chapter
-                existingChapter.Title = requestChapter.Title;
-                existingChapter.Description = requestChapter.Description;
-                existingChapter.VideoURL = requestChapter.VideoURL;
-                existingChapter.Position = requestChapter.Position;
-                existingChapter.IsFree = requestChapter.IsFree;
-                
-            }
-            else
-            {
-                existingCourse.Chapters.Add(new Chapter
-                {
-                    // Set properties based on requestChapter
-                    Title = requestChapter.Title,
-                    Description = requestChapter.Description,
-                    VideoURL = requestChapter.VideoURL,
-                    Position = requestChapter.Position,
-                    IsFree = requestChapter.IsFree,
-                });
-            }
+                Title = requestChapter.Title,
+                Description = requestChapter.Description,
+                VideoURL = requestChapter.VideoURL,
+                Position = requestChapter.Position,
+                IsFree = requestChapter.IsFree,
+            });
         }
 
-        // Remove any chapters that were not in the request
-        foreach (var chapterToRemove in chaptersToRemove)
-        {
-            existingCourse.Chapters.Remove(chapterToRemove);
-        }
-
-        // Save changes to the database
         await _context.SaveChangesAsync(cancellationToken);
     }
+
     private async Task UpdateCategories(Course existingCourse, IList<PutCategoryDto> categoriesList,
         CancellationToken cancellationToken)
     {

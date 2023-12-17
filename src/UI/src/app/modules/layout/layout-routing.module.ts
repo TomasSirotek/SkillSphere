@@ -9,16 +9,21 @@ const routes: Routes = [
     path: '', 
     redirectTo: 'courses', 
     pathMatch: 'full', 
+    
   },
   {
     path: 'dashboard',
     component: LayoutComponent,
     loadChildren: () => import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+    data: { breadcrumb: 'Dashboard' },
+
  },
   {
     path: 'courses',
     component: LayoutComponent,
     loadChildren: () => import('../management/management.module').then((m) => m.ManagementModule),
+    data: { breadcrumb: 'Courses' },
+
 
   },
   { path: '**', redirectTo: 'error/404' },

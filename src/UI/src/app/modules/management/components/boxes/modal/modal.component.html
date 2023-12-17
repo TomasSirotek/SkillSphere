@@ -46,9 +46,10 @@
         >
 
         <input
+          [ngClass]="{'border border-red-500': titleErrror}"
           [(ngModel)]="courseTitle"
           id="first_name"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-night-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
           placeholder="e.g. Learn Angular 12"
           required
         />
@@ -60,7 +61,7 @@
         <button
           data-testid="confirm-delete-modal"
           (click)="confirm()"
-          class="w-full mr-2 text-white bg-primary-500 hover:bg-primary-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-md text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-primary-500 dark:text-white "
+          class="w-full mr-2 text-black bg-primary-500 hover:bg-primary-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-md text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-primary-500 dark:text-white "
         >
           Create course
         </button>

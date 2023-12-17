@@ -15,6 +15,7 @@
   ></app-boxes-header>
   <!-- end Header -->
 
+
   <!-- Card Blog -->
   <div class="py-4 mx-auto">
 
@@ -37,14 +38,14 @@
 
 
       <!-- Actual Content -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto" *ngIf="courses && courses.length > 0; else noResults">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-y-auto  " *ngIf="courses && courses.length > 0; else noResults">
         <!-- Course cards -->
         <ng-container *ngFor="let course of courses; let i = index">
-          <div class="group shadow-sm dark:border-gray-700 hover:scale-105 transform transition-transform duration-300">
+          <div class="group shadow-sm dark:border-gray-700 transform transition duration-300 hover:scale-95 ">
             <div
             [attr.data-index]="i"
 
-            class="bg-white border h-full border-gray-200 rounded-md shadow dark:bg-gray-900 dark:border-gray-700 overflow-hidden"
+            class="bg-white border h-full border-gray-200 rounded-md shadow dark:bg-gray-900 dark:border-gray-700 overflow-hidden "
           >
             <div class="relative">
               <div class="absolute top-2 left-2 text-black dark:text-white">

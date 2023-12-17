@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -31,6 +37,7 @@ import { take } from 'rxjs';
 import { Drawer } from 'flowbite';
 import { DrawerService } from '../management/services/drawer.service';
 import { Course } from '../management/models/course';
+import { AuthService } from 'src/app/core/auth/service/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -59,20 +66,24 @@ import { Course } from '../management/models/course';
     NgClass,
   ],
 })
-export class LayoutComponent implements OnInit,OnDestroy {
- 
+export class LayoutComponent implements OnInit, OnDestroy {
   constructor(
     public themeService: ThemeService,
     public searchService: SearchService,
     private userService: UserService,
     private courseService: CourseService,
     private drawerService: DrawerService,
-    private routerRouter: Router
+    private routerRouter: Router,
+    private authService: AuthService
   ) {}
+
   
+  ngOnInit(): void {
+  }
+
   @ViewChild('cmdkCommand') cmdkCommand!: ElementRef<HTMLDivElement>;
 
-  @ViewChild(CdkConnectedOverlay, { static: false }) 
+  @ViewChild(CdkConnectedOverlay, { static: false })
   connectedOverlay: CdkOverlayOrigin;
 
   cmdKeyDown = false;
@@ -83,29 +94,18 @@ export class LayoutComponent implements OnInit,OnDestroy {
   filteredProjectItems: any[];
   selectedProject: any;
 
-
-
   listener(e: KeyboardEvent) {
     if (e.key === 'k' && (e.metaKey || e.altKey)) {
       e.preventDefault();
-    
-      
+
       this.searchService.toggleSidebar();
-    this.cmdkCommand.nativeElement.focus();
-  
-
+      this.cmdkCommand.nativeElement.focus();
     }
-  }
-
-   ngOnInit() {
-     this.loadAllCourses();
-     document.addEventListener('keydown', (ev) => this.listener(ev));
   }
 
   ngOnDestroy(): void {
     document.removeEventListener('keydown', (ev) => this.listener(ev));
   }
-
 
   inputValue = '';
   pages: Array<string> = ['home'];
@@ -156,15 +156,13 @@ export class LayoutComponent implements OnInit,OnDestroy {
             this.rerouteToDashboard();
           },
           separatorOnTop: false,
-        }
+        },
       ],
     },
   ];
 
   selectProject(course: Course) {
     const courseId = course.id;
-
-
 
     if (this.activePage === 'courses') {
       const currentUrl = this.routerRouter.url;
@@ -190,9 +188,7 @@ export class LayoutComponent implements OnInit,OnDestroy {
     }
   }
 
-  async loadAllCourses() {
-    
-  }
+
 
   get activePage() {
     return this.pages[this.pages.length - 1];
@@ -207,46 +203,46 @@ export class LayoutComponent implements OnInit,OnDestroy {
   }
 
   onKeyDown(ev: KeyboardEvent) {
-
     if (this.activePage === 'projects') {
       // Handle arrow keys to navigate through projects
       if (ev.key === 'ArrowUp' && this.selectedProjectIndex > 0) {
         this.selectedProjectIndex--;
-      } else if (ev.key === 'ArrowDown' && this.selectedProjectIndex < this.filteredProjectItems.length - 1) {
+      } else if (
+        ev.key === 'ArrowDown' &&
+        this.selectedProjectIndex < this.filteredProjectItems.length - 1
+      ) {
         this.selectedProjectIndex++;
       }
     }
 
-    
-    
     if (ev.key === 'Enter') {
       this.bounce();
- // Check if on the 'projects' page and handle accordingly
- if (this.activePage === 'projects') {
-  const selectedProject = this.filteredProjectItems[this.selectedProjectIndex];
+      // Check if on the 'projects' page and handle accordingly
+      if (this.activePage === 'projects') {
+        const selectedProject =
+          this.filteredProjectItems[this.selectedProjectIndex];
 
-  if (selectedProject) {
-    const currentUrl = this.routerRouter.url;
+        if (selectedProject) {
+          const currentUrl = this.routerRouter.url;
 
-    if (currentUrl === '/courses') {
-      // Handle the logic when 'Enter' is pressed inside cmdk-command on the 'projects' page
-      this.drawerService.openModal();
-      this.drawerService.setModalData(selectedProject);
-      this.searchService.toggleSidebar();
-    } else {
-      // Navigate to '/courses' and perform actions after navigation
-      this.routerRouter.navigate(['/courses']).then(() => {
-        // Use setTimeout to ensure that the navigation has completed
-        setTimeout(() => {
-          this.drawerService.openModal();
-          this.drawerService.setModalData(selectedProject);
-          this.searchService.toggleSidebar();
-        }, 0);
-      });
-    }
-  }
-}
-    
+          if (currentUrl === '/courses') {
+            // Handle the logic when 'Enter' is pressed inside cmdk-command on the 'projects' page
+            this.drawerService.openModal();
+            this.drawerService.setModalData(selectedProject);
+            this.searchService.toggleSidebar();
+          } else {
+            // Navigate to '/courses' and perform actions after navigation
+            this.routerRouter.navigate(['/courses']).then(() => {
+              // Use setTimeout to ensure that the navigation has completed
+              setTimeout(() => {
+                this.drawerService.openModal();
+                this.drawerService.setModalData(selectedProject);
+                this.searchService.toggleSidebar();
+              }, 0);
+            });
+          }
+        }
+      }
     }
 
     if (this.isHome || this.inputValue.length) {
@@ -278,9 +274,9 @@ export class LayoutComponent implements OnInit,OnDestroy {
     this.routerRouter.navigate(['/dashboard/my-courses']);
   }
 
-  // pushed project page
   searchProjects() {
     this.pages.push('courses');
+
   }
 
   searchPurchased() {

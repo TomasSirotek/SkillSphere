@@ -6,6 +6,8 @@ import { Subscription, timer } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroEye, heroEyeSlash } from '@ng-icons/heroicons/outline';
 
 
 
@@ -19,10 +21,13 @@ import { ToastrService } from 'ngx-toastr';
         HttpClientModule,
         NgClass,
         NgIf,
+        NgIcon
     ],
   providers: [HttpClient],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  viewProviders: [provideIcons({ heroEye,heroEyeSlash})]
+  
 })
 export class LoginComponent implements OnInit, OnDestroy{
   form!: FormGroup;
@@ -53,6 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy{
   }
 
   onSubmit() {
+    this.submitted = true;
 
     const { email, password } = this.form.value;
 
@@ -66,10 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy{
         this._router.navigate(['/courses']);
       },
       error: (err: any) => {
-        this.toastr.error(JSON.stringify(err));
-        // Handle errors here
-        // 4013
-        // display alert
+        this.toastr.error("Invalid credentials");
       }
     });
   
