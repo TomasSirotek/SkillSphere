@@ -43,7 +43,6 @@ jobs:
       - name: Build solution
         run: dotnet build --no-restore --configuration Release
 
-      
       - name: Publish website
         if: ${{ inputs.build-artifacts == true }}
         run: |
@@ -63,6 +62,11 @@ jobs:
       - name: Create EF Core migrations bundle
         if: ${{ inputs.build-artifacts == true }}
         run: |
+          
+          export AZURE_CLIENT_ID="${{ secrets.AZURE_CLIENT_ID }}"
+          export AZURE_CLIENT_SECRET="${{ secrets.AZURE_CLIENT_SECRET }}"
+          export AZURE_TENANT_ID="${{ secrets.AZURE_TENANT_ID }}"
+          
           dotnet new tool-manifest
           dotnet tool install dotnet-ef
           dotnet ef migrations bundle --configuration Release -p ./src/Infrastructure/ -s ./src/Web/ -o efbundle.exe

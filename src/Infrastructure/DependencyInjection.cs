@@ -42,8 +42,8 @@ public static class DependencyInjection
         var stripeApiKey = secretClient.GetSecret("Stripe--ApiKey").Value;
         var stripeWhKey = secretClient.GetSecret("Stripe--WHKey").Value;
 
-        Guard.Against.Null(stripeApiKey, message: "Connection string 'ApiKey' not found.");
-        Guard.Against.Null(stripeWhKey, message: "Connection string 'WHKey' not found.");
+       // Guard.Against.Null(stripeApiKey, message: "Connection string 'ApiKey' not found.");
+       // Guard.Against.Null(stripeWhKey, message: "Connection string 'WHKey' not found.");
 
         var stripeConfig = new StripeConfig
         {
