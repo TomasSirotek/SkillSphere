@@ -31,7 +31,7 @@
         [class.text-green-700]="i === selectedIdx"
         [class.border-green-300]="i === selectedIdx"
         [class.bg-green-50]="i === selectedIdx"
-        [class.dark:bg-gray-800]="i === selectedIdx"
+        [class.dark:bg-gray-900]="i === selectedIdx"
         [class.dark:border-green-800]="i === selectedIdx"
         [class.dark:border]="i === selectedIdx"
         [class.dark:border-green-800]="i === selectedIdx"
@@ -54,6 +54,5 @@
     
   <app-boxes-table  [selectedValue]="selectedValue" (emitLikeCourseChange)="handleEmitLikeCourseChange($event)" />
 
-  <!-- LIST OF ALL USERS OR COURSE DRAFTS AND PUBLISHED COURSES -->
-  <!-- <app-user-courses></app-user-courses> -->
+
 </div>

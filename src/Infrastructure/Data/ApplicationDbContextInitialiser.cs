@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using skillSphere.Infrastructure.Data;
+using SkillSphere.Infrastructure.Identity;
 using Roles = SkillSphere.Domain.Constants.Roles;
 
 namespace SkillSphere.Infrastructure.Data;
@@ -67,7 +68,6 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // Default roles
-        // Default roles
         var administratorRole = new ApplicationRole();
         administratorRole.Name = Roles.Administrator;
         
@@ -77,24 +77,24 @@ public class ApplicationDbContextInitialiser
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator = new ApplicationUser { UserName = "Peter", Email = "administrator@localhost.com" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
+             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
                 await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
 
-            // SEED DATA
+        // SEED DATA
         if (!_context.Courses.Any())
         {
             var course1 = new Course
             {
                 Title = "Extreme web development",
-                Description = "This is a course about web development",
+                Description = "Unlock the world of web development with our comprehensive Introduction to Web Development course. Whether you're a beginner taking your first steps into the digital realm or an experienced programmer looking to expand your skill set, this course is designed to provide a solid foundation in the dynamic field of web development.",
                 CoverImageRelativePath = "https://ipfs.io/ipfs/QmW1MBApm4XvwgoSKf45ZtsqJU5cDYdcsW2GBSEUqXWE3T",
                 Price = 19.99f,
                 Likes = 0,
@@ -116,8 +116,7 @@ public class ApplicationDbContextInitialiser
                     new Chapter { Title = "Chapter 2", Description = "Chapter 2 Description",Position = 1,IsFree = false,},
                     new Chapter { Title = "Chapter 3", Description = "Chapter 3 Description",Position = 2,IsFree = false,},
                     new Chapter { Title = "Chapter 4", Description = "Chapter 4 Description",Position = 3,IsFree = false,},
-                }
-                
+                },
             };
 
             _context.Courses.Add(course1);

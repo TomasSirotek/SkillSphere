@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CourseService } from '../../../services/course-service.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/service/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modal',
@@ -21,14 +22,20 @@ export class ModalComponent {
   @Output() canceled = new EventEmitter<void>();
 
   courseTitle: string;
+  titleErrror: boolean = false;
 
-  constructor(private courseService: CourseService,private router: Router,private authService: AuthService) {
+  constructor(private courseService: CourseService,private router: Router,private authService: AuthService,private toastService: ToastrService) {
     // subscribe to courses create new course to the api and send it there 
  
  
   }
 
   confirm() {
+    if(!this.courseTitle) {
+      this.toastService.error('Please enter a course title');
+      this.titleErrror = true;
+      return;
+    }
     this.confirmed.emit(this.courseTitle);
 
     this.courseService.createCourse(this.courseTitle,this.authService.getUserId()).subscribe((courseId: string) => {

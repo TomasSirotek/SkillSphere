@@ -1,4 +1,4 @@
-<div class="relative ml-3 mr-2">
+<div class="relative ml-3 mr-2 hidden md:inline-flex " >
     <!-- Profile Button -->
     <button
       (click)="toggleMenu()"
@@ -9,29 +9,21 @@
       <span class="sr-only">Open user menu</span>
       <img
         clickOutside
-        (clickOutside)="isMenuOpen = false"
+       
         class="h-7 w-7 rounded-full"
         src="https://api.dicebear.com/7.x/pixel-art/svg?seed=John"
         alt="" />
     </button>
-    <!-- <button type="button" class="text-primary-700 border border-primary-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center  dark:focus:ring-blue-800 dark:hover:bg-blue-500">
-      <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-      <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
-      </svg>
-      <span class="sr-only">Icon description</span>
-      </button> -->
-    <!-- Dropdown -->
+ 
     <div
       [ngClass]="
         isMenuOpen
           ? 'pointer-events-auto scale-100 animate-fade-in-up opacity-100 duration-200'
           : 'pointer-events-none scale-95 opacity-0 duration-100 ease-in'
       "
-      class="z-20 absolute right-0 mt-2 w-60 origin-top-right transform rounded-md bg-white py-4 shadow-custom ring-1 ring-transparent ring-opacity-5 transition focus:outline-none dark:bg-night-600">
+      class="border border-gray-600 z-20 absolute right-0 mt-10 w-60 origin-top-right transform rounded-md bg-white py-4 shadow-custom ring-1 ring-transparent ring-opacity-5 transition focus:outline-none dark:bg-night-600">
       <div class="flext-row flex items-center px-4 pb-4">
-        <div class="w-7 shrink-0">
-          <img class="rounded-md" src="https://api.dicebear.com/7.x/identicon/svg" alt="" />
-        </div>
+       
 
         <div>
           <span class="block rounded-md px-3 py-2 text-sm font-semibold text-gray-700  dark:text-white ">
@@ -42,14 +34,14 @@
        
       </div>
   
-      <div class="border-b border-dashed border-gray-200 dark:border-night-500"></div>
+      <div class="border-b border border-gray-300 dark:border-gray-500"></div>
   
-      <ul class="my-2 mx-4">
+      <ul class="my-1 mx-4">
       
         <li
           (click)="logout()"
           routerLink="/auth/login"
-          class="block cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 hover:text-primary-500 dark:text-white dark:hover:bg-night-500 dark:hover:text-primary-500">
+          class="block cursor-pointer rounded-md px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 hover:text-primary-500 dark:text-white dark:hover:bg-night-700 dark:hover:text-primary-500">
           Logout
         </li>
       </ul>

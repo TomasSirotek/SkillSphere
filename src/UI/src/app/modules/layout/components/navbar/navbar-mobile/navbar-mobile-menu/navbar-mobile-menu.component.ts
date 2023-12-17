@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubMenuItem } from 'src/app/core/models/menu.model';
 import { MenuService } from 'src/app/modules/layout/services/menu.service';
 import { NavbarMobileSubmenuComponent } from '../navbar-mobile-submenu/navbar-mobile-submenu.component';
-import {heroBuildingStorefront,heroChevronDoubleLeft,heroPhoto,heroFolderOpen} from '@ng-icons/heroicons/outline';
+import {heroBuildingStorefront,heroChevronDoubleLeft,heroPhoto,heroFolderOpen, heroGlobeAlt, heroArrowLeftOnRectangle, heroInboxStack, heroSun, heroMoon, heroArrowDownTray, heroHeart, heroSquares2x2} from '@ng-icons/heroicons/outline';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
 import { NgFor, NgClass, NgTemplateOutlet, NgIf } from '@angular/common';
@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
         NgIconComponent,
         NavbarMobileSubmenuComponent,
     ],
-    viewProviders: [provideIcons({heroChevronDoubleLeft,heroBuildingStorefront,heroFolderOpen})]
+    viewProviders: [provideIcons({heroGlobeAlt,heroBuildingStorefront, heroArrowLeftOnRectangle, heroInboxStack,heroChevronDoubleLeft,heroSun, heroMoon,heroArrowDownTray,heroHeart,heroSquares2x2})]
 
 })
 export class NavbarMobileMenuComponent implements OnInit {

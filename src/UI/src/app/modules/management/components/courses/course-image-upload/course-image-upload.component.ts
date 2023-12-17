@@ -38,16 +38,5 @@ export class CourseImageUploadComponent implements OnInit {
     this.uploadedFileUrlChange.emit(newUrl);
   }
 
-  // validateUrl() {
-  //   // Regular expression for a valid URL
-  //   const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-
-  //   this.isUrlValid = urlRegex.test(this.uploadedFileUrl);
-
-  //   // If the URL is not valid, you can reset it or take other actions
-  //   if (!this.isUrlValid) {
-  //     this.uploadedFileUrl = this.uploadedFileUrl; // Reset the URL
-  //   }
-  // }
 
 }

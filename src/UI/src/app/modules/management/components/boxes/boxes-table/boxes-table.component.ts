@@ -2,7 +2,6 @@ import { Component, OnInit, TemplateRef, ViewChild,Input, Output, EventEmitter, 
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Box } from '../../../models/box';
 import { FormsModule, NgModel } from '@angular/forms';
-import { State } from 'src/app/shared/state';
 
 import {
   NgxDatatableModule,
@@ -96,6 +95,7 @@ export class BoxesTableComponent implements OnInit, OnChanges {
       this.filterBySelectedValue();
     }
   }
+  
   filterBySelectedValue() {
     const selectedValue = this.selectedValue;
 

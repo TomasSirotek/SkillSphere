@@ -40,6 +40,10 @@ export class CourseService {
     return this._http.get<Course[]>(`${environment.baseUrl}/courses/${userId}/owned`);
   }
 
+  public getAllCourses() {
+    return this._http.get<Course[]>(`${environment.baseUrl}/courses`);
+  }
+
   public getCourseByUserId(courseId: string) {
     return this._http.get<Course[]>(`${environment.baseUrl}/courses/${courseId}`);
   }
@@ -51,7 +55,7 @@ export class CourseService {
 
 
   public createCourse(courseTitle: string,userId: string): Observable<string> {
-    return this._http.post<any>('https://localhost:5001/api/courses', { title: courseTitle,userId: userId }).pipe(
+    return this._http.post<any>(`${environment.baseUrl}/courses`, { title: courseTitle,userId: userId }).pipe(
       map(response => response),
       catchError(error => {
         // Handle the error as needed, e.g., log it or show a notification
@@ -63,7 +67,7 @@ export class CourseService {
   }
 
   public addCourseToWishlist(courseId: string,userId: string) {
-    return this._http.post<any>('https://localhost:5001/api/courses/wishlist', { courseId: courseId,userId: userId }).pipe(
+    return this._http.post<any>(`${environment.baseUrl}/courses/wishlist`, { courseId: courseId,userId: userId }).pipe(
       catchError(error => {
 
         if (error.status === 404) {
@@ -78,7 +82,7 @@ export class CourseService {
   }
 
   public removeCourseFromWishlist(courseId: string,userId: string) {
-    return this._http.delete<any>(`https://localhost:5001/api/courses/${userId}/wishlist/${courseId}`).pipe(
+    return this._http.delete<any>(`${environment.baseUrl}/courses/${userId}/wishlist/${courseId}`).pipe(
       catchError(error => {
         if (error.status === 404) {
           // Return a different status code (e.g., 204 for no content)
@@ -92,7 +96,7 @@ export class CourseService {
 
   public saveCourseDraft(courseId: string,postCourseDto: PostCourseDraftDto): Observable<any> {
    
-    const url = `https://localhost:5001/api/courses/${courseId}`;
+    const url = `${environment.baseUrl}/courses/${courseId}`;
 
     const command = {
       id: postCourseDto.id,
@@ -124,7 +128,7 @@ export class CourseService {
   }
 
   public publishCourse(courseId: string, isPublished: boolean) {
-    const url = `https://localhost:5001/api/courses/${courseId}/publish`;
+    const url = `${environment.baseUrl}/courses/${courseId}/publish`;
     
     return this._http.put<any>(url, {courseId:courseId, isPublished: isPublished }).pipe(
       map(response => response),
@@ -148,7 +152,7 @@ export class CourseService {
 
   // get all categories 
   public getAllCategories(): Observable<Categories[]> {
-    return this._http.get<Categories[]>('https://localhost:5001/api/categories');
+    return this._http.get<Categories[]>(`${environment.baseUrl}/categories`);
   }
 
   // return 
@@ -157,7 +161,7 @@ export class CourseService {
 
   public getUserCourses(userId: string) {
   
-   return this._http.get<Categories[]>(`https://localhost:5001/api/courses/${userId}/created`);
+   return this._http.get<Categories[]>(`${environment.baseUrl}/courses/${userId}/created`);
   }
 
 
