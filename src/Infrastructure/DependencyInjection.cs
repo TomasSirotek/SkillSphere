@@ -39,10 +39,6 @@ public static class DependencyInjection
         var stripeWh = configuration.GetSection("Stripe--WHKey").Value;
         var url = configuration["AzureKeyVaultUrl"];
         
-        var secretClient = new SecretClient(new Uri(url!), new DefaultAzureCredential());
-        
-        var stripeApiKey = secretClient.GetSecret("Stripe--ApiKey").Value;
-        var stripeWhKey = secretClient.GetSecret("Stripe--WHKey").Value;
 
        // Guard.Against.Null(stripeApiKey, message: "Connection string 'ApiKey' not found.");
        // Guard.Against.Null(stripeWhKey, message: "Connection string 'WHKey' not found.");
@@ -54,15 +50,9 @@ public static class DependencyInjection
         };
 
         
-        var stripeConfig2 = new StripeConfig
-        {
-            ApiKey = stripeApiKey.Value,
-            WhKey = stripeWhKey.Value
-        };
-
+      
         
         services.AddSingleton(stripeConfig);
-        services.AddSingleton(stripeConfig2);
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
 
