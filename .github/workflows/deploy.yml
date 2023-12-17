@@ -39,8 +39,6 @@ jobs:
             environmentName=${{ inputs.environmentName }}
             sqlAdministratorUsername=${{ vars.AZURE_SQL_ADMINISTRATOR_USERNAME }}
             sqlAdministratorPassword=${{ secrets.AZURE_SQL_ADMINISTRATOR_PASSWORD }}
-            stripeApiKey=${{ secrets.STRIPE_API_KEY }}
-            stripeWebhookSecret=${{ secrets.STRIPE_WEBHOOK_SECRET }}
             projectName=${{ vars.PROJECT_NAME }}
           deploymentMode: Validate
   
