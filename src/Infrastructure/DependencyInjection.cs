@@ -34,7 +34,9 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
-        
+
+        var stripeApi = configuration.GetSection("Stripe--ApiKey").Value;
+        var stripeWh = configuration.GetSection("Stripe--WHKey").Value;
         var url = configuration["AzureKeyVaultUrl"];
         
         var secretClient = new SecretClient(new Uri(url!), new DefaultAzureCredential());
@@ -47,11 +49,20 @@ public static class DependencyInjection
 
         var stripeConfig = new StripeConfig
         {
+            ApiKey = stripeApi!,
+            WhKey = stripeWh!
+        };
+
+        
+        var stripeConfig2 = new StripeConfig
+        {
             ApiKey = stripeApiKey.Value,
             WhKey = stripeWhKey.Value
         };
 
+        
         services.AddSingleton(stripeConfig);
+        services.AddSingleton(stripeConfig2);
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
 

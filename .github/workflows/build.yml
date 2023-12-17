@@ -62,7 +62,7 @@ jobs:
       - name: Create EF Core migrations bundle
         if: ${{ inputs.build-artifacts == true }}
         run: |
-          dotnet new tool-manifest
+          dotnet new tool-manifest --force
           dotnet tool install dotnet-ef
           dotnet ef migrations bundle --configuration Release -p ./src/Infrastructure/ -s ./src/Web/ -o efbundle.exe
           zip -r ./efbundle.zip efbundle.exe
