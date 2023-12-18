@@ -141,8 +141,8 @@ export class CourseDetailDrawer implements OnInit {
         },
         quantity: 1,
         metadata: { userId: userId, courseId: this.course.id },
-        successRedirectUrl: `https://vercel-prod-exam.vercel.app/dashboard`,
-        cancelRedirectUrl: 'https://vercel-prod-exam.vercel.app/courses',
+        successRedirectUrl: `https://vercel-prod-exam-4xw2bthvm-tomas-projects-c26019c9.vercel.app/dashboard`,
+        cancelRedirectUrl: 'https://vercel-prod-exam-4xw2bthvm-tomas-projects-c26019c9.vercel.app/courses',
       };
 
       this.paymentService.generatePaymentLink(request).subscribe((response) => {
