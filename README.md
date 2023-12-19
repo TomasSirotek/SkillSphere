@@ -1,5 +1,4 @@
-﻿# 
-[![CI/CD](https://github.com/TomasSirotek/SkillSphere/actions/workflows/cicd.yml/badge.svg)](https://github.com/TomasSirotek/SkillSphere/actions/workflows/cicd.yml) 
+﻿[![CI/CD](https://github.com/TomasSirotek/SkillSphere/actions/workflows/cicd.yml/badge.svg)](https://github.com/TomasSirotek/SkillSphere/actions/workflows/cicd.yml) 
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -13,13 +12,12 @@
 # SkillSphere
 :school_satchel: Final-Exam | 3st Semester | SDE & SCO
 
----
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
- <a href="https://github.com/TomasSirotek/SkillSphere/assets/72190589/9a394c1b-10a3-4cad-a90e-80e31762df86">
-    <img src="https://github.com/TomasSirotek/SkillSphere/assets/72190589/9a394c1b-10a3-4cad-a90e-80e31762df86" alt="Logo" width="250">
+ <a href="https://github.com/TomasSirotek/SkillSphere/assets/72190589/c1f5c7f3-b530-4bc3-a53d-e9e3cd68b8cb">
+    <img src="https://github.com/TomasSirotek/SkillSphere/assets/72190589/c1f5c7f3-b530-4bc3-a53d-e9e3cd68b8cb" alt="Logo" width="250">
   </a>
   <p align="center">
     Ed-Tech Platform for Students and Teachers
@@ -34,8 +32,6 @@
 ## The Brief
 
 SkillSphere is an educational project that aims to develop a comprehensive e-learning/Learning Management System (LMS) platform. It is designed to provide a dynamic and inclusive learning experience, addressing the challenges of conventional educational systems.
-
-
 
 #### Front end
 * [Vercel](https://vercel.com)
@@ -104,6 +100,18 @@ https://stripe.com/docs/testing
 <b> Cardholder </b>: any name  <br>
 
 This process is only for testing purposes and no real money will be charged.
+
+## Interface 
+
+<div style="display: flex;">
+  <img width="500" alt="Screenshot 1" src="https://github.com/TomasSirotek/SkillSphere/assets/72190589/5e5f3efc-7890-4ba2-a6e8-64a7ca47a872">
+  <img width="500" alt="Screenshot 1" src="https://github.com/TomasSirotek/SkillSphere/assets/72190589/66184dc2-64c2-4502-8d59-a74a26392d71">
+</div>
+
+<div style="display: flex;">
+  <img width="500" alt="Screenshot 1" src="https://github.com/TomasSirotek/SkillSphere/assets/72190589/8a8f9e4d-2768-4e15-8927-532cbfbdd4ea">
+  <img width="500" alt="Screenshot 1" src="https://github.com/TomasSirotek/SkillSphere/assets/72190589/08bad7d5-a568-4843-9358-dee0ad3f001b">
+</div>
 
 ## Licence
 
